@@ -1,15 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import '../Styles/LearnMore.css'
-import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder'
-import FavoriteIcon from '@mui/icons-material/Favorite'
-import HighlightOffIcon from '@mui/icons-material/HighlightOff'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import EditIcon from '@mui/icons-material/Edit'
 import { Link } from 'react-router-dom'
 import Layout from '../Components/Layout'
-import Grid from '@mui/material/Grid'
-import { IconButton } from '@mui/material'
-import TelegramIcon from '@mui/icons-material/Telegram'
 
 function AboutFacultyStaffProfile({ match, fsMembers }) {
     const [fsMember, setFSMember] = useState({})
