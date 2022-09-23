@@ -1,3 +1,4 @@
+/*! Hardcoded, needs backend ! */
 const projects = [
     {
         title: 'Scientist Beyond',

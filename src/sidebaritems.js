@@ -1,3 +1,4 @@
+/*! Hardcoded, needs backend ! */
 const sidebaritems = [
     {
         display_name: 'Faculty Dashboard',

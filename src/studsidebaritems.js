@@ -1,3 +1,4 @@
+/*! Hardcoded, needs backend ! */
 const studsidebaritems = [
     {
         display_name: 'Student Dashboard',

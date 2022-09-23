@@ -10,6 +10,8 @@ import ProjectCards from '../Components/ProjectCards'
 import studsidebaritems from '../studsidebaritems'
 import sidebaritems from '../sidebaritems'
 
+/* ! Not Implemented into the App yet ! */
+
 function BookmarkedProjects({ projects, sidebaritems }) {
     const [bookmarks, setBookmarks] = useState([])
 

@@ -43,6 +43,7 @@ function ProfileImageUpload() {
             >
                 <img
                     ref={uploadedImage}
+                    alt="profile"
                     style={{
                         width: '100%',
                         height: '100%',

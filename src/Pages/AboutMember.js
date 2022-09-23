@@ -12,6 +12,8 @@ import { IconButton } from '@mui/material'
 import TelegramIcon from '@mui/icons-material/Telegram'
 //import { Icon } from '@mui/material'
 
+// !!! TO BE DELETED WHEN USER ROLES FULLY IMPLEMENTED
+
 function AboutMember({ match, members }) {
     const [member, setMember] = useState({})
     const [isShown, setIsShown] = useState(false)

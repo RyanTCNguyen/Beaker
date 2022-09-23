@@ -11,6 +11,8 @@ import Grid from '@mui/material/Grid'
 import { IconButton } from '@mui/material'
 import TelegramIcon from '@mui/icons-material/Telegram'
 
+/* ! Currently not being used with no User Role Distinction (AboutMember) ! */
+
 function AboutFacultyStaffProfile({ match, fsMembers }) {
     const [fsMember, setFSMember] = useState({})
     const id = match.params.memberId

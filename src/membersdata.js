@@ -1,3 +1,4 @@
+/*! Hardcoded, needs backend ! */
 const members = [
     {
         name_year: 'Margaret Felix, Junior',

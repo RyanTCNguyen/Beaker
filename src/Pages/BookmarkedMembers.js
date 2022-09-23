@@ -28,6 +28,8 @@ const useStyles = makeStyles({
     },
 })
 
+/* ! Not Implemented into the App yet ! */
+
 function BookmarkedMembers() {
     return (
         <Layout>

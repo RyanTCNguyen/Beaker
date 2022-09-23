@@ -24,6 +24,8 @@ import ScienceIcon from '@mui/icons-material/Science'
 import Dropdown from './Dropdown'
 import MenuList from '@material-ui/core/MenuList'
 
+// TODO: I want to add a bookmarked option on navbar
+
 const useStyles = makeStyles((theme) => ({
     helpButton: {
         marginRight: theme.spacing(2),

@@ -3,6 +3,8 @@ import Side from '../Components/Side'
 import studsidebaritems from '../studsidebaritems'
 import sidebaritems from '../sidebaritems'
 
+/* ! Not Implemented into the App yet ! */
+
 function AllOwnedProjects() {
     return (
         <Layout>

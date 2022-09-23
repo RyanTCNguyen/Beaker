@@ -11,6 +11,8 @@ const useStyles = makeStyles({
     mainTitle: { textAlign: 'left', fontSize: '55px', fontWeight: 'lighter' },
 })
 
+/* ! Not Implemented into the App yet ! */
+
 function AllMembers({ members }) {
     const classes = useStyles()
 

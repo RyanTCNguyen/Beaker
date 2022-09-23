@@ -5,6 +5,8 @@ import { Typography } from '@material-ui/core'
 import projects from '../projectsdata'
 import { makeStyles } from '@material-ui/styles'
 
+/* ! Not Implemented into the App yet ! */
+
 const useStyles = makeStyles({
     title: { textAlign: 'left' },
     mainTitle: { textAlign: 'left', fontSize: '55px', fontWeight: 'lighter' },
