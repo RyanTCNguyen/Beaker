@@ -3,12 +3,8 @@ import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
 import { makeStyles } from '@material-ui/styles'
-
 import CardMedia from '@mui/material/CardMedia'
-// import Button from '@mui/material/Button'
-// import { makeStyles } from '@material-ui/styles'
 import '../Styles/Projectspage.css'
-import { rgbToHex } from '@material-ui/core'
 
 /*passing in properties from Cards*/
 const useStyles = makeStyles({
