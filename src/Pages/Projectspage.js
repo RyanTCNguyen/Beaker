@@ -13,12 +13,8 @@ import Button from '@mui/material/Button'
 import ProjectTable from '../Components/ProjectsTable'
 import ProjectTableNew from '../Components/ProjectTableNew'
 import 'firebase/firestore'
-import { keyframes } from '@mui/styled-engine'
 import { Add } from '@mui/icons-material'
 // import firebase from '../firebase'
-
-// SM: It looks like some of these imports are not being used, it
-//     would probably be best to delete them to keep the file cleaner
 
 const useStyles = makeStyles({
     title: { textAlign: 'left' },
@@ -73,42 +69,7 @@ function Projectspage({ projects }) {
                 </Typography>
             </div>
 
-            <div>
-                {/* <Typography className={classes.title}>
-                    Based on your profile <br></br>{' '}
-                    <Link
-                        style={{
-                            color: 'rgba(16, 127, 183, 1)',
-                            textDecoration: 'none',
-                            fontSize: '14px',
-                            fontStyle: 'italic',
-                        }}
-                        to="/basedonprofile"
-                    >
-                        {' '}
-                        See more{' '}
-                    </Link>
-                </Typography> */}
-                {/* <Typography className={classes.title}>
-                    Browse projects <br></br>{' '}
-                    <Link
-                        style={{
-                            color: 'rgba(16, 127, 183, 1)',
-                            textDecoration: 'none',
-                            fontSize: '14px',
-                            fontStyle: 'italic',
-                        }}
-                        to="/browse"
-                    >
-                        {' '}
-                        See more{' '}
-                    </Link>
-                </Typography> */}
-                {/* <ProjectCards projects={profiles} /> */}
-
-                {/* <ProjectCards projects={browse} /> */}
-                {<ProjectTableNew projects={projects} />}
-            </div>
+            <div>{<ProjectTableNew projects={projects} />}</div>
         </Layout>
     )
 }

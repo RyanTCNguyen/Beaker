@@ -1,7 +1,7 @@
 import 'firebase/firestore'
 import React, { useState, useEffect, useMemo } from 'react'
 import Layout from '../Components/Layout'
-import Side from '../Components/Side'
+// import Side from '../Components/Side'
 import '../Styles/Sidebar.css'
 import { useAuth } from '../Contexts/authContext'
 import { db } from '../firebase'
@@ -36,7 +36,7 @@ function Dashboard({ sidebaritems, members }) {
 
     return (
         <Layout>
-            <Side sidebaritems={sidebaritems}>
+            {/* <Side sidebaritems={sidebaritems}>
             {users && (
                 <div>
                     <h1
@@ -55,7 +55,7 @@ function Dashboard({ sidebaritems, members }) {
                     </h1>
                 </div>
             )}
-            </Side>
+            </Side> */}
         </Layout>
     )
 }

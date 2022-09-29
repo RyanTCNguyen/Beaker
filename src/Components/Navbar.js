@@ -20,8 +20,6 @@ import { auth } from '../firebase'
 import 'firebase/compat/auth'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import ScienceIcon from '@mui/icons-material/Science'
-
-import Dropdown from './Dropdown'
 import MenuList from '@material-ui/core/MenuList'
 
 const useStyles = makeStyles((theme) => ({
