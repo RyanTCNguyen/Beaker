@@ -1,16 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import '../Styles/LearnMore.css'
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder'
-import FavoriteIcon from '@mui/icons-material/Favorite'
 import HighlightOffIcon from '@mui/icons-material/HighlightOff'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import { Link } from 'react-router-dom'
-//import Button from '@mui/material/Button'
 import Layout from '../Components/Layout'
 import Grid from '@mui/material/Grid'
 import { IconButton } from '@mui/material'
 import TelegramIcon from '@mui/icons-material/Telegram'
-//import { Icon } from '@mui/material'
 
 function AboutMember({ match, members }) {
     const [member, setMember] = useState({})

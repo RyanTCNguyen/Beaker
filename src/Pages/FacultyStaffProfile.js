@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useMemo, useRef } from 'react'
-// import 'bootstrap/dist/css/bootstrap.min.css'
+import React, { useState, useMemo } from 'react'
 import '../Styles/Profile.css'
 import Button from '@mui/material/Button'
 import beaker from '../Images/blackLinedBeakerBgRemoved.png'

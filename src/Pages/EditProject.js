@@ -9,7 +9,6 @@ import { doc, collection, getDoc, getDocs, updateDoc } from 'firebase/firestore'
 import Layout from '../Components/Layout'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import Box from '@material-ui/core/Box'
-import Uploadfile from '../Components/UploadFile'
 import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
 import FormControl from '@mui/material/FormControl'
@@ -217,9 +216,9 @@ function EditProject({ match, projects }) {
             incentives: updatedIncentives,
             image: updatedImageAsUrl,
             // creator: creator,
-            groupMembers: groupMembers, 
-            applicants: applicants, 
-            rejected: rejected
+            groupMembers: groupMembers,
+            applicants: applicants,
+            rejected: rejected,
         })
         getProjects()
         window.location = `/projectdetails/${id}`

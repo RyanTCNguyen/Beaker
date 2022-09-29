@@ -1,17 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import '../Styles/LearnMore.css'
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder'
-import FavoriteIcon from '@mui/icons-material/Favorite'
 import HighlightOffIcon from '@mui/icons-material/HighlightOff'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import { Link } from 'react-router-dom'
 import Grid from '@mui/material/Grid'
 import TelegramIcon from '@mui/icons-material/Telegram'
-//import Button from '@mui/material/Button'
-
 import Layout from '../Components/Layout'
 import { IconButton } from '@mui/material'
-//import { Icon } from '@mui/material'
 
 function AboutProject({ match, projects }) {
     const [project, setProject] = useState({})

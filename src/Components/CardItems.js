@@ -1,14 +1,11 @@
 import * as React from 'react'
 import Card from '@mui/material/Card'
-// import CardActions from '@mui/material/CardActions'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
-// import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
-// import { makeStyles } from '@material-ui/styles'
 import '../Styles/Projectspage.css'
 
 /*passing in properties from Cards*/

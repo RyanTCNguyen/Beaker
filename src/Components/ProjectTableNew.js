@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useMemo, useRef } from 'react'
-import { doc, collection, getDoc, getDocs, updateDoc } from 'firebase/firestore'
+import React, { useEffect, useMemo } from 'react'
+import { collection, getDocs } from 'firebase/firestore'
 import MaterialTable from 'material-table'
 import 'firebase/firestore'
-import { db, storage } from '../firebase'
+import { db } from '../firebase'
 import { Link } from 'react-router-dom'
 import { TablePagination } from '@material-ui/core'
 

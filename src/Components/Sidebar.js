@@ -1,6 +1,5 @@
 import React from 'react'
 import '../Styles/Sidebar.css'
-// import sidebaritems from '../sidebaritems'
 import { Link } from 'react-router-dom'
 
 const Sidebar = ({ sidebaritems }) => {

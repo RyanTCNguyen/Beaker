@@ -4,26 +4,10 @@ import Button from '@mui/material/Button'
 import beaker from '../Images/blackLinedBeakerBgRemoved.png'
 import { useState, useEffect, useRef } from 'react'
 import { Link, useHistory } from 'react-router-dom'
-import { collection, getDocs } from 'firebase/firestore'
-import { auth } from '../firebase'
 import 'firebase/compat/auth'
-// import { connect } from 'react-redux'
 import { signIn } from '../authActions'
-import {
-    Card,
-    Input,
-    FormControl,
-    FormLabel,
-    RadioGroup,
-    FormControlLabel,
-    Radio,
-    CardContent,
-    Alert,
-    TextField,
-} from '@mui/material'
-import { getAuth } from 'firebase/auth'
+import { FormControl, Alert, TextField } from '@mui/material'
 import { useAuth } from '../Contexts/authContext'
-import { connectStorageEmulator } from 'firebase/storage'
 import { Box } from '@mui/system'
 function SignIn() {
     const state = {
