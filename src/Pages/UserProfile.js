@@ -1,25 +1,14 @@
 import React from 'react'
 import '../Styles/SignIn.css'
 import Button from '@mui/material/Button'
-import {
-    Card,
-    Input,
-    FormControl,
-    FormLabel,
-    CardContent,
-    Box,
-} from '@mui/material'
+import { FormControl, Box } from '@mui/material'
 import beaker from '../Images/blackLinedBeakerBgRemoved.png'
 import { Alert } from '@mui/material'
-import { useState, useEffect, useRef } from 'react'
+import { useState, useRef } from 'react'
 import { Link, useHistory } from 'react-router-dom'
-import { auth } from '../firebase'
-// import { Form, Button, Card, Alert } from 'react-bootstrap'
 import 'firebase/compat/auth'
-import { getAuth } from 'firebase/auth'
 import { useAuth } from '../Contexts/authContext'
 import { TextField } from '@mui/material'
-import { connectStorageEmulator } from 'firebase/storage'
 
 function UserProfile() {
     const emailRef = useRef()

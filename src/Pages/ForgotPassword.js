@@ -1,18 +1,8 @@
 import React, { useRef, useState } from 'react'
-// import { Form, Button, Card, Alert } from "react-bootstrap"
 import { useAuth } from '../Contexts/authContext'
-import {
-    Card,
-    Input,
-    FormControl,
-    FormLabel,
-    CardContent,
-    Alert,
-    TextField,
-    Button,
-} from '@mui/material'
+import { FormControl, Alert, TextField, Button } from '@mui/material'
 import { Link } from 'react-router-dom'
-import { connectStorageEmulator } from 'firebase/storage'
+// import { connectStorageEmulator } from 'firebase/storage'
 import { Box } from '@mui/system'
 import beaker from '../Images/blackLinedBeakerBgRemoved.png'
 import '../Styles/SignIn.css'

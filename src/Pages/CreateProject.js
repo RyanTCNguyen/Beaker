@@ -1,14 +1,10 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react'
-import { Dropdown, DropdownButton } from 'react-bootstrap'
-import { makeStyles } from '@material-ui/core/styles'
 import '../Styles/Profile.css'
 import Button from '@mui/material/Button'
 import beaker from '../Images/blackLinedBeakerBgRemoved.png'
-import { Link } from 'react-router-dom'
 import 'firebase/firestore'
 import { db, storage } from '../firebase'
 import { collection, getDocs, addDoc } from 'firebase/firestore'
-import Uploadfile from '../Components/UploadFile'
 import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
 import FormControl from '@mui/material/FormControl'
@@ -39,7 +35,7 @@ function CreateProject({}) {
     const handleOpen = () => {
         setOpen(true)
     }
-    
+
     const handleClose = () => {
         setOpen(false)
     }
@@ -102,8 +98,13 @@ function CreateProject({}) {
         setProjects(data.docs.map((doc) => ({ ...doc.data(), key: doc.id })))
     }
     const createProject = async () => {
-        let valid = checkAllRequiredValid([projectName, desc, memberAmount, reqMajor])
-        if(!valid) return 
+        let valid = checkAllRequiredValid([
+            projectName,
+            desc,
+            memberAmount,
+            reqMajor,
+        ])
+        if (!valid) return
         await addDoc(projectsCollectionRef, {
             title: projectName,
             status: 'Open',
@@ -410,7 +411,13 @@ function CreateProject({}) {
                         Post
                     </Button>
                 </div>
-                <RequiredDialog onClickState={open} onClose={handleClose} fields={['Project Name, Project Description, Number of Members, Preferred Majors']}/>
+                <RequiredDialog
+                    onClickState={open}
+                    onClose={handleClose}
+                    fields={[
+                        'Project Name, Project Description, Number of Members, Preferred Majors',
+                    ]}
+                />
             </div>
             <div className="right-most-screen"></div>
         </div>

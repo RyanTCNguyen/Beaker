@@ -5,30 +5,14 @@ import firebase from 'firebase/compat/app'
 import UserForm from '../Components/UserForm'
 import RequiredDialog from '../Components/RequiredDialog'
 
-import {
-    Card,
-    Input,
-    FormControl,
-    FormLabel,
-    RadioGroup,
-    FormControlLabel,
-    Radio,
-    CardContent,
-    Box,
-} from '@mui/material'
+import { FormControl, Box } from '@mui/material'
 import beaker from '../Images/blackLinedBeakerBgRemoved.png'
-import { Alert } from '@mui/material'
-import { useState, useEffect, useRef, useMemo } from 'react'
-import { Link, useHistory } from 'react-router-dom'
-import { db, auth } from '../firebase'
-import { Form } from 'react-bootstrap'
+import { useState, useRef } from 'react'
+import { useHistory } from 'react-router-dom'
+import { auth } from '../firebase'
 import 'firebase/compat/auth'
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'
 import { useAuth } from '../Contexts/authContext'
 import { TextField } from '@mui/material'
-import { connectStorageEmulator } from 'firebase/storage'
-import { RemoveDoneRounded } from '@mui/icons-material'
-import { collection, getDocs, addDoc } from 'firebase/firestore'
 
 import { useAuthState } from 'react-firebase-hooks/auth'
 

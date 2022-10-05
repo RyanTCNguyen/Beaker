@@ -1,4 +1,5 @@
 import Layout from '../Components/Layout'
+<<<<<<< HEAD
 // import Side from '../Components/Side'
 import ListItemAvatar from '@mui/material/ListItemAvatar'
 import Avatar from '@mui/material/Avatar'
@@ -9,6 +10,12 @@ import React, { useState, useEffect } from 'react'
 import ProjectCards from '../Components/ProjectCards'
 // import studsidebaritems from '../studsidebaritems'
 // import sidebaritems from '../sidebaritems'
+=======
+import Side from '../Components/Side'
+import React, { useState, useEffect } from 'react'
+import ProjectCards from '../Components/ProjectCards'
+import studsidebaritems from '../studsidebaritems'
+>>>>>>> develop
 
 function BookmarkedProjects({ projects, sidebaritems }) {
     const [bookmarks, setBookmarks] = useState([])

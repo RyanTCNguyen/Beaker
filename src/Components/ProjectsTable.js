@@ -16,7 +16,6 @@ import {
     TablePagination,
     TableFooter,
 } from '@material-ui/core'
-import { AirlineSeatLegroomReducedRounded } from '@mui/icons-material'
 import { TableSortLabel } from '@mui/material'
 
 const useStyles = makeStyles((theme) => ({

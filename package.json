@@ -10,7 +10,11 @@
     "@material-ui/styles": "^4.11.4",
     "@mui/icons-material": "^5.0.1",
     "@mui/material": "^5.0.0",
+<<<<<<< HEAD
     "@mui/system": "^5.10.8",
+=======
+    "@mui/system": "^5.10.6",
+>>>>>>> develop
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
