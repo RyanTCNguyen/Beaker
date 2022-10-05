@@ -34,27 +34,6 @@ function Dashboard({ sidebaritems, members }) {
 
     return (
         <Layout>
-<<<<<<< HEAD
-            <Side sidebaritems={sidebaritems}>
-                {users && (
-                    <div>
-                        <h1
-                            id="dash-title"
-                            style={{
-                                color: 'rgba(16, 127, 183, 1)',
-                                textAlign: 'center',
-                                fontSize: '50px',
-                                fontWeight: 'lighter',
-                                paddingTop: '20rem',
-                            }}
-                        >
-                            {' '}
-                            <b> {name} </b>, welcome to your dashboard{' '}
-                        </h1>
-                    </div>
-                )}
-            </Side>
-=======
             {/* <Side sidebaritems={sidebaritems}>
             {users && (
                 <div>
@@ -75,7 +54,6 @@ function Dashboard({ sidebaritems, members }) {
                 </div>
             )}
             </Side> */}
->>>>>>> a52014a91ce0e8eefa08f511650bb53accce159f
         </Layout>
     )
 }

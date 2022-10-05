@@ -8,11 +8,6 @@ import '../Styles/Projectspage.css'
 import AddCircleIcon from '@mui/icons-material/AddCircle'
 import ProjectTableNew from '../Components/ProjectTableNew'
 import 'firebase/firestore'
-<<<<<<< HEAD
-=======
-import { Add } from '@mui/icons-material'
-// import firebase from '../firebase'
->>>>>>> a52014a91ce0e8eefa08f511650bb53accce159f
 
 const useStyles = makeStyles({
     title: { textAlign: 'left' },
