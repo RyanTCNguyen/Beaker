@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import StudentProfile from '../Pages/StudentProfile'
 import NewUserStudent from '../Pages/NewUserStudent'
-import Confirm from '../Pages/Confirm'
 import '../Styles/SignIn.css'
+import Confirm from '../Pages/Confirm'
 
 import { Button } from 'react-bootstrap'
 

@@ -8,6 +8,11 @@ import '../Styles/Projectspage.css'
 import AddCircleIcon from '@mui/icons-material/AddCircle'
 import ProjectTableNew from '../Components/ProjectTableNew'
 import 'firebase/firestore'
+<<<<<<< HEAD
+=======
+import { Add } from '@mui/icons-material'
+// import firebase from '../firebase'
+>>>>>>> a52014a91ce0e8eefa08f511650bb53accce159f
 
 const useStyles = makeStyles({
     title: { textAlign: 'left' },
@@ -62,42 +67,7 @@ function Projectspage({ projects }) {
                 </Typography>
             </div>
 
-            <div>
-                {/* <Typography className={classes.title}>
-                    Based on your profile <br></br>{' '}
-                    <Link
-                        style={{
-                            color: 'rgba(16, 127, 183, 1)',
-                            textDecoration: 'none',
-                            fontSize: '14px',
-                            fontStyle: 'italic',
-                        }}
-                        to="/basedonprofile"
-                    >
-                        {' '}
-                        See more{' '}
-                    </Link>
-                </Typography> */}
-                {/* <Typography className={classes.title}>
-                    Browse projects <br></br>{' '}
-                    <Link
-                        style={{
-                            color: 'rgba(16, 127, 183, 1)',
-                            textDecoration: 'none',
-                            fontSize: '14px',
-                            fontStyle: 'italic',
-                        }}
-                        to="/browse"
-                    >
-                        {' '}
-                        See more{' '}
-                    </Link>
-                </Typography> */}
-                {/* <ProjectCards projects={profiles} /> */}
-
-                {/* <ProjectCards projects={browse} /> */}
-                {<ProjectTableNew projects={projects} />}
-            </div>
+            <div>{<ProjectTableNew projects={projects} />}</div>
         </Layout>
     )
 }

@@ -12,32 +12,29 @@ import Projectspage from './Pages/Projectspage'
 import SignIn from './Pages/SignIn'
 import NewUserStudent from './Pages/NewUserStudent'
 import NewUserFacultyStaff from './Pages/NewUserFacultyStaff'
-import Welcomepage from './Pages/Welcomepage'
+
 import StudentProfile from './Pages/StudentProfile'
 import EditStudentProfile from './Pages/EditStudentProfile'
 import FacultyStaffProfile from './Pages/FacultyStaffProfile'
 import EditFacultyStaffProfile from './Pages/EditFacultyStaffProfile'
-import BasedonProfile from './Pages/BasedonProfile'
-import Browse from './Pages/Browse'
-import Bookmarked from './Pages/Bookmarked'
-import AllMembers from './Pages/AllMembers'
+
 import AboutProject from './Pages/AboutProject'
 import AboutMember from './Pages/AboutMember'
 import AboutStudentProfile from './Pages/AboutStudentProfile'
 import AboutFacultyStaffProfile from './Pages/AboutFacultyStaffProfile'
 import Dashboard from './Pages/Dashboard'
-import BookmarkedMembers from './Pages/BookmarkedMembers'
+
 import BookmarkedProjects from './Pages/BookmarkedProjects'
-import InvitedMembers from './Pages/InvitedMembers'
+
 import UserProfile from './Pages/UserProfile'
 import CreateProject from './Pages/CreateProject'
 import EditProject from './Pages/EditProject'
-import ProjectDetails from './Pages/FacultyProjectDetails'
-import Invitations from './Pages/Invitations'
+import FacultyProjectDetails from './Pages/FacultyProjectDetails'
+
 import ForgotPassword from './Pages/ForgotPassword'
-import PrivateRoute from './Components/PrivateRoute'
+
 import { AuthProvider } from './Contexts/authContext'
-import AllOwnedProjects from './Pages/AllOwnedProjects'
+
 import UserForm from './Components/UserForm'
 
 function App() {
@@ -75,12 +72,7 @@ function App() {
                 <Router>
                     <AnimatePresence exitBeforeEnter>
                         <Switch>
-                            <Route
-                                Route
-                                path="/"
-                                exact
-                                component={Welcomepage}
-                            />
+                            <Route Route path="/" exact component={SignIn} />
                             <Route
                                 path="/projectspage"
                                 exact
@@ -133,17 +125,6 @@ function App() {
                                 component={FacultyStaffProfile}
                             />
                             <Route
-                                path="/basedonprofile"
-                                exact
-                                component={BasedonProfile}
-                            />
-                            <Route path="/browse" exact component={Browse} />
-                            <Route
-                                path="/bookmarked"
-                                exact
-                                component={Bookmarked}
-                            />
-                            <Route
                                 path="/forgotPassword"
                                 exact
                                 component={ForgotPassword}
@@ -153,14 +134,6 @@ function App() {
                         exact
                         component={AboutProject}
                     /> */}
-
-                            <Route
-                                path="/allmembers"
-                                exact
-                                render={(props) => (
-                                    <AllMembers {...props} members={members} />
-                                )}
-                            />
 
                             <Route
                                 path="/aboutproject/:projectId"
@@ -186,7 +159,7 @@ function App() {
                                 path="/projectdetails/:projectId"
                                 exact
                                 render={(props) => (
-                                    <ProjectDetails
+                                    <FacultyProjectDetails
                                         {...props}
                                         projects={projects}
                                     />
@@ -236,21 +209,6 @@ function App() {
                                 )}
                             /> */}
                             <Route
-                                path="/bookmarkedmembers"
-                                exact
-                                component={BookmarkedMembers}
-                            />
-                            <Route
-                                path="/invitations"
-                                exact
-                                component={Invitations}
-                            />
-                            <Route
-                                path="/allownedprojects"
-                                exact
-                                component={AllOwnedProjects}
-                            />
-                            <Route
                                 path="/bookmarkedprojects"
                                 exact
                                 render={(props) => (
@@ -264,11 +222,6 @@ function App() {
                                         }
                                     />
                                 )}
-                            />
-                            <Route
-                                path="/invitedmembers"
-                                exact
-                                component={InvitedMembers}
                             />
                             <Route
                                 path="/userprofile"
@@ -309,11 +262,6 @@ function App() {
                                 component={Dashboard}
                             />
                             <Route
-                                path="/bookmarkedmembers"
-                                exact
-                                component={BookmarkedMembers}
-                            />
-                            <Route
                                 path="/bookmarkedprojects"
                                 exact
                                 render={(props) => (
@@ -322,11 +270,6 @@ function App() {
                                         projects={projects}
                                     />
                                 )}
-                            />
-                            <Route
-                                path="/invitedmembers"
-                                exact
-                                component={InvitedMembers}
                             />
                             <Route
                                 path="/userprofile"
