@@ -167,10 +167,10 @@ function SignIn() {
                     </Button>
                 </div>
                 <div className="forgot-password">
-                    <Link to="./forgotpassword">Forgot Password </Link>
+                    <Link to="./forgotpassword"> Forgot Password </Link>
                 </div>
                 <div className="new-here">
-                    <Link to="./newuserstudent">New Here? </Link>
+                    <Link to="./newuserstudent">New Here? Sign Up! </Link>
                 </div>
             </form>
         </div>
