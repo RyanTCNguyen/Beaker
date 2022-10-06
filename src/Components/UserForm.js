@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import StudentProfile from '../Pages/StudentProfile'
-import NewUserStudent from '../Pages/NewUserStudent'
+import NewUserStudent from '../Pages/NewUser'
 import '../Styles/SignIn.css'
 import Confirm from '../Pages/Confirm'
 
@@ -11,7 +11,7 @@ const UserForm = () => {
     const [activeStep, setActiveStep] = useState(0)
 
     const getSteps = () => {
-        return ['StudentProfile', 'NewUserStudent', 'Confirm']
+        return ['StudentProfile', 'NewUser', 'Confirm']
     }
 
     const steps = getSteps()
