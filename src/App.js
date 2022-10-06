@@ -10,8 +10,7 @@ import sidebaritems from './sidebaritems'
 import { AnimatePresence } from 'framer-motion/dist/framer-motion'
 import Projectspage from './Pages/Projectspage'
 import SignIn from './Pages/SignIn'
-import NewUserStudent from './Pages/NewUserStudent'
-import NewUserFacultyStaff from './Pages/NewUserFacultyStaff'
+import NewUserStudent from './Pages/NewUser'
 
 import StudentProfile from './Pages/StudentProfile'
 import EditStudentProfile from './Pages/EditStudentProfile'
@@ -91,12 +90,6 @@ function App() {
                                 path="/newuserstudent"
                                 exact
                                 component={NewUserStudent}
-                            />
-
-                            <Route
-                                path="/newuserfacultystaff"
-                                exact
-                                component={NewUserFacultyStaff}
                             />
                             <Route
                                 path="/studentprofile"
