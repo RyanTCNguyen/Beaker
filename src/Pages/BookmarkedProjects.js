@@ -1,8 +1,5 @@
 import Layout from '../Components/Layout'
-import Side from '../Components/Side'
 import React, { useState, useEffect } from 'react'
-import ProjectCards from '../Components/ProjectCards'
-import studsidebaritems from '../studsidebaritems'
 
 function BookmarkedProjects({ projects, sidebaritems }) {
     const [bookmarks, setBookmarks] = useState([])
