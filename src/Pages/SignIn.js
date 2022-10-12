@@ -9,6 +9,7 @@ import { signIn } from '../authActions'
 import { FormControl, Alert, TextField } from '@mui/material'
 import { useAuth } from '../Contexts/authContext'
 import { Box } from '@mui/system'
+
 function SignIn() {
     const state = {
         emailRef: '',
@@ -104,76 +105,104 @@ function SignIn() {
         //         </div>
         //     </div>
         // </div>
-
-        <div className="top-signin">
-            <Box
-                component="img"
-                sx={{
-                    height: 60,
-                    width: 60,
-                }}
-                alt="logo"
-                src={beaker}
-            />
-            <h2 className="sign-in">Sign In</h2>
-
-            {/* {JSON.stringify({ currentUser })} */}
-            {error && <Alert variant="danger">{error}</Alert>}
-            <form onSubmit={handleSubmit}>
-                <FormControl
-                    type="email"
-                    inputRef={emailRef}
-                    // required
-                />
-                <div className="email-text-field">
-                    <TextField
-                        type="text"
-                        className="email-address"
-                        placeholder="Email (example@lion.lmu.edu)"
-                        inputRef={emailRef}
-                        required
-                        style={{ width: '20em', marginBottom: '1em' }}
-                    />
-                </div>
-                <FormControl
-                    type="password"
-                    inputRef={passwordRef}
-                    // required
-                />
-                <div className="password-text-field">
-                    <TextField
-                        type="password"
-                        className="password"
-                        placeholder="Password"
-                        inputRef={passwordRef}
-                        required
-                        style={{
-                            width: '20em',
-                            marginBottom: '2em',
+        <Box display="grid" gridTemplateColumns="1fr 1fr">
+            <div className="leftPane">
+                <Box gridColumnSpan="50%">
+                    <Box
+                        component="img"
+                        sx={{
+                            height: 100,
+                            width: 100,
+                            paddingTop: '20px',
                         }}
+                        alt="logo"
+                        src={beaker}
                     />
-                </div>
-                <div className="sign-in-button">
-                    <Button
-                        disabled={loading}
-                        className="signin-button"
-                        type="submit"
-                        size="large"
-                        variant="contained"
-                        color="primary"
-                        style={{ marginBottom: '3em' }}
-                    >
-                        Sign In
-                    </Button>
-                </div>
-                <div className="forgot-password">
-                    <Link to="./forgotpassword"> Forgot Password </Link>
-                </div>
-                <div className="new-here">
-                    <Link to="./newuserstudent">New Here? Sign Up! </Link>
-                </div>
-            </form>
-        </div>
+                    <h1 className="title"> Beaker </h1>
+                    <h2 className="subTitle">
+                        LMU's very own hub for research and collaboration
+                    </h2>
+                    <p className="message">
+                        "Post projects and see who matches your project
+                        qualifications" <br></br> "Get seen by those who are
+                        looking for someone just like you" <br></br> "Get
+                        connected with people outside of your major"
+                    </p>
+                </Box>
+            </div>
+            <div className="rightPane">
+                <Box gridColumnSpan="50%">
+                    <div className="top-signin">
+                        <h2 className="sign-in">Sign In</h2>
+
+                        {/* {JSON.stringify({ currentUser })} */}
+                        {error && <Alert variant="danger">{error}</Alert>}
+                        <form onSubmit={handleSubmit}>
+                            <FormControl
+                                type="email"
+                                inputRef={emailRef}
+                                // required
+                            />
+                            <div className="email-text-field">
+                                <TextField
+                                    type="text"
+                                    className="email-address"
+                                    placeholder="Email (example@lion.lmu.edu)"
+                                    inputRef={emailRef}
+                                    required
+                                    style={{
+                                        width: '20em',
+                                        marginBottom: '1em',
+                                    }}
+                                />
+                            </div>
+                            <FormControl
+                                type="password"
+                                inputRef={passwordRef}
+                                // required
+                            />
+                            <div className="password-text-field">
+                                <TextField
+                                    type="password"
+                                    className="password"
+                                    placeholder="Password"
+                                    inputRef={passwordRef}
+                                    required
+                                    style={{
+                                        width: '20em',
+                                        marginBottom: '2em',
+                                    }}
+                                />
+                            </div>
+                            <div className="sign-in-button">
+                                <Button
+                                    disabled={loading}
+                                    className="signin-button"
+                                    type="submit"
+                                    size="large"
+                                    variant="contained"
+                                    color="primary"
+                                    style={{ marginBottom: '3em' }}
+                                >
+                                    Sign In
+                                </Button>
+                            </div>
+                            <div className="forgot-password">
+                                <Link to="./forgotpassword">
+                                    {' '}
+                                    Forgot Password{' '}
+                                </Link>
+                            </div>
+                            <div className="new-here">
+                                <Link to="./newuserstudent">
+                                    New Here? Sign Up!{' '}
+                                </Link>
+                            </div>
+                        </form>
+                    </div>
+                </Box>
+            </div>
+        </Box>
 
         // <>
         //     <Card>

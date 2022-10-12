@@ -1,3 +1,19 @@
+.splitScreen {
+    display: flex;
+    flex-direction: row;
+}
+
+.leftPane {
+    height: 100vh;
+    /* justify-items: center; */
+    text-align: center;
+    background-color: aliceblue;
+}
+
+.rightPane {
+    margin-top: 15%;
+}
+
 .top-signin {
     text-align: center;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
@@ -7,6 +23,25 @@
 /* SignIn css labels */
 .sign-in {
     text-align: center;
+}
+
+.message {
+    font-style: italic;
+    font-size: 24px;
+    padding-top: 120px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.title {
+    font-size: 52px;
+}
+
+.subTitle {
+    font-style: italic;
+    font-size: 32px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .email-text-field fieldset {
