@@ -8,6 +8,8 @@ import 'firebase/compat/auth'
 import { signIn } from '../authActions'
 import { FormControl, Alert, TextField } from '@mui/material'
 import { useAuth } from '../Contexts/authContext'
+import LoginButton from '../Components/LoginButton'
+import { useAuth0 } from '@auth0/auth0-react'
 import { Box } from '@mui/system'
 function SignIn() {
     const state = {
@@ -120,7 +122,7 @@ function SignIn() {
             {/* {JSON.stringify({ currentUser })} */}
             {error && <Alert variant="danger">{error}</Alert>}
             <form onSubmit={handleSubmit}>
-                <FormControl
+                {/* <FormControl
                     type="email"
                     inputRef={emailRef}
                     // required
@@ -152,19 +154,9 @@ function SignIn() {
                             marginBottom: '2em',
                         }}
                     />
-                </div>
+                </div> */}
                 <div className="sign-in-button">
-                    <Button
-                        disabled={loading}
-                        className="signin-button"
-                        type="submit"
-                        size="large"
-                        variant="contained"
-                        color="primary"
-                        style={{ marginBottom: '3em' }}
-                    >
-                        Sign In
-                    </Button>
+                    <LoginButton></LoginButton>
                 </div>
                 <div className="forgot-password">
                     <Link to="./forgotpassword">Forgot Password </Link>
