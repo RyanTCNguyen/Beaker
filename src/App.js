@@ -7,7 +7,6 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import studsidebaritems from './studsidebaritems'
 import sidebaritems from './sidebaritems'
 
-import { AnimatePresence } from 'framer-motion/dist/framer-motion'
 import Projectspage from './Pages/Projectspage'
 import SignIn from './Pages/SignIn'
 import NewUserStudent from './Pages/NewUser'
@@ -32,10 +31,6 @@ import FacultyProjectDetails from './Pages/FacultyProjectDetails'
 
 import ForgotPassword from './Pages/ForgotPassword'
 
-import { AuthProvider } from './Contexts/authContext'
-
-import UserForm from './Components/UserForm'
-
 function App() {
     // const ref = firebase.firestore().collection('students')
     // console.log(ref)
@@ -52,6 +47,7 @@ function App() {
             )
         }
         getProjects()
+        console.log(projects)
     }, [projectsCollectionRef])
 
     const [members, setMembers] = useState([])
@@ -67,128 +63,111 @@ function App() {
 
     return (
         <>
-            <AuthProvider>
-                <Router>
-                    <AnimatePresence exitBeforeEnter>
-                        <Switch>
-                            <Route Route path="/" exact component={SignIn} />
-                            <Route
-                                path="/projectspage"
-                                exact
-                                render={(props) => (
-                                    <Projectspage
-                                        {...props}
-                                        projects={projects}
-                                    />
-                                )}
-                            />
+            <Router>
+                <Switch>
+                    <Route
+                        path="/"
+                        exact
+                        render={(props) => (
+                            <Projectspage {...props} projects={projects} />
+                        )}
+                    />
 
-                            <Route path="/signin" exact component={SignIn} />
-                            {/* <UserForm /> */}
+                    <Route path="/signin" exact component={SignIn} />
+                    {/* <UserForm /> */}
 
-                            <Route
-                                path="/newuserstudent"
-                                exact
-                                component={NewUserStudent}
+                    <Route
+                        path="/newuserstudent"
+                        exact
+                        component={NewUserStudent}
+                    />
+                    <Route
+                        path="/studentprofile"
+                        exact
+                        render={(props) => (
+                            <StudentProfile
+                                {...props}
+                                setMembers={setMembers}
                             />
-                            <Route
-                                path="/studentprofile"
-                                exact
-                                render={(props) => (
-                                    <StudentProfile
-                                        {...props}
-                                        setMembers={setMembers}
-                                    />
-                                )}
-                            />
-                            <Route
-                                path="/createproject"
-                                exact
-                                component={CreateProject}
-                            />
-                            <Route
-                                path="/facultystaffprofile"
-                                exact
-                                // render={(props) => (
-                                //     <FacultyStaffProfile
-                                //         {...props}
-                                //         setFSMembers={setFSMembers}
-                                //     />
-                                // )}
-                                component={FacultyStaffProfile}
-                            />
-                            <Route
-                                path="/forgotPassword"
-                                exact
-                                component={ForgotPassword}
-                            />
-                            {/* <Route
+                        )}
+                    />
+                    <Route
+                        path="/createproject"
+                        exact
+                        component={CreateProject}
+                    />
+                    <Route
+                        path="/facultystaffprofile"
+                        exact
+                        // render={(props) => (
+                        //     <FacultyStaffProfile
+                        //         {...props}
+                        //         setFSMembers={setFSMembers}
+                        //     />
+                        // )}
+                        component={FacultyStaffProfile}
+                    />
+                    <Route
+                        path="/forgotPassword"
+                        exact
+                        component={ForgotPassword}
+                    />
+                    {/* <Route
                         path="/aboutproject"
                         exact
                         component={AboutProject}
                     /> */}
 
-                            <Route
-                                path="/aboutproject/:projectId"
-                                exact
-                                render={(props) => (
-                                    <AboutProject
-                                        {...props}
-                                        projects={projects}
-                                    />
-                                )}
+                    <Route
+                        path="/aboutproject/:projectId"
+                        exact
+                        render={(props) => (
+                            <AboutProject {...props} projects={projects} />
+                        )}
+                    />
+                    <Route
+                        path="/editproject/:projectId"
+                        exact
+                        render={(props) => (
+                            <EditProject {...props} projects={projects} />
+                        )}
+                    />
+                    <Route
+                        path="/projectdetails/:projectId"
+                        exact
+                        render={(props) => (
+                            <FacultyProjectDetails
+                                {...props}
+                                projects={projects}
                             />
-                            <Route
-                                path="/editproject/:projectId"
-                                exact
-                                render={(props) => (
-                                    <EditProject
-                                        {...props}
-                                        projects={projects}
-                                    />
-                                )}
+                        )}
+                    />
+                    <Route
+                        path="/editstudentprofile/:memberId"
+                        exact
+                        render={(props) => (
+                            <EditStudentProfile {...props} members={members} />
+                        )}
+                    />
+                    <Route
+                        path="/aboutmember/:memberId"
+                        exact
+                        render={(props) => (
+                            <AboutMember {...props} members={members} />
+                        )}
+                    />
+                    <Route
+                        path="/dashboard"
+                        exact
+                        render={(props) => (
+                            <Dashboard
+                                sidebaritems={
+                                    isStudent ? studsidebaritems : sidebaritems
+                                }
                             />
-                            <Route
-                                path="/projectdetails/:projectId"
-                                exact
-                                render={(props) => (
-                                    <FacultyProjectDetails
-                                        {...props}
-                                        projects={projects}
-                                    />
-                                )}
-                            />
-                            <Route
-                                path="/editstudentprofile/:memberId"
-                                exact
-                                render={(props) => (
-                                    <EditStudentProfile
-                                        {...props}
-                                        members={members}
-                                    />
-                                )}
-                            />
-                            <Route
-                                path="/aboutmember/:memberId"
-                                exact
-                                render={(props) => (
-                                    <AboutMember {...props} members={members} />
-                                )}
-                            />
-                            <Route
-                                path="/dashboard"
-                                exact
-                                render={(props) => (
-                                    <Dashboard
-                                        sidebaritems={
-                                            isStudent
-                                                ? studsidebaritems
-                                                : sidebaritems
-                                        }
-                                    />
-                                )}
-                            />
-                            {/* <Route
+                        )}
+                    />
+                    {/* <Route
                                 path="/studentdashboard"
                                 exact
                                 render={(props) => (
@@ -201,78 +180,56 @@ function App() {
                                     />
                                 )}
                             /> */}
-                            <Route
-                                path="/bookmarkedprojects"
-                                exact
-                                render={(props) => (
-                                    <BookmarkedProjects
-                                        {...props}
-                                        projects={projects}
-                                        sidebaritems={
-                                            isStudent
-                                                ? studsidebaritems
-                                                : sidebaritems
-                                        }
-                                    />
-                                )}
+                    <Route
+                        path="/bookmarkedprojects"
+                        exact
+                        render={(props) => (
+                            <BookmarkedProjects
+                                {...props}
+                                projects={projects}
+                                sidebaritems={
+                                    isStudent ? studsidebaritems : sidebaritems
+                                }
                             />
-                            <Route
-                                path="/userprofile"
-                                exact
-                                component={UserProfile}
-                            />
+                        )}
+                    />
+                    <Route path="/userprofile" exact component={UserProfile} />
 
-                            <Route
-                                path="/aboutproject/:projectId"
-                                exact
-                                render={(props) => (
-                                    <AboutProject
-                                        {...props}
-                                        projects={projects}
-                                    />
-                                )}
+                    <Route
+                        path="/aboutproject/:projectId"
+                        exact
+                        render={(props) => (
+                            <AboutProject {...props} projects={projects} />
+                        )}
+                    />
+                    <Route
+                        path="/aboutmember/:memberId"
+                        exact
+                        render={(props) => (
+                            <AboutMember {...props} members={members} />
+                        )}
+                    />
+                    <Route
+                        path="/aboutstudentprofile/:memberId"
+                        exact
+                        render={(props) => (
+                            <AboutStudentProfile {...props} members={members} />
+                        )}
+                    />
+                    <Route path="/dashboard" exact component={Dashboard} />
+                    <Route
+                        path="/bookmarkedprojects"
+                        exact
+                        render={(props) => (
+                            <BookmarkedProjects
+                                {...props}
+                                projects={projects}
                             />
-                            <Route
-                                path="/aboutmember/:memberId"
-                                exact
-                                render={(props) => (
-                                    <AboutMember {...props} members={members} />
-                                )}
-                            />
-                            <Route
-                                path="/aboutstudentprofile/:memberId"
-                                exact
-                                render={(props) => (
-                                    <AboutStudentProfile
-                                        {...props}
-                                        members={members}
-                                    />
-                                )}
-                            />
-                            <Route
-                                path="/dashboard"
-                                exact
-                                component={Dashboard}
-                            />
-                            <Route
-                                path="/bookmarkedprojects"
-                                exact
-                                render={(props) => (
-                                    <BookmarkedProjects
-                                        {...props}
-                                        projects={projects}
-                                    />
-                                )}
-                            />
-                            <Route
-                                path="/userprofile"
-                                exact
-                                component={UserProfile}
-                            />
-                        </Switch>
-                    </AnimatePresence>
-                </Router>
-            </AuthProvider>
+                        )}
+                    />
+                    <Route path="/userprofile" exact component={UserProfile} />
+                </Switch>
+            </Router>
         </>
     )
 }

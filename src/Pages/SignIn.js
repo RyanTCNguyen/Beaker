@@ -7,57 +7,10 @@ import { Link, useHistory } from 'react-router-dom'
 import 'firebase/compat/auth'
 import { signIn } from '../authActions'
 import { FormControl, Alert, TextField } from '@mui/material'
-import { useAuth } from '../Contexts/authContext'
 import LoginButton from '../Components/LoginButton'
 import { useAuth0 } from '@auth0/auth0-react'
 import { Box } from '@mui/system'
 function SignIn() {
-    const state = {
-        emailRef: '',
-        passwordRef: '',
-    }
-    const { signin, currentUser } = useAuth()
-    const emailRef = useRef()
-    const passwordRef = useRef()
-    const history = useHistory()
-
-    const [error, setError] = useState('')
-    const [loading, setLoading] = useState(false)
-    const [student, isStudent] = useState(false)
-    const [clicked, isClicked] = useState(false)
-
-    async function handleSubmit(e) {
-        e.preventDefault()
-        signIn(state)
-        try {
-            setLoading(true)
-            const signInResponse = await signin(
-                emailRef.current.value,
-                passwordRef.current.value
-            )
-            console.log(signInResponse)
-            console.log('user signed in')
-            history.push('/dashboard')
-        } catch {
-            setError('Failed to Signin')
-        }
-        setLoading(false)
-        console.log('currentUser logedin' + JSON.stringify({ currentUser }))
-    }
-
-    //functionms for when the user is a proffesor or student
-    function handleIsStudent(e) {
-        e.preventDefault()
-
-        alert('you are a student')
-    }
-
-    function handleIsProfessor(e) {
-        e.preventDefault()
-        isStudent(false)
-        alert('you are not a student')
-    }
-
     return (
         // <div className="sign-in">
         //     <div className="top-signin">
@@ -120,9 +73,8 @@ function SignIn() {
             <h2 className="sign-in">Sign In</h2>
 
             {/* {JSON.stringify({ currentUser })} */}
-            {error && <Alert variant="danger">{error}</Alert>}
-            <form onSubmit={handleSubmit}>
-                {/* <FormControl
+
+            {/* <FormControl
                     type="email"
                     inputRef={emailRef}
                     // required
@@ -155,16 +107,15 @@ function SignIn() {
                         }}
                     />
                 </div> */}
-                <div className="sign-in-button">
-                    <LoginButton></LoginButton>
-                </div>
-                <div className="forgot-password">
-                    <Link to="./forgotpassword">Forgot Password </Link>
-                </div>
-                <div className="new-here">
-                    <Link to="./newuserstudent">New Here? </Link>
-                </div>
-            </form>
+            <div className="sign-in-button">
+                <LoginButton></LoginButton>
+            </div>
+            <div className="forgot-password">
+                <Link to="./forgotpassword">Forgot Password </Link>
+            </div>
+            <div className="new-here">
+                <Link to="./newuserstudent">New Here? </Link>
+            </div>
         </div>
 
         // <>

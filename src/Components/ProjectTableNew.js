@@ -13,6 +13,30 @@ function ProjectTableNew({ projects }) {
         projects = data.docs.map((doc) => ({ ...doc.data(), key: doc.id }))
     }
 
+    const getProjectsv2 = async () => {
+        //const data = await getDocs(projectsCollectionRef)
+        fetch(
+            'https://link-den.ent.us-central1.gcp.cloud.es.io/api/as/v1/engines/posts-engine/documents',
+            {
+                body: `[{"applicants": [], "creator": "", "description": "Test Numerous blah blah", "groupMembers": [], "image": "", "incentives": ["funding", "internship credit"], "members": 8, "major": ["Art History", "Archeology"], "status": "open", "timeline": "3 years", "title": "Archeological Dig in Turkey","year":["Graduate"]}]`,
+                headers: {
+                    Authorization: 'Bearer private-9y3dvrtw7jda17d2cqv23um7',
+                    'Content-Type': 'application/json',
+                },
+                method: 'POST',
+            }
+        )
+            .then((res) => {
+                return res.json()
+            })
+            .then((data) => {
+                projects = data.docs.map((doc) => ({
+                    ...doc.data(),
+                    key: doc.id,
+                }))
+            })
+    }
+
     useEffect(() => {
         getProjects()
     }, [projects])

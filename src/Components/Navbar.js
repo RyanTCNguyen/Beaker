@@ -13,11 +13,10 @@ import Paper from '@material-ui/core/Paper'
 import Popper from '@material-ui/core/Popper'
 import MenuItem from '@material-ui/core/MenuItem'
 import '../Styles/Navbar.css'
-import { useAuth } from '../Contexts/authContext'
-import 'firebase/compat/auth'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import ScienceIcon from '@mui/icons-material/Science'
 import MenuList from '@material-ui/core/MenuList'
+import { useAuth0 } from '@auth0/auth0-react'
 
 const useStyles = makeStyles((theme) => ({
     helpButton: {
@@ -47,6 +46,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const Navbar = () => {
+    const { loginWithRedirect } = useAuth0()
     const classes = useStyles()
     const [item, setItem] = useState(null)
     const [open, setOpen] = useState(false)
@@ -88,34 +88,7 @@ const Navbar = () => {
         setItem(null)
     }
 
-    // const [error, setError] = useState('')
-    // const { currentUser, signOut } = useAuth()
-
-    const handleToProfile = () => {
-        console.log('Profile')
-    }
-    // const [open, setOpen] = useState(false)
-
-    // const handleOpen = () => {
-    //     setOpen(true)
-    // }
-
-    // const handleClose = () => {
-    //     setOpen(false)
-    // }
-
-    const [error, setError] = useState('')
-    const { currentUser, signout } = useAuth()
     const history = useHistory()
-
-    async function handleLogout() {
-        try {
-            await signout()
-            history.push('/')
-        } catch {
-            setError('Failed to log out')
-        }
-    }
 
     return (
         <>
@@ -214,12 +187,13 @@ const Navbar = () => {
                                                         </Link>
                                                     </MenuItem>
                                                     <MenuItem
-                                                        // onClick={handleClose}
-                                                        onClick={handleLogout}
+                                                        onClick={() => {
+                                                            loginWithRedirect()
+                                                        }}
                                                     >
                                                         <Link to="/">
                                                             {' '}
-                                                            Logout{' '}
+                                                            Login{' '}
                                                         </Link>
                                                     </MenuItem>
                                                 </MenuList>
