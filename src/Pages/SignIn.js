@@ -10,6 +10,7 @@ import { FormControl, Alert, TextField } from '@mui/material'
 import LoginButton from '../Components/LoginButton'
 import { useAuth0 } from '@auth0/auth0-react'
 import { Box } from '@mui/system'
+
 function SignIn() {
     return (
         // <div className="sign-in">
@@ -105,30 +106,9 @@ function SignIn() {
                             width: '20em',
                             marginBottom: '2em',
                         }}
+                        alt="logo"
+                        src={beaker}
                     />
-<<<<<<< HEAD
-                </div>
-                <div className="sign-in-button">
-                    <Button
-                        disabled={loading}
-                        className="signin-button"
-                        type="submit"
-                        size="large"
-                        variant="contained"
-                        color="primary"
-                        style={{ marginBottom: '3em' }}
-                    >
-                        Sign In
-                    </Button>
-                </div>
-                <div className="forgot-password">
-                    <Link to="./forgotpassword"> Forgot Password </Link>
-                </div>
-                <div className="new-here">
-                    <Link to="./newuserstudent">New Here? Sign Up! </Link>
-                </div>
-            </form>
-=======
                 </div> */}
             <div className="sign-in-button">
                 <LoginButton></LoginButton>
@@ -139,7 +119,6 @@ function SignIn() {
             <div className="new-here">
                 <Link to="./newuserstudent">New Here? </Link>
             </div>
->>>>>>> 5da86aa8d791b76bd98343d8e2f02d51312c27af
         </div>
 
         // <>

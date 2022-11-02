@@ -21,6 +21,7 @@ import AboutMember from './Pages/AboutMember'
 import AboutStudentProfile from './Pages/AboutStudentProfile'
 import AboutFacultyStaffProfile from './Pages/AboutFacultyStaffProfile'
 import Dashboard from './Pages/Dashboard'
+import About from './Pages/About'
 
 import BookmarkedProjects from './Pages/BookmarkedProjects'
 
@@ -112,11 +113,7 @@ function App() {
                         exact
                         component={ForgotPassword}
                     />
-                    {/* <Route
-                        path="/aboutproject"
-                        exact
-                        component={AboutProject}
-                    /> */}
+                    <Route path="/about" exact component={About} />
 
                     <Route
                         path="/aboutproject/:projectId"
@@ -159,13 +156,7 @@ function App() {
                     <Route
                         path="/dashboard"
                         exact
-                        render={(props) => (
-                            <Dashboard
-                                sidebaritems={
-                                    isStudent ? studsidebaritems : sidebaritems
-                                }
-                            />
-                        )}
+                        render={(props) => <Dashboard user={1} />}
                     />
                     {/* <Route
                                 path="/studentdashboard"

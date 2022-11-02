@@ -114,14 +114,13 @@ const Navbar = () => {
                     >
                         <Button className={classes.actionButtons}>
                             {' '}
-                            <Link className={classes.links} to="/allmembers">
-                                {' '}
-                                members{' '}
+                            <Link className={classes.links} to="/about">
+                                about{' '}
                             </Link>
                         </Button>
                         <Button className={classes.actionButtons}>
                             {' '}
-                            <Link className={classes.links} to="/projectspage">
+                            <Link className={classes.links} to="/">
                                 projects{' '}
                             </Link>
                         </Button>
