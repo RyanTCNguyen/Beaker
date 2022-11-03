@@ -2,15 +2,13 @@ import React, { useState, useEffect, useMemo, useRef } from 'react'
 import '../Styles/Profile.css'
 import Button from '@mui/material/Button'
 import beaker from '../Images/blackLinedBeakerBgRemoved.png'
-import 'firebase/firestore'
-import { db, storage } from '../firebase'
-import { collection, getDocs, addDoc } from 'firebase/firestore'
 import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
 import FormControl from '@mui/material/FormControl'
 import Select from '@mui/material/Select'
 import TextField from '@mui/material/TextField'
 import RequiredDialog from '../Components/RequiredDialog'
+import { getProjects } from '../EngineFunctions/ProjectsFetch'
 
 function CreateProject({}) {
     const [projects, setProjects] = useState([])
@@ -74,68 +72,6 @@ function CreateProject({}) {
     const handleChangeIncentives = (event) => {
         setIncentives(event.target.value)
     }
-
-    console.log(imageAsFile)
-    const handleImageAsFile = (e) => {
-        setImageAsFile(e.target.files[0])
-    }
-
-    function handleUpload(e) {
-        e.preventDefault()
-        const ref = storage.ref(`/Images/${imageAsFile.name}`)
-        const uploadTask = ref.put(imageAsFile)
-        uploadTask.on('state_changed', console.log, console.error, () => {
-            ref.getDownloadURL().then((url) => {
-                setImageAsFile(null)
-                setImageAsUrl(url)
-            })
-        })
-    }
-    const projectsCollectionRef = useMemo(() => collection(db, 'projects'), [])
-    const getProjects = async () => {
-        const data = await getDocs(projectsCollectionRef)
-        //loop through documents in collection
-        setProjects(data.docs.map((doc) => ({ ...doc.data(), key: doc.id })))
-    }
-    const createProject = async () => {
-        let valid = checkAllRequiredValid([
-            projectName,
-            desc,
-            memberAmount,
-            reqMajor,
-        ])
-        if (!valid) return
-        await addDoc(projectsCollectionRef, {
-            title: projectName,
-            status: 'Open',
-            description: desc,
-            members: memberAmount,
-            major: reqMajor,
-            year: reqYear,
-            softskills: softskills,
-            timeline: timeline,
-            incentives: incentives,
-            image: imageAsUrl,
-            creator: '',
-            groupMembers: [],
-            applicants: [],
-            rejected: [],
-        })
-        getProjects()
-        window.location = `/projectspage`
-    }
-
-    // useEffect(() => {
-    //     const getStudents = async () => {
-    //         const data = await getDocs(studentsCollectionRef)
-    //         //loop through documents in collection
-    //         setStudents(
-    //             data.docs.map((doc) => ({ ...doc.data(), key: doc.id }))
-    //         )
-    //     }
-    //     getStudents()
-    // }, [studentsCollectionRef])
-    // const classes = useStyles()
 
     const widget = window.cloudinary.createUploadWidget(
         {
@@ -270,14 +206,14 @@ function CreateProject({}) {
                         onClick={(e) => openWidget(e, widget)}
                     />
                 </div>
-                <FormControl inputRef={projNameRef} />
+                <FormControl inputref={projNameRef} />
                 <div className="project-name">
                     <TextField
                         type="text"
                         className="proj-name"
                         label="Project Name"
                         placeholder="Project Name"
-                        inputRef={projNameRef}
+                        inputref={projNameRef}
                         style={{ width: '55%' }}
                         onChange={(event) => {
                             setProjectName(event.target.value)
@@ -285,14 +221,14 @@ function CreateProject({}) {
                         required
                     />
                 </div>
-                <FormControl inputRef={projDescRef} />
+                <FormControl inputref={projDescRef} />
                 <div className="project-desc">
                     <TextField
                         multiline
                         rows={6}
                         label="Project Description"
                         placeholder="Project Description"
-                        inputRef={projDescRef}
+                        inputref={projDescRef}
                         style={{ width: '55%' }}
                         onChange={(event) => {
                             setDesc(event.target.value)
@@ -350,14 +286,14 @@ function CreateProject({}) {
                         </Select>
                     </FormControl>
                 </div>
-                <FormControl inputRef={projPrefSoftSkillsRef} />
+                <FormControl inputref={projPrefSoftSkillsRef} />
                 <div className="preferred-soft-skill">
                     <TextField
                         type="text"
                         className="soft-skills"
                         label="Preferred Soft Skill(s)"
                         placeholder="Preferred Soft Skill(s)"
-                        inputRef={projPrefSoftSkillsRef}
+                        inputref={projPrefSoftSkillsRef}
                         style={{ width: '55%' }}
                         onChange={(event) => {
                             setSoftSkills(event.target.value)
@@ -406,7 +342,7 @@ function CreateProject({}) {
                         className="post-proj-btn1"
                         variant="contained"
                         size="large"
-                        onClick={createProject}
+                        onClick={()=>{getProjects()}}
                     >
                         Post
                     </Button>
