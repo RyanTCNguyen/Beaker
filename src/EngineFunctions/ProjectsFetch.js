@@ -2,8 +2,8 @@ export const getProjects = () => {
     const data = {
         applicants: [],
         creator: '',
-        description: 'Test Numerous blah blah',
-        groupMembers: [],
+        description: 'Test NUMBER 2',
+        groupmembers: [],
         image: '',
         incentives: ['funding', 'internship credit'],
         members: 8,
@@ -14,19 +14,16 @@ export const getProjects = () => {
         year: ['Graduate'],
     }
 
-    const AUTHKEY = process.env.REACT_APP_ELASTIC_API_KEY
     const USER = process.env.REACT_APP_ELASTIC_USERNAME
     const PASSWORD = process.env.REACT_APP_ELASTIC_PASSWORD
     const params = {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            Authorization: 'Basic ' + btoa('elastic:XyUFHX0uvoRKuBWnqYnwsGWD'),
+            Authorization: 'Basic ' + btoa(`${USER}:${PASSWORD}`),
         },
         mode: 'cors',
-        body: JSON.stringify({
-            data: 1,
-        }),
+        body: JSON.stringify(data),
     }
     return fetch(
         `https://beaker.ent.us-central1.gcp.cloud.es.io/api/as/v1/engines/posts-engine/documents`,
