@@ -10,6 +10,7 @@ import { FormControl, Alert, TextField } from '@mui/material'
 import LoginButton from '../Components/LoginButton'
 import { useAuth0 } from '@auth0/auth0-react'
 import { Box } from '@mui/system'
+
 function SignIn() {
     return (
         // <div className="sign-in">
@@ -105,6 +106,8 @@ function SignIn() {
                             width: '20em',
                             marginBottom: '2em',
                         }}
+                        alt="logo"
+                        src={beaker}
                     />
                 </div> */}
             <div className="sign-in-button">
