@@ -1,4 +1,19 @@
 export const getProjects = () => {
+    const data = {
+        applicants: [],
+        creator: '',
+        description: 'Test Numerous blah blah',
+        groupMembers: [],
+        image: '',
+        incentives: ['funding', 'internship credit'],
+        members: 8,
+        major: ['Art History', 'Archeology'],
+        status: 'open',
+        timeline: '3 years',
+        title: 'Archeological Dig in Turkey',
+        year: ['Graduate'],
+    }
+
     const AUTHKEY = process.env.REACT_APP_ELASTIC_API_KEY
     const USER = process.env.REACT_APP_ELASTIC_USERNAME
     const PASSWORD = process.env.REACT_APP_ELASTIC_PASSWORD
