@@ -1,6 +1,6 @@
 import React from 'react'
 import '../Styles/About.css'
-import beaker from '../Images/blackLinedBeakerBgRemoved.png'
+import beakerLogo from '../Images/blackBeakerLogoBgRemoved.png'
 
 import Layout from '../Components/Layout'
 import { Typography } from '@material-ui/core'
@@ -16,29 +16,80 @@ function About() {
     })
     return (
         <Layout>
-            <div className="aboutMsg">
+            <Box
+                sx={{
+                    display: 'grid',
+                    gridTemplateColumns: '33% 34% 33%',
+                    gridTemplateAreas:
+                        '"header header header" "message1 message2 message3"',
+                    rowGap: 10,
+                    columnGap: 0,
+                }}
+            >
                 <Box
-                    component="img"
                     sx={{
-                        height: 100,
-                        width: 100,
-                        paddingTop: '20px',
+                        gridArea: 'header',
                         textAlign: 'center',
+                        paddingTop: '50px',
                     }}
-                    alt="logo"
-                    src={beaker}
-                />
-                <h2 className="title"> Beaker </h2>
-                <h4 className="subTitle">
-                    LMU's very own hub for research and collaboration
-                </h4>
-                <p className="message">
-                    "Post projects and see who matches your project
-                    qualifications" <br></br> "Get seen by those who are looking
-                    for someone just like you" <br></br> "Get connected with
-                    people outside of your major"
-                </p>
-            </div>
+                >
+                    <Box
+                        component="img"
+                        sx={{
+                            textAlign: 'center',
+                        }}
+                        alt="logo"
+                        src={beakerLogo}
+                    />
+                    <p className="subTitle">
+                        LMU's very own hub for research and collaboration
+                    </p>
+                </Box>
+                <Box
+                    sx={{
+                        gridArea: 'message1',
+                        textAlign: 'center',
+                        backgroundColor: '#0076A5',
+                        fontSize: '32px',
+                        margin: '20px',
+                    }}
+                >
+                    <p className="infoTitle">Find Amazing Talent</p>
+                    <div className="info">
+                        Post projects and see who matches your project
+                        qualifications
+                    </div>
+                </Box>
+                <Box
+                    sx={{
+                        gridArea: 'message2',
+                        textAlign: 'center',
+                        backgroundColor: '#AB0C2F',
+                        fontSize: '32px',
+                        margin: '20px',
+                    }}
+                >
+                    <p className="infoTitle">Make Yourself Known</p>
+                    <div className="info">
+                        Get seen by those who are looking for someone just like
+                        you
+                    </div>
+                </Box>
+                <Box
+                    sx={{
+                        gridArea: 'message3',
+                        textAlign: 'center',
+                        backgroundColor: '#0076A5',
+                        fontSize: '32px',
+                        margin: '20px',
+                    }}
+                >
+                    <p className="infoTitle">Make Connections</p>
+                    <div className="info">
+                        Get connected with people outside of your major
+                    </div>
+                </Box>
+            </Box>
         </Layout>
     )
 }
