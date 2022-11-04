@@ -8,25 +8,24 @@ import FormControl from '@mui/material/FormControl'
 import Select from '@mui/material/Select'
 import TextField from '@mui/material/TextField'
 import RequiredDialog from '../Components/RequiredDialog'
-import { getProjects } from '../EngineFunctions/ProjectsFetch'
+import { listFunction, postFunction } from '../EngineFunctions/ProjectsFetch'
 
 function CreateProject({}) {
-    const [projects, setProjects] = useState([])
-    const [projectName, setProjectName] = useState('')
-    const [desc, setDesc] = useState('')
-    const [memberAmount, setMemAmount] = useState('')
-    const [reqMajor, setReqMajor] = useState([])
-    const [reqYear, setReqYear] = useState([])
-    const [softskills, setSoftSkills] = useState('')
-    const [timeline, setTimeline] = useState('')
-    const [incentives, setIncentives] = useState([])
-    const [imageAsFile, setImageAsFile] = useState(null)
-    const [imageAsUrl, setImageAsUrl] = useState(
-        `${process.env.PUBLIC_URL}/projectImages/user.png`
-    )
-    const projNameRef = useRef()
-    const projDescRef = useRef()
-    const projPrefSoftSkillsRef = useRef()
+    const defaultData = {
+        applicants: [],
+        creator: '',
+        description: '',
+        groupmembers: [],
+        image: '',
+        incentives: [],
+        members: 1,
+        major: [],
+        status: '',
+        timeline: '',
+        title: '',
+        year: [],
+    }
+    const [data, setData] = useState(defaultData)
 
     const [open, setOpen] = useState(false)
 
@@ -38,55 +37,22 @@ function CreateProject({}) {
         setOpen(false)
     }
 
-    const checkAllRequiredValid = (reqValues) => {
-        let invalid = reqValues.filter((x) => x.length === 0 || x === undefined)
-        if (invalid.length >= 1) {
-            setOpen(true)
-            return false
-        }
-        return true
-    }
+    const checkAllRequiredValid = (reqValues) => {}
 
-    const handleChangeMemAmt = (event) => {
-        setMemAmount(event.target.value)
-    }
+    // const widget = window.cloudinary.createUploadWidget(
+    //     {
+    //         cloudName: process.env.REACT_APP_CLOUD_NAME,
+    //         uploadPreset: process.env.REACT_APP_UPLOAD_PRESET,
+    //     },
 
-    const handleChangeMajor = (event) => {
-        const {
-            target: { value },
-        } = event
-        setReqMajor(typeof value === 'string' ? value.split(',') : value)
-    }
-
-    const handleChangeYear = (event) => {
-        const {
-            target: { value },
-        } = event
-        setReqYear(typeof value === 'string' ? value.split(',') : value)
-    }
-
-    const handleChangeTimeline = (event) => {
-        setTimeline(event.target.value)
-    }
-
-    const handleChangeIncentives = (event) => {
-        setIncentives(event.target.value)
-    }
-
-    const widget = window.cloudinary.createUploadWidget(
-        {
-            cloudName: process.env.REACT_APP_CLOUD_NAME,
-            uploadPreset: process.env.REACT_APP_UPLOAD_PRESET,
-        },
-
-        (error, result) => {
-            console.log('result:', result)
-            if (!error && result && result.event === 'success') {
-                console.log('Done! Here is the image info: ', result.info)
-                setImageAsUrl(result.info.url)
-            }
-        }
-    )
+    //     (error, result) => {
+    //         console.log('result:', result)
+    //         if (!error && result && result.event === 'success') {
+    //             console.log('Done! Here is the image info: ', result.info)
+    //             setImageAsUrl(result.info.url)
+    //         }
+    //     }
+    // )
 
     const openWidget = (e, widget) => {
         e.preventDefault()
@@ -183,179 +149,213 @@ function CreateProject({}) {
     const incentiveOptions = ['Paid', 'Funding Available', 'Internship Credit']
 
     return (
-        <div className="new-profile">
-            <div className="left-screen-project">
-                <h1 className="left-text-info" id="left-text">
-                    Create <br></br> A New <br></br> Project!
-                </h1>
+        <div>
+            <div className="new-profile">
+                <div className="left-screen-project">
+                    <h1 className="left-text-info" id="left-text">
+                        Create <br></br> A New <br></br> Project!
+                    </h1>
+                </div>
+                <div className="middle-screen"></div>
+                <div className="right-screen-proj">
+                    <img className="profile-image" src={beaker} alt="logo" />
+                    <h1 className="new-user">New Project</h1>
+                    <p className="profile">Project Image</p>
+                    <div>
+                        {/* <img
+                            style={{
+                                width: 250,
+                                height: 250,
+                                paddingTop: 0,
+                            }}
+                            alt="profile"
+                            src={}
+                            onClick={(e) => openWidget(e, widget)}
+                        /> */}
+                    </div>
+                    <FormControl inputref={data.title} />
+                    <div className="project-name">
+                        <TextField
+                            type="text"
+                            className="proj-name"
+                            label="Project Name"
+                            placeholder="Project Name"
+                            inputref={data.title}
+                            style={{ width: '55%' }}
+                            onChange={(event) =>
+                                setData((prevData) => ({
+                                    ...data,
+                                    title: event.target.value,
+                                }))
+                            }
+                            required
+                        />
+                    </div>
+                    <FormControl inputref={data.description} />
+                    <div className="project-desc">
+                        <TextField
+                            multiline
+                            rows={6}
+                            label="Project Description"
+                            placeholder="Project Description"
+                            inputref={data.description}
+                            style={{ width: '55%' }}
+                            onChange={(event) =>
+                                setData((prevData) => ({
+                                    ...prevData,
+                                    description: event.target.value,
+                                }))
+                            }
+                            required
+                        />
+                    </div>
+                    <div className="members-dropdown">
+                        <FormControl style={{ width: '55%' }} required>
+                            <InputLabel>Number Of Members Needed</InputLabel>
+                            <Select
+                                value={data.members}
+                                onChange={(event) =>
+                                    setData((prevData) => ({
+                                        ...prevData,
+                                        members: event.target.value,
+                                    }))
+                                }
+                            >
+                                {memberAmtOptions.map((memberAmtOption) => (
+                                    <MenuItem
+                                        key={memberAmtOption}
+                                        value={memberAmtOption}
+                                    >
+                                        {memberAmtOption}
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
+                    </div>
+                    <div className="preferred-majors-options">
+                        <FormControl style={{ width: '55%' }} required>
+                            <InputLabel>Preferred Majors</InputLabel>
+                            <Select
+                                multiple
+                                value={data.major}
+                                onChange={(event) =>
+                                    setData((prevData) => ({
+                                        ...prevData,
+                                        major:
+                                            typeof event.target.value ===
+                                            'string'
+                                                ? event.target.value.split(',')
+                                                : event.target.value,
+                                    }))
+                                }
+                            >
+                                {majorOptions.map((majorOption) => (
+                                    <MenuItem
+                                        key={majorOption}
+                                        value={majorOption}
+                                    >
+                                        {majorOption}
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
+                    </div>
+                    <div className="preferred-years-options">
+                        <FormControl style={{ width: '55%' }}>
+                            <InputLabel>Preferred Years</InputLabel>
+                            <Select
+                                multiple
+                                value={data.year}
+                                onChange={(event) =>
+                                    setData((prevData) => ({
+                                        ...prevData,
+                                        year:
+                                            typeof event.target.value ===
+                                            'string'
+                                                ? event.target.value.split(',')
+                                                : event.target.value,
+                                    }))
+                                }
+                            >
+                                {yearOptions.map((yearOption) => (
+                                    <MenuItem
+                                        key={yearOption}
+                                        value={yearOption}
+                                    >
+                                        {yearOption}
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
+                    </div>
+                    <div className="timeline-dropdown">
+                        <FormControl style={{ width: '55%' }}>
+                            <InputLabel>Project Timeline</InputLabel>
+                            <Select
+                                inputref={data.timeline}
+                                onChange={(event) =>
+                                    setData((prevData) => ({
+                                        ...prevData,
+                                        year: event.target.value,
+                                    }))
+                                }
+                            >
+                                {timelineOptions.map((timelineOption) => (
+                                    <MenuItem
+                                        key={timelineOption}
+                                        value={timelineOption}
+                                    >
+                                        {timelineOption}
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
+                    </div>
+                    <div className="incentive-options">
+                        <FormControl style={{ width: '55%' }}>
+                            <InputLabel>Incentives</InputLabel>
+                            <Select
+                                multiple
+                                value={data.incentives}
+                                onChange={(event) =>
+                                    setData((prevData) => ({
+                                        ...prevData,
+                                        incentives: event.target.value,
+                                    }))
+                                }
+                            >
+                                {incentiveOptions.map((incentiveOption) => (
+                                    <MenuItem
+                                        key={incentiveOption}
+                                        value={incentiveOption}
+                                    >
+                                        {incentiveOption}
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
+                    </div>
+                    <div className="create-proj">
+                        <Button
+                            className="post-proj-btn1"
+                            variant="contained"
+                            size="large"
+                            onClick={() => {
+                                postFunction(data)
+                            }}
+                        >
+                            Post
+                        </Button>
+                    </div>
+                    <RequiredDialog
+                        onClickState={open}
+                        onClose={handleClose}
+                        fields={[
+                            'Project Name, Project Description, Number of Members, Preferred Majors',
+                        ]}
+                    />
+                </div>
             </div>
-            <div className="middle-screen"></div>
-            <div className="right-screen-proj">
-                <img className="profile-image" src={beaker} alt="logo" />
-                <h1 className="new-user">New Project</h1>
-                <p className="profile">Project Image</p>
-                <div>
-                    <img
-                        style={{
-                            width: 250,
-                            height: 250,
-                            paddingTop: 0,
-                        }}
-                        alt="profile"
-                        src={imageAsUrl}
-                        onClick={(e) => openWidget(e, widget)}
-                    />
-                </div>
-                <FormControl inputref={projNameRef} />
-                <div className="project-name">
-                    <TextField
-                        type="text"
-                        className="proj-name"
-                        label="Project Name"
-                        placeholder="Project Name"
-                        inputref={projNameRef}
-                        style={{ width: '55%' }}
-                        onChange={(event) => {
-                            setProjectName(event.target.value)
-                        }}
-                        required
-                    />
-                </div>
-                <FormControl inputref={projDescRef} />
-                <div className="project-desc">
-                    <TextField
-                        multiline
-                        rows={6}
-                        label="Project Description"
-                        placeholder="Project Description"
-                        inputref={projDescRef}
-                        style={{ width: '55%' }}
-                        onChange={(event) => {
-                            setDesc(event.target.value)
-                        }}
-                        required
-                    />
-                </div>
-                <div className="members-dropdown">
-                    <FormControl style={{ width: '55%' }} required>
-                        <InputLabel>Number Of Members Needed</InputLabel>
-                        <Select
-                            value={memberAmount}
-                            onChange={handleChangeMemAmt}
-                        >
-                            {memberAmtOptions.map((memberAmtOption) => (
-                                <MenuItem
-                                    key={memberAmtOption}
-                                    value={memberAmtOption}
-                                >
-                                    {memberAmtOption}
-                                </MenuItem>
-                            ))}
-                        </Select>
-                    </FormControl>
-                </div>
-                <div className="preferred-majors-options">
-                    <FormControl style={{ width: '55%' }} required>
-                        <InputLabel>Preferred Majors</InputLabel>
-                        <Select
-                            multiple
-                            value={reqMajor}
-                            onChange={handleChangeMajor}
-                        >
-                            {majorOptions.map((majorOption) => (
-                                <MenuItem key={majorOption} value={majorOption}>
-                                    {majorOption}
-                                </MenuItem>
-                            ))}
-                        </Select>
-                    </FormControl>
-                </div>
-                <div className="preferred-years-options">
-                    <FormControl style={{ width: '55%' }}>
-                        <InputLabel>Preferred Years</InputLabel>
-                        <Select
-                            multiple
-                            value={reqYear}
-                            onChange={handleChangeYear}
-                        >
-                            {yearOptions.map((yearOption) => (
-                                <MenuItem key={yearOption} value={yearOption}>
-                                    {yearOption}
-                                </MenuItem>
-                            ))}
-                        </Select>
-                    </FormControl>
-                </div>
-                <FormControl inputref={projPrefSoftSkillsRef} />
-                <div className="preferred-soft-skill">
-                    <TextField
-                        type="text"
-                        className="soft-skills"
-                        label="Preferred Soft Skill(s)"
-                        placeholder="Preferred Soft Skill(s)"
-                        inputref={projPrefSoftSkillsRef}
-                        style={{ width: '55%' }}
-                        onChange={(event) => {
-                            setSoftSkills(event.target.value)
-                        }}
-                    />
-                </div>
-                <div className="timeline-dropdown">
-                    <FormControl style={{ width: '55%' }}>
-                        <InputLabel>Project Timeline</InputLabel>
-                        <Select
-                            value={timeline}
-                            onChange={handleChangeTimeline}
-                        >
-                            {timelineOptions.map((timelineOption) => (
-                                <MenuItem
-                                    key={timelineOption}
-                                    value={timelineOption}
-                                >
-                                    {timelineOption}
-                                </MenuItem>
-                            ))}
-                        </Select>
-                    </FormControl>
-                </div>
-                <div className="incentive-options">
-                    <FormControl style={{ width: '55%' }}>
-                        <InputLabel>Incentives</InputLabel>
-                        <Select
-                            multiple
-                            value={incentives}
-                            onChange={handleChangeIncentives}
-                        >
-                            {incentiveOptions.map((incentiveOption) => (
-                                <MenuItem
-                                    key={incentiveOption}
-                                    value={incentiveOption}
-                                >
-                                    {incentiveOption}
-                                </MenuItem>
-                            ))}
-                        </Select>
-                    </FormControl>
-                </div>
-                <div className="create-proj">
-                    <Button
-                        className="post-proj-btn1"
-                        variant="contained"
-                        size="large"
-                        onClick={()=>{getProjects()}}
-                    >
-                        Post
-                    </Button>
-                </div>
-                <RequiredDialog
-                    onClickState={open}
-                    onClose={handleClose}
-                    fields={[
-                        'Project Name, Project Description, Number of Members, Preferred Majors',
-                    ]}
-                />
-            </div>
-            <div className="right-most-screen"></div>
         </div>
     )
 }

@@ -1,19 +1,4 @@
-export const getProjects = () => {
-    const data = {
-        applicants: [],
-        creator: '',
-        description: 'Test NUMBER 2',
-        groupmembers: [],
-        image: '',
-        incentives: ['funding', 'internship credit'],
-        members: 8,
-        major: ['Art History', 'Archeology'],
-        status: 'open',
-        timeline: '3 years',
-        title: 'Archeological Dig in Turkey',
-        year: ['Graduate'],
-    }
-
+export const postFunction = (data) => {
     const USER = process.env.REACT_APP_ELASTIC_USERNAME
     const PASSWORD = process.env.REACT_APP_ELASTIC_PASSWORD
     const params = {
@@ -36,3 +21,28 @@ export const getProjects = () => {
             console.log(data)
         })
 }
+
+export const listFunction = () => {
+    const USER = process.env.REACT_APP_ELASTIC_USERNAME
+    const PASSWORD = process.env.REACT_APP_ELASTIC_PASSWORD
+    const params = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: 'Basic ' + btoa(`${USER}:${PASSWORD}`),
+        },
+        mode: 'cors',
+    }
+    return fetch(
+        `https://beaker.ent.us-central1.gcp.cloud.es.io/api/as/v1/engines/posts-engine/documents/list`,
+        params
+    )
+        .then((data) => {
+            return data.json()
+        })
+        .then((data) => {
+            console.log(data)
+        })
+}
+
+//  GET: engine/documents/list
