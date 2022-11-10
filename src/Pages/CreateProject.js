@@ -8,7 +8,12 @@ import FormControl from '@mui/material/FormControl'
 import Select from '@mui/material/Select'
 import TextField from '@mui/material/TextField'
 import RequiredDialog from '../Components/RequiredDialog'
-import { listFunction, postFunction } from '../EngineFunctions/ProjectsFetch'
+import {
+    listFunction,
+    postFunction,
+    getFunction,
+    deleteFunction,
+} from '../EngineFunctions/ProjectsFetch'
 
 function CreateProject({}) {
     const defaultData = {
@@ -341,7 +346,10 @@ function CreateProject({}) {
                             variant="contained"
                             size="large"
                             onClick={() => {
-                                postFunction(data)
+                                deleteFunction(
+                                    'posts-engine',
+                                    'doc-636c6782bc144a0a85815a13'
+                                )
                             }}
                         >
                             Post
