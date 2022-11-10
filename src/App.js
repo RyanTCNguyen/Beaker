@@ -8,7 +8,6 @@ import studsidebaritems from './studsidebaritems'
 import sidebaritems from './sidebaritems'
 
 import Projectspage from './Pages/Projectspage'
-import SignIn from './Pages/SignIn'
 import NewUserStudent from './Pages/NewUser'
 
 import StudentProfile from './Pages/StudentProfile'
@@ -66,16 +65,14 @@ function App() {
         <>
             <Router>
                 <Switch>
+                    <Route path="/" exact component={About} />
                     <Route
-                        path="/"
+                        path="/projectspage"
                         exact
                         render={(props) => (
                             <Projectspage {...props} projects={projects} />
                         )}
                     />
-
-                    <Route path="/signin" exact component={SignIn} />
-                    {/* <UserForm /> */}
 
                     <Route
                         path="/newuserstudent"

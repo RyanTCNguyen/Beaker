@@ -46,9 +46,9 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const Navbar = () => {
-    const { loginWithRedirect } = useAuth0()
+    const { loginWithRedirect, isAuthenticated, isLoading, logout, user } =
+        useAuth0()
     const classes = useStyles()
-    const [item, setItem] = useState(null)
     const [open, setOpen] = useState(false)
     const anchorRef = useRef(null)
 
@@ -80,16 +80,6 @@ const Navbar = () => {
         prevOpen.current = open
     }, [open])
 
-    const handleMenuOpen = (event) => {
-        setItem(event.currentTarget)
-    }
-
-    const handleMenuClose = () => {
-        setItem(null)
-    }
-
-    const history = useHistory()
-
     return (
         <>
             <AppBar position="static">
@@ -120,7 +110,7 @@ const Navbar = () => {
                         </Button>
                         <Button className={classes.actionButtons}>
                             {' '}
-                            <Link className={classes.links} to="/">
+                            <Link className={classes.links} to="/projectspage">
                                 projects{' '}
                             </Link>
                         </Button>
@@ -185,16 +175,39 @@ const Navbar = () => {
                                                             Profile{' '}
                                                         </Link>
                                                     </MenuItem>
-                                                    <MenuItem
-                                                        onClick={() => {
-                                                            loginWithRedirect()
-                                                        }}
-                                                    >
-                                                        <Link to="/">
-                                                            {' '}
-                                                            Login{' '}
-                                                        </Link>
-                                                    </MenuItem>
+                                                    {!isAuthenticated &&
+                                                    !isLoading ? (
+                                                        <MenuItem
+                                                            onClick={() => {
+                                                                loginWithRedirect(
+                                                                    {
+                                                                        returnTo:
+                                                                            window
+                                                                                .location
+                                                                                .href,
+                                                                    }
+                                                                )
+                                                            }}
+                                                        >
+                                                            <Link> Login </Link>
+                                                        </MenuItem>
+                                                    ) : (
+                                                        <MenuItem
+                                                            onClick={() => {
+                                                                logout({
+                                                                    returnTo:
+                                                                        window
+                                                                            .location
+                                                                            .href,
+                                                                })
+                                                            }}
+                                                        >
+                                                            <Link>
+                                                                {' '}
+                                                                Logout{' '}
+                                                            </Link>
+                                                        </MenuItem>
+                                                    )}
                                                 </MenuList>
                                             </ClickAwayListener>
                                         </Paper>
@@ -205,23 +218,6 @@ const Navbar = () => {
                     </div>
                 </Toolbar>
             </AppBar>
-            <Menu
-                style={{ marginTop: '50px' }}
-                onClose={handleMenuClose}
-                id="menu"
-                anchorEl={item}
-                open={Boolean(item)}
-            >
-                {' '}
-                <MenuList onClick={handleMenuClose}>
-                    {' '}
-                    <Link to="./userprofile">profile</Link>{' '}
-                </MenuList>
-                <MenuList onClick={handleMenuClose}>
-                    {' '}
-                    <Link to="./signin"> logout </Link>{' '}
-                </MenuList>
-            </Menu>
         </>
     )
 }
