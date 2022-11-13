@@ -1,6 +1,4 @@
 import React, { useState, useEffect, useMemo } from 'react'
-import { collection, getDocs } from 'firebase/firestore'
-import { db } from './firebase'
 // import firebase from './firebase'
 
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
@@ -30,36 +28,18 @@ import EditProject from './Pages/EditProject'
 import FacultyProjectDetails from './Pages/FacultyProjectDetails'
 
 import ForgotPassword from './Pages/ForgotPassword'
+import { listFunction } from './EngineFunctions/ProjectsFetch'
 
 function App() {
-    // const ref = firebase.firestore().collection('students')
-    // console.log(ref)
     const [isStudent, setIsStudent] = useState(true)
 
     const [projects, setProjects] = useState([])
-    const projectsCollectionRef = useMemo(() => collection(db, 'projects'), [])
     useEffect(() => {
-        const getProjects = async () => {
-            const data = await getDocs(projectsCollectionRef)
-            //loop through documents in collection
-            setProjects(
-                data.docs.map((doc) => ({ ...doc.data(), key: doc.id }))
-            )
-        }
-        getProjects()
-        console.log(projects)
-    }, [projectsCollectionRef])
+        listFunction('posts-engine').then(setProjects)
+    }, [])
 
     const [members, setMembers] = useState([])
-    const membersCollectionRef = useMemo(() => collection(db, 'students'), [])
-    useEffect(() => {
-        const getMembers = async () => {
-            const data = await getDocs(membersCollectionRef)
-            //loop through documents in collection
-            setMembers(data.docs.map((doc) => ({ ...doc.data(), key: doc.id })))
-        }
-        getMembers()
-    }, [membersCollectionRef])
+
 
     return (
         <>

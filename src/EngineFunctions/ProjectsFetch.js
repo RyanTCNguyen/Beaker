@@ -41,7 +41,7 @@ export const listFunction = (engine) => {
             return data.json()
         })
         .then((data) => {
-            console.log(data)
+            return data?.results
         })
 }
 
@@ -104,11 +104,11 @@ export const deleteFunction = (engine, id) => {
             'Content-Type': 'application/json',
             Authorization: 'Basic ' + btoa(`${USER}:${PASSWORD}`),
         },
-        mode: 'cors',
+        method: 'cors',
         body: JSON.stringify(jsonData),
     }
     return fetch(
-        `https://beaker.ent.us-central1.gcp.cloud.es.io/api/as/v1/engines/${engine}/documents/`,
+        `https://beaker.ent.us-central1.gcp.cloud.es.io/api/as/v1/engines/${engine}/documents/search`,
         params
     )
         .then((data) => {
