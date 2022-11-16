@@ -121,12 +121,6 @@ const Navbar = () => {
                             </Link>
                         </Button>
 
-                        {/* <Button
-                            aria-controls="menu"
-                            onMouseOver={handleMenuOpen}
-                            className={classes.actionButtons}
-                        ></Button> */}
-
                         <div>
                             <Button
                                 ref={anchorRef}

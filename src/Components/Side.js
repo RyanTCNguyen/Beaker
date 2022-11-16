@@ -1,3 +1,8 @@
+/**
+ * sidebaritems are a list of objects that contain a string link, string value, and inetger key
+ * @param {*} sidebaritems
+ * @returns a sidebar
+ */
 export default function Side({ sidebaritems }) {
     return (
         <ul className="sidebar">

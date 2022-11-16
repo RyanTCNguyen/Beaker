@@ -26,19 +26,38 @@ import UserProfile from './Pages/UserProfile'
 import CreateProject from './Pages/CreateProject'
 import EditProject from './Pages/EditProject'
 import FacultyProjectDetails from './Pages/FacultyProjectDetails'
-
+import { useAuth0 } from '@auth0/auth0-react'
 import ForgotPassword from './Pages/ForgotPassword'
-import { listFunction } from './EngineFunctions/ProjectsFetch'
+import { listFunction, postFunction } from './EngineFunctions/ProjectsFetch'
 
 function App() {
+    const { loginWithRedirect, isAuthenticated, isLoading, logout, user: auth0user } =
+        useAuth0()
     const [isStudent, setIsStudent] = useState(true)
-
-    const [projects, setProjects] = useState([])
-    useEffect(() => {
-        listFunction('posts-engine').then(setProjects)
-    }, [])
-
     const [members, setMembers] = useState([])
+    const [projects, setProjects] = useState([])
+    const [user, setUser] = useState([])
+    useEffect(() => {
+        //listFunction('posts-engine').then((data)=>{if(data){setProjects(data)}})
+
+
+        if (auth0user?.name) {
+            //uncomment below once profile engine has an example
+            //listFunction('profile-engine').then((users)=>{console.log(users.filter((engineUser)=>engineUser?.name == user.name))})
+            //setUser
+            setUser({...auth0user,
+                friends: user.friends,
+                projects: user.projects,
+            })
+        }
+    }, [auth0user])
+
+    useEffect(()=>{
+        console.log(user)
+        //postFunction({...user, ...}, 'profile-engine')
+    },[user])
+
+    
 
 
     return (
