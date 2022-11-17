@@ -8,6 +8,7 @@ import '../Styles/Projectspage.css'
 import AddCircleIcon from '@mui/icons-material/AddCircle'
 import ProjectTableNew from '../Components/ProjectTableNew'
 import 'firebase/firestore'
+import { useAuth0 } from '@auth0/auth0-react'
 
 const useStyles = makeStyles({
     title: { textAlign: 'left' },
@@ -17,6 +18,7 @@ const useStyles = makeStyles({
 
 function Projectspage({ projects }) {
     const classes = useStyles()
+    const { isAuthenticated } = useAuth0()
     const [browse, setBrowse] = useState([])
     const [profiles, setProfiles] = useState([])
     const [bookmarks, setBookmarks] = useState([])
@@ -41,24 +43,26 @@ function Projectspage({ projects }) {
                 <Typography id="Title">
                     {' '}
                     Projects{' '}
-                    <Link to="/createproject">
-                        <IconButton
-                            style={{
-                                position: 'absolute',
-                                left: '70rem',
-                                paddingTop: '30px',
-                            }}
-                            aria-label="upload picture"
-                            component="span"
-                        >
-                            <AddCircleIcon
+                    {isAuthenticated ? (
+                        <Link to="/createproject">
+                            <IconButton
                                 style={{
-                                    color: 'rgba(16, 127, 183, 1)',
-                                    fontSize: '50px',
+                                    position: 'absolute',
+                                    left: '70rem',
+                                    paddingTop: '30px',
                                 }}
-                            />
-                        </IconButton>
-                    </Link>
+                                aria-label="upload picture"
+                                component="span"
+                            >
+                                <AddCircleIcon
+                                    style={{
+                                        color: 'rgba(16, 127, 183, 1)',
+                                        fontSize: '50px',
+                                    }}
+                                />
+                            </IconButton>
+                        </Link>
+                    ) : null}
                 </Typography>
             </div>
 

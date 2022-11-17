@@ -13,12 +13,15 @@ import {
     postFunction,
     getFunction,
     deleteFunction,
+    updateFunction,
 } from '../EngineFunctions/ProjectsFetch'
+import { useAuth0 } from '@auth0/auth0-react'
 
-function CreateProject({}) {
+function CreateProject() {
+    const { user } = useAuth0()
     const defaultData = {
         applicants: [],
-        creator: '',
+        creator: user.name,
         description: '',
         groupmembers: [],
         image: '',
@@ -30,6 +33,7 @@ function CreateProject({}) {
         title: '',
         year: [],
     }
+
     const [data, setData] = useState(defaultData)
 
     const [open, setOpen] = useState(false)
@@ -346,10 +350,7 @@ function CreateProject({}) {
                             variant="contained"
                             size="large"
                             onClick={() => {
-                                deleteFunction(
-                                    'posts-engine',
-                                    'doc-636dbe28bc144a4e32815b12'
-                                )
+                                postFunction('posts-engine', data)
                             }}
                         >
                             Post

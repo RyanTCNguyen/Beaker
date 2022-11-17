@@ -114,12 +114,16 @@ const Navbar = () => {
                                 projects{' '}
                             </Link>
                         </Button>
-                        <Button className={classes.actionButtons}>
-                            {' '}
-                            <Link className={classes.links} to="/dashboard">
-                                dashboard{' '}
-                            </Link>
-                        </Button>
+                        {isAuthenticated ? (
+                            <Button className={classes.actionButtons}>
+                                {' '}
+                                <Link className={classes.links} to="/dashboard">
+                                    dashboard{' '}
+                                </Link>
+                            </Button>
+                        ) : (
+                            <></>
+                        )}
 
                         <div>
                             <Button

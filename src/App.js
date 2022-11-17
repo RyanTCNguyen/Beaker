@@ -70,7 +70,9 @@ function App() {
         <>
             <Router>
                 <Switch>
+                    <Route path="/dashboard" exact component={Dashboard} />
                     <Route path="/" exact component={About} />
+                    <Route path="/about" exact component={About} />
                     <Route
                         path="/projectspage"
                         exact
@@ -160,19 +162,6 @@ function App() {
                         exact
                         render={(props) => <Dashboard user={1} />}
                     />
-                    {/* <Route
-                                path="/studentdashboard"
-                                exact
-                                render={(props) => (
-                                    <StudentDashboard
-                                        sidebaritems={
-                                            isStudent
-                                                ? studsidebaritems
-                                                : sidebaritems
-                                        }
-                                    />
-                                )}
-                            /> */}
                     <Route
                         path="/bookmarkedprojects"
                         exact
@@ -209,7 +198,6 @@ function App() {
                             <AboutStudentProfile {...props} members={members} />
                         )}
                     />
-                    <Route path="/dashboard" exact component={Dashboard} />
                     <Route
                         path="/bookmarkedprojects"
                         exact
