@@ -46,7 +46,7 @@ function ProjectTableNew({ projects }) {
         {
             field: 'image',
             render: (project) => (
-                <Link to={`/aboutproject/${project.key}`}>
+                <Link to={`/aboutproject/${project.id}`}>
                     <img
                         alt="project"
                         src={project.image}

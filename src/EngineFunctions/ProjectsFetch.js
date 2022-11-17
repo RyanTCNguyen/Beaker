@@ -16,6 +16,30 @@ export const postFunction = async (engine, data) => {
     await client.indexDocuments(engine, data)
 }
 
+export const listFunction = (engine) => {
+    const ApiKey = process.env.REACT_APP_API_KEY
+    const params = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${ApiKey}`,
+        },
+        mode: 'cors',
+    }
+    return fetch(
+        `https://beaker-56e3d8.ent.us-central1.gcp.cloud.es.io/api/as/v1/engines/${engine}/documents/list`,
+        params
+    )
+        .then((data) => {
+            if (data?.ok) {
+                return data.json()
+            }
+        })
+        .then((data) => {
+            return data?.results
+        })
+}
+
 export const getFunction = async (engine, docID) => {
     const ApiKey = process.env.REACT_APP_API_KEY
     const params = {

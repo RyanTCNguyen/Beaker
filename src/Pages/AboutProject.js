@@ -18,7 +18,7 @@ function AboutProject({ match, projects }) {
 
     useEffect(() => {
         //send the network request to retrieve data for this project
-        const selected = projects.filter((project) => project.key === id)[0]
+        const selected = projects.filter((project) => project.id === id)[0]
         setProject(selected)
     }, [id, projects])
 

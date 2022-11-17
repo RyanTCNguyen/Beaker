@@ -31,34 +31,40 @@ import ForgotPassword from './Pages/ForgotPassword'
 import { listFunction, postFunction } from './EngineFunctions/ProjectsFetch'
 
 function App() {
-    const { loginWithRedirect, isAuthenticated, isLoading, logout, user: auth0user } =
-        useAuth0()
+    const {
+        loginWithRedirect,
+        isAuthenticated,
+        isLoading,
+        logout,
+        user: auth0user,
+    } = useAuth0()
     const [isStudent, setIsStudent] = useState(true)
     const [members, setMembers] = useState([])
     const [projects, setProjects] = useState([])
     const [user, setUser] = useState([])
     useEffect(() => {
-        //listFunction('posts-engine').then((data)=>{if(data){setProjects(data)}})
-
+        listFunction('posts-engine').then((data) => {
+            if (data) {
+                setProjects(data)
+            }
+        })
 
         if (auth0user?.name) {
             //uncomment below once profile engine has an example
             //listFunction('profile-engine').then((users)=>{console.log(users.filter((engineUser)=>engineUser?.name == user.name))})
             //setUser
-            setUser({...auth0user,
+            setUser({
+                ...auth0user,
                 friends: user.friends,
                 projects: user.projects,
             })
         }
     }, [auth0user])
 
-    useEffect(()=>{
+    useEffect(() => {
         console.log(user)
         //postFunction({...user, ...}, 'profile-engine')
-    },[user])
-
-    
-
+    }, [user])
 
     return (
         <>
