@@ -23,10 +23,7 @@ class dropdownMajor extends React.Component {
             <form>
                 {/* onSubmit={this.handleSubmit} in the form tag */}
                 <label>
-                    <select
-                    // value={this.state.value}
-                    // onChange={this.handleChange}
-                    >
+                    <select>
                         <option value="default">Major</option>
                         <option value="ACCT">Accounting</option>
                         <option value="AFAM">African American Studies</option>

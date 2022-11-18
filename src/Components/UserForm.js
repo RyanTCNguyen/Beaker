@@ -87,17 +87,6 @@ const UserForm = () => {
                         : 'Continue To Profile'}
                 </Button>
             </div>
-
-            {/* <Button
-                className="ml-5"
-                variant="contained"
-                onClick={handleNext}
-                style={activeStep === 2 ? { display: 'none' } : {}}
-            >
-                {activeStep === steps.length - 2
-                    ? 'Submit'
-                    : 'Continue To Profile'}
-            </Button> */}
         </div>
     )
 }

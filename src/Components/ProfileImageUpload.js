@@ -1,7 +1,6 @@
 //source: https://dev.to/asimdahall/client-side-image-upload-in-react-5ffc
 
 import React from 'react'
-import ReactDOM from 'react-dom'
 import '../Styles/Profile.css'
 
 function ProfileImageUpload() {

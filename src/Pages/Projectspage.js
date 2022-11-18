@@ -24,8 +24,6 @@ function Projectspage({ projects }) {
     const [bookmarks, setBookmarks] = useState([])
 
     useEffect(() => {
-        //fetch data from server
-        // fetchprojects();
         const browse = projects.filter((project) => project.type === 'browse')
         const profile = projects.filter((project) => project.type === 'profile')
         const bookmarked = projects.filter(

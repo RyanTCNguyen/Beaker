@@ -12,8 +12,6 @@ const useStyles = makeStyles({
         margin: '10px',
     },
     largeCards: {
-        // paddingLeft: '10px',
-        // paddingRight: '10px',
         height: '10rem',
         width: '20rem',
         backgroundColor: 'rgba(196, 196, 196, 0.2)',
