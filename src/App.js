@@ -49,6 +49,12 @@ function App() {
             }
         })
 
+        listFunction('profile-engine').then((data) => {
+            if (data) {
+                setUser(data)
+            }
+        })
+
         if (auth0user?.name) {
             //uncomment below once profile engine has an example
             //listFunction('profile-engine').then((users)=>{console.log(users.filter((engineUser)=>engineUser?.name == user.name))})

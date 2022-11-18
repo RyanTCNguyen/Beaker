@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useRef } from 'react'
+import React, { useState } from 'react'
 import '../Styles/Profile.css'
 import Button from '@mui/material/Button'
 import beaker from '../Images/blackLinedBeakerBgRemoved.png'
@@ -45,23 +45,6 @@ function CreateProject() {
     const handleClose = () => {
         setOpen(false)
     }
-
-    const checkAllRequiredValid = (reqValues) => {}
-
-    // const widget = window.cloudinary.createUploadWidget(
-    //     {
-    //         cloudName: process.env.REACT_APP_CLOUD_NAME,
-    //         uploadPreset: process.env.REACT_APP_UPLOAD_PRESET,
-    //     },
-
-    //     (error, result) => {
-    //         console.log('result:', result)
-    //         if (!error && result && result.event === 'success') {
-    //             console.log('Done! Here is the image info: ', result.info)
-    //             setImageAsUrl(result.info.url)
-    //         }
-    //     }
-    // )
 
     const openWidget = (e, widget) => {
         e.preventDefault()
@@ -170,18 +153,6 @@ function CreateProject() {
                     <img className="profile-image" src={beaker} alt="logo" />
                     <h1 className="new-user">New Project</h1>
                     <p className="profile">Project Image</p>
-                    <div>
-                        {/* <img
-                            style={{
-                                width: 250,
-                                height: 250,
-                                paddingTop: 0,
-                            }}
-                            alt="profile"
-                            src={}
-                            onClick={(e) => openWidget(e, widget)}
-                        /> */}
-                    </div>
                     <FormControl inputref={data.title} />
                     <div className="project-name">
                         <TextField

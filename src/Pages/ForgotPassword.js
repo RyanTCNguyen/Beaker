@@ -2,7 +2,6 @@ import React, { useRef, useState } from 'react'
 import { useAuth } from '../Contexts/authContext'
 import { FormControl, Alert, TextField, Button } from '@mui/material'
 import { Link } from 'react-router-dom'
-// import { connectStorageEmulator } from 'firebase/storage'
 import { Box } from '@mui/system'
 import beaker from '../Images/blackLinedBeakerBgRemoved.png'
 import '../Styles/SignIn.css'
@@ -44,7 +43,6 @@ export default function ForgotPassword() {
                 src={beaker}
             />
             <h2 className="sign-in">Password Reset</h2>
-            {/* {JSON.stringify({ currentUser })} */}
             {error && <Alert variant="danger">{error}</Alert>}
             <form onSubmit={handleSubmit}>
                 <FormControl type="email" />

@@ -1,5 +1,4 @@
 import React from 'react'
-import 'firebase/firestore'
 import { Link } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles'
 import {
@@ -58,20 +57,6 @@ const useStyles = makeStyles((theme) => ({
         margin: 0,
     },
 }))
-
-// let USERS = [],
-//     STATUSES = ['Active', 'Pending', 'Blocked']
-// for (let i = 0; i < 14; i++) {
-//     USERS[i] = {
-//         name: faker.name.findName(),
-//         email: faker.internet.email(),
-//         phone: faker.phone.phoneNumber(),
-//         jobTitle: faker.name.jobTitle(),
-//         company: faker.company.companyName(),
-//         joinDate: faker.date.past().toLocaleDateString('en-US'),
-//         status: STATUSES[Math.floor(Math.random() * STATUSES.length)],
-//     }
-// }
 
 function ProjectTable({ projects }) {
     const classes = useStyles()
@@ -173,7 +158,6 @@ function ProjectTable({ projects }) {
                                             <Grid item lg={2}>
                                                 <Avatar
                                                     alt={project.title}
-                                                    // src="."
                                                     src={project.image}
                                                     className={classes.avatar}
                                                 />

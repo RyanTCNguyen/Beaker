@@ -113,60 +113,6 @@ const StudentProfile = () => {
             })
         })
     }
-    // const register = () => {
-    //     registerWithEmailAndPassword(pronouns)
-    // }
-
-    // const usersCollectionRef = useMemo(() => collection(db, 'allusers'), [])
-    // const getUsers = async () => {
-    //     const data = await getDocs(usersCollectionRef)
-    //loop through documents in collection
-    //     setUsers(data.docs.map((doc) => ({ ...doc.data(), key: doc.id })))
-    // }
-    // const createUser = async () => {
-    //     await addDoc(usersCollectionRef, {
-    //         email: email,
-    //         uid: uid,
-    //     })
-    //     getUsers()
-    // }
-
-    // const allUsersCollectionRef = useMemo(() => collection(db, 'allusers'), [])
-    // const getStudents = async () => {
-    //     const data = await getDocs(allUsersCollectionRef)
-    //     setUser(data.docs.map((doc) => ({ ...doc.data(), key: doc.id })))
-    // }
-    // const createStudent = async () => {
-    //     await addDoc(allUsersCollectionRef, {
-    //         first: firstName,
-    //         middle: middleName,
-    //         last: lastName,
-    //         nickname: nickname,
-    //         year: year,
-    //         major: major,
-    //         minor: minor,
-    //         portfolioLink: link,
-    //         pronouns: pronouns,
-    //         resume: resume,
-    //         softskills: softskills,
-    //         bio: bio,
-    //         image: imageAsUrl,
-    //         students: students,
-    //     })
-
-    //     getStudents()
-    // }
-
-    // useEffect(() => {
-    //     const getStudents = async () => {
-    //         const data = await getDocs(studentsCollectionRef)
-    //         //loop through documents in collection
-    //         setStudents(
-    //             data.docs.map((doc) => ({ ...doc.data(), key: doc.id }))
-    //         )
-    //     }
-    //     getStudents()
-    // }, [studentsCollectionRef])
     const classes = useStyles()
 
     const widget = window.cloudinary.createUploadWidget(
@@ -498,7 +444,6 @@ const StudentProfile = () => {
                             className="done-btn1"
                             size="large"
                             variant="contained"
-                            // onClick={register}
                         >
                             Done
                         </Button>

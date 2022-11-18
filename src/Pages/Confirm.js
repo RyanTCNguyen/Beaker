@@ -1,27 +1,9 @@
 import React from 'react'
 import ListGroup from 'react-bootstrap/ListGroup'
-// import firebase from 'firebase/compat/app'
 import { registerWithEmailAndPassword } from '../authActions'
 
 const Confirm = ({ values }) => {
-    const {
-        firstName,
-        // middleName,
-        lastName,
-        // nickname,
-        // year,
-        // major,
-        // minor,
-        // link,
-        // pronouns,
-        // resume,
-        // softskills,
-
-        // bio,
-        // imageAsUrl,
-        // students,
-        email,
-    } = values
+    const { firstName, lastName, email } = values
     const register = () => {
         if (!email) alert('Please enter email')
         registerWithEmailAndPassword(firstName, lastName, email)
