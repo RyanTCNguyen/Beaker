@@ -1,10 +1,12 @@
 import React from 'react'
 import '../Styles/About.css'
 import beakerLogo from '../Images/blackBeakerLogoBgRemoved.png'
-
+import createProjectSS from '../Images/CreateProjectSS.png'
+import createProfileSS from '../Images/CreateProfileSS.png'
+import projectPageSS from '../Images/ProjectPageSS.png'
 import Layout from '../Components/Layout'
-import { Typography } from '@material-ui/core'
-import { IconButton } from '@mui/material'
+import { borders } from '@mui/system'
+import { shadows } from '@mui/system'
 import { makeStyles } from '@material-ui/styles'
 import { Box } from '@mui/system'
 
@@ -21,7 +23,7 @@ function About() {
                     display: 'grid',
                     gridTemplateColumns: '33% 34% 33%',
                     gridTemplateAreas:
-                        '"header header header" "message1 message2 message3"',
+                        '"header header header" "message1 message2 message3" "footer footer footer"',
                     rowGap: 10,
                     columnGap: 0,
                 }}
@@ -88,6 +90,118 @@ function About() {
                     <div className="info">
                         Get connected with people outside of your major
                     </div>
+                </Box>
+                <Box
+                    sx={{
+                        gridArea: 'footer',
+                        textAlign: 'center',
+                        fontSize: '24px',
+                    }}
+                >
+                    {' '}
+                    Scroll for more
+                </Box>
+            </Box>
+            <Box
+                sx={{
+                    display: 'grid',
+                    marginTop: '150px',
+                    gridTemplateColumns: '50% 50%',
+                    gridTemplateAreas:
+                        '"photo1 message4" "message5 photo2" "photo3 message6"',
+                    rowGap: 10,
+                    columnGap: 0,
+                }}
+            >
+                <Box
+                    component="img"
+                    sx={{
+                        gridArea: 'photo1',
+                        textAlign: 'center',
+                        margin: '50px',
+                        // backgroundColor: '#0076A5',
+                        // padding: '20px',
+                        height: '80%',
+                        width: '80%',
+                        objectFit: 'contain',
+                    }}
+                    alt="projectpage"
+                    src={projectPageSS}
+                ></Box>
+                <Box
+                    sx={{
+                        gridArea: 'message4',
+                        backgroundColor: '#AB0C2F',
+                        textAlign: 'center',
+                        margin: '50px',
+                        padding: '20px',
+                        fontSize: '32px',
+                        borderRadius: '50%',
+                    }}
+                >
+                    <p className="infoTitle"> Explore Projects </p>
+                    <p className="info">
+                        View projects posted by LMU students and faculty.
+                    </p>
+                </Box>
+                <Box
+                    component="img"
+                    sx={{
+                        gridArea: 'photo2',
+
+                        textAlign: 'center',
+                        margin: 'auto',
+                        height: '80%',
+                        width: '80%',
+                        objectFit: 'contain',
+                    }}
+                    alt="createproject"
+                    src={createProjectSS}
+                ></Box>
+                <Box
+                    sx={{
+                        gridArea: 'message5',
+                        backgroundColor: '#0076A5',
+                        textAlign: 'center',
+                        margin: '50px',
+                        padding: '20px',
+                        fontSize: '32px',
+                        borderRadius: '50%',
+                    }}
+                >
+                    <p className="infoTitle"> Create a Project </p>
+                    <p className="info">
+                        Create a project with all your necessary information.
+                    </p>
+                </Box>
+                <Box
+                    component="img"
+                    sx={{
+                        gridArea: 'photo3',
+                        textAlign: 'center',
+                        margin: '50px',
+                        height: '80%',
+                        width: '80%',
+                        objectFit: 'contain',
+                    }}
+                    alt="createprofile"
+                    src={createProfileSS}
+                ></Box>
+                <Box
+                    sx={{
+                        gridArea: 'message6',
+                        backgroundColor: '#AB0C2F',
+                        textAlign: 'center',
+                        margin: '50px',
+                        padding: '20px',
+                        fontSize: '32px',
+                        borderRadius: '50%',
+                    }}
+                >
+                    <p className="infoTitle"> Customize your Profile </p>
+                    <p className="info">
+                        Create your profile to show off your skills.
+                    </p>
                 </Box>
             </Box>
         </Layout>

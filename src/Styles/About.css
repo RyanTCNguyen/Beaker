@@ -1,7 +1,3 @@
-html {
-    background-color: #c8c9c7;
-}
-
 .title {
     font-style: bold;
     font-size: 100px;
@@ -19,9 +15,11 @@ html {
 .infoTitle {
     font-weight: bold;
     font-style: italic;
+    color: white;
 }
 
 .info {
     font-style: italic;
     padding-bottom: 10%;
+    color: white;
 }
