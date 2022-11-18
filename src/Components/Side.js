@@ -1,5 +1,5 @@
 /**
- * sidebaritems are a list of objects that contain a string link, string value, and inetger key
+ * sidebaritems are a list of objects that contain a string link, string value, and integer key
  * @param {*} sidebaritems
  * @returns a sidebar
  */

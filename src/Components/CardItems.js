@@ -53,9 +53,7 @@ function CardItems({ project }) {
                 height="200"
                 image={`${process.env.PUBLIC_URL}/projectImages/${project.image}`}
                 alt={project.title}
-            >
-                {/* {props.image} */}
-            </CardMedia>
+            ></CardMedia>
         </Card>
     )
 }

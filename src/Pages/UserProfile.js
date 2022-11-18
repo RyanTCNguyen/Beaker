@@ -59,13 +59,9 @@ function UserProfile() {
                 src={beaker}
             />
             <h2 className="profile">Profile</h2>
-            {/* {JSON.stringify({ currentUser })} */}
             {error && <Alert variant="danger">{error}</Alert>}
             <form onSubmit={handleSubmit}>
-                <FormControl
-                    type="email"
-                    // inputRef={emailRef}
-                />
+                <FormControl type="email" />
                 <div className="update-email-text-field">
                     <TextField
                         type="text"
@@ -79,10 +75,7 @@ function UserProfile() {
                         }}
                     />
                 </div>
-                <FormControl
-                    type="password"
-                    // inputRef={passwordRef}
-                />
+                <FormControl type="password" />
                 <div className="update-password-text-field">
                     <TextField
                         type="password"
@@ -95,10 +88,7 @@ function UserProfile() {
                         }}
                     />
                 </div>
-                <FormControl
-                    type="password"
-                    // ref={passwordConfirmRef}
-                />
+                <FormControl type="password" />
                 <div className="confirm-password-text-field">
                     <TextField
                         type="password"
