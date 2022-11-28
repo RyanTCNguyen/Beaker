@@ -5,6 +5,7 @@ import Button from '@mui/material/Button'
 import beaker from '../Images/blackLinedBeakerBgRemoved.png'
 import { Link } from 'react-router-dom'
 import 'firebase/firestore'
+import { useAuth0 } from '@auth0/auth0-react'
 import { storage } from '../firebase'
 import Uploadfile from '../Components/UploadFile'
 import '../Styles/Dropdown.css'
@@ -13,6 +14,13 @@ import MenuItem from '@mui/material/MenuItem'
 import FormControl from '@mui/material/FormControl'
 import Select from '@mui/material/Select'
 import TextField from '@mui/material/TextField'
+import {
+    listFunction,
+    postFunction,
+    getFunction,
+    deleteFunction,
+    updateFunction,
+} from '../EngineFunctions/ProjectsFetch'
 
 const useStyles = makeStyles((theme) => ({
     yearDropdown: {
@@ -36,25 +44,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const StudentProfile = () => {
-    // const {
-    //     firstName,
-    //     middleName,
-    //     lastName,
-    //     nickname,
-    //     year,
-    //     major,
-    //     minor,
-    //     link,
-    //     pronouns,
-    //     resume,
-    //     softskills,
-
-    //     bio,
-    //     imageAsUrl,
-    //     students,
-    //     email,
-    //     password,
-    // } = values
+    const { user } = useAuth0()
     const [firstName, setFirstName] = useState('')
     const [middleName, setMiddleName] = useState('')
     const [lastName, setLastName] = useState('')
@@ -70,6 +60,23 @@ const StudentProfile = () => {
     const [url, setURL] = useState('')
     const [students, setStudents] = useState(true)
     const [users, setUsers] = useState([])
+    const defaultData = {
+        email: user.email,
+        firstname: '',
+        middlename: '',
+        lastname: '',
+        nickname: '',
+        major: [],
+        minor: [],
+        portfoliolink: '',
+        resume: '',
+        bio: '',
+        year: '',
+        pronouns: '',
+        student: true,
+    }
+
+    const [data, setData] = useState(defaultData)
 
     const [imageAsFile, setImageAsFile] = useState(null)
     const [imageAsUrl, setImageAsUrl] = useState(

@@ -6,7 +6,6 @@ import studsidebaritems from './studsidebaritems'
 import sidebaritems from './sidebaritems'
 
 import Projectspage from './Pages/Projectspage'
-import NewUserStudent from './Pages/NewUser'
 
 import StudentProfile from './Pages/StudentProfile'
 import EditStudentProfile from './Pages/EditStudentProfile'
@@ -21,14 +20,13 @@ import Dashboard from './Pages/Dashboard'
 import About from './Pages/About'
 
 import BookmarkedProjects from './Pages/BookmarkedProjects'
-
-import UserProfile from './Pages/UserProfile'
 import CreateProject from './Pages/CreateProject'
 import EditProject from './Pages/EditProject'
 import FacultyProjectDetails from './Pages/FacultyProjectDetails'
 import { useAuth0 } from '@auth0/auth0-react'
 import ForgotPassword from './Pages/ForgotPassword'
 import { listFunction, postFunction } from './EngineFunctions/ProjectsFetch'
+import BeakerSignUp from './Pages/BeakerSignUp'
 
 function App() {
     const {
@@ -68,7 +66,6 @@ function App() {
     }, [auth0user])
 
     useEffect(() => {
-        console.log(user)
         //postFunction({...user, ...}, 'profile-engine')
     }, [user])
 
@@ -87,11 +84,6 @@ function App() {
                         )}
                     />
 
-                    <Route
-                        path="/newuserstudent"
-                        exact
-                        component={NewUserStudent}
-                    />
                     <Route
                         path="/studentprofile"
                         exact
@@ -181,7 +173,6 @@ function App() {
                             />
                         )}
                     />
-                    <Route path="/userprofile" exact component={UserProfile} />
 
                     <Route
                         path="/aboutproject/:projectId"
@@ -214,7 +205,11 @@ function App() {
                             />
                         )}
                     />
-                    <Route path="/userprofile" exact component={UserProfile} />
+                    <Route
+                        path="/beakersignup"
+                        exact
+                        render={(props) => <BeakerSignUp />}
+                    />
                 </Switch>
             </Router>
         </>
