@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import '../Styles/Profile.css'
 import Button from '@mui/material/Button'
 import beaker from '../Images/blackLinedBeakerBgRemoved.png'
-import { Link } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import Uploadfile from '../Components/UploadFile'
 import '../Styles/Dropdown.css'
 import InputLabel from '@mui/material/InputLabel'
@@ -13,7 +13,7 @@ import Select from '@mui/material/Select'
 import TextField from '@mui/material/TextField'
 import { useEffect } from 'react'
 import { useAuth0 } from '@auth0/auth0-react'
-import { postFunction, updateFunction } from '../EngineFunctions/ProjectsFetch'
+import { postFunction, updateFunction, listFunction } from '../EngineFunctions/ProjectsFetch'
 
 const useStyles = makeStyles((theme) => ({
     yearDropdown: {
@@ -35,12 +35,29 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'end',
     },
 }))
+const defaultUser = {
+    firstname: '', 
+    middlename: '', 
+    email: '',
+    lastname: '', 
+    nickname: '', 
+    major: [], 
+    minor: [], 
+    link: '', 
+    resume: '', 
+    softskills: '', 
+    bio: '', 
+    year: '', 
+    pronouns: '', 
+    url: '', 
+    student: true, 
+    users: []}
 
-const StudentProfile = ({user, editing=false, type="New User"}) => {
+export default function StudentProfile ({user=defaultUser, editing=false, type="New User", redirect=true}) {
     // const {
-    //     firstName,
-    //     middleName,
-    //     lastName,
+    //     firstname,
+    //     middlename,
+    //     lastname,
     //     nickname,
     //     year,
     //     major,
@@ -56,24 +73,10 @@ const StudentProfile = ({user, editing=false, type="New User"}) => {
     //     email,
     //     password,
     // } = values
-    const defaultUser = {firstName: '', 
-    middleName: '', 
-    lastName: '', 
-    nickname: '', 
-    major: [], 
-    minor: [], 
-    link: '', 
-    resume: '', 
-    softskills: '', 
-    bio: '', 
-    year: '', 
-    pronouns: '', 
-    url: '', 
-    student: true, 
-    users: []}
-
     
-    const [currentUser, setCurrentUser] = useState(defaultUser)
+
+    let history = useHistory();
+    const [currentUser, setCurrentUser] = useState(user)
     const editStyle = () => {if (editing){return {paddingLeft: '30vw'}} else return {}}
     const [imageAsFile, setImageAsFile] = useState(null)
     const [imageAsUrl, setImageAsUrl] = useState(
@@ -112,7 +115,8 @@ const StudentProfile = ({user, editing=false, type="New User"}) => {
         //TODO handle uploading images
     }
 
-    function submitUser () {
+    const submitUser = () => {
+        console.log(currentUser)
         const requiredFields = ['nickname', 'major', 'year', 'bio']
         let missing = 0;
         requiredFields.forEach((n)=>{
@@ -121,17 +125,22 @@ const StudentProfile = ({user, editing=false, type="New User"}) => {
             }
         })
         if (missing === 0) {
+            
             if (user?.id) {
-                updateFunction('posts-engine', {...user, ...currentUser})
+                updateFunction('profiles-engine', {...currentUser, email: user.email, id: user.id})
                 console.log("PUTED")
             } else {
-                postFunction('posts-engine', {...user, ...currentUser})
+                postFunction('profiles-engine', {...currentUser, email: user.email})
                 console.log("POSTED")
+            }
+            if (redirect) {
+                history.push("/dashboard")
             }
             
         } else {
             console.log(`Missing ${missing} Fields`)
         }
+        
     }
 
     const classes = useStyles()
@@ -468,7 +477,7 @@ const StudentProfile = ({user, editing=false, type="New User"}) => {
                             className="done-btn1"
                             size="large"
                             variant="contained"
-                            onClick={submitUser}
+                            onClick={()=>submitUser()}
                         >
                             Done
                         </Button>
@@ -478,4 +487,3 @@ const StudentProfile = ({user, editing=false, type="New User"}) => {
     )
 }
 
-export default StudentProfile

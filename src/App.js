@@ -50,7 +50,7 @@ function App() {
         console.log(auth0user)
         listFunction('profiles-engine').then((data) => {
             if (data && auth0user) {
-                setEngineUser({...auth0user, ...data.filter((usr)=>usr.email === auth0user?.name)})
+                setEngineUser(data.filter((usr)=>usr.email === auth0user?.name))
             }
         })
     }, [auth0user])
@@ -73,10 +73,7 @@ function App() {
                     <Route
                         path="/studentprofile"
                         exact>
-                            <StudentProfile
-                                user={auth0user}
-                                
-                            />
+                            <StudentProfile/>
                     </Route>
                     <Route
                         path="/createproject"
@@ -143,12 +140,12 @@ function App() {
                     <Route
                     path="/dashboard"
                     exact
-                    render={(props) => <Dashboard user={engineUser} auth0user={auth0user} />}/>
+                    render={(props) => <Dashboard user={engineUser[0]} projects={projects} />}/>
                     :
                     <Route
                     path="/dashboard"
                     exact
-                    render={(props) => <Dashboard user={engineUser} auth0user={auth0user} />}/>}
+                    render={(props) => <Dashboard user={engineUser[0]} projects={projects}  />}/>}
                     <Route
                         path="/bookmarkedprojects"
                         exact

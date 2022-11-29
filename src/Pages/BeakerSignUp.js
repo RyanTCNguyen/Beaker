@@ -8,13 +8,16 @@ export default function BeakerSignUp() {
     const { user, isAuthenticated, isLoading } = useAuth0()
     const [existingUser, setExistingUser] = useState(null)
     const [isStudent, setIsStudent] = useState(null)
+    const [users, setUsers] = useState(null)
     useEffect(() => {
         if (isAuthenticated && !isLoading) {
             console.log(user.name)
             setIsStudent(user.name.includes('lion.lmu.edu'))
             listFunction('profiles-engine').then((data) => {
+                
                 if (data.filter((usr) => usr.email === user.name)?.length) {
                     setExistingUser(true)
+                    setUsers(data)
                 }
             })
         }
@@ -26,7 +29,7 @@ export default function BeakerSignUp() {
 
     return (
         <>
-            {isAuthenticated && !isLoading && isStudent !== null ? (
+            {isAuthenticated && !isLoading && isStudent !== null && users !== null ? (
                 <>
                     {existingUser ? (
                         <Redirect to="/dashboard" replace={true} />
