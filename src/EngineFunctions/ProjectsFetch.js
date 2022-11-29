@@ -16,7 +16,7 @@ export const postFunction = async (engine, data) => {
     await client.indexDocuments(engine, data)
 }
 
-export const listFunction = (engine) => {
+export const listFunction = async (engine) => {
     const ApiKey = process.env.REACT_APP_API_KEY
     const params = {
         method: 'GET',
