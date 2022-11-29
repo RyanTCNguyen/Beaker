@@ -13,6 +13,8 @@ export default function BeakerSignUp() {
             console.log(user.name)
             setIsStudent(user.name.includes('lion.lmu.edu'))
             listFunction('profiles-engine').then((data) => {
+                console.log(data)
+                console.log(data.filter((usr) => usr.email === user.name))
                 if (data.filter((usr) => usr.email === user.name)?.length) {
                     setExistingUser(true)
                 }

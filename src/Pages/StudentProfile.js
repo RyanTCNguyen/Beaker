@@ -62,17 +62,17 @@ const StudentProfile = () => {
     const [users, setUsers] = useState([])
     const defaultData = {
         email: user.email,
-        firstname: '',
-        middlename: '',
-        lastname: '',
-        nickname: '',
-        major: [],
+        firstname: 'Ryan',
+        middlename: 'Cong',
+        lastname: 'Nguyen',
+        nickname: 'Ruckus',
+        major: ['CMSI'],
         minor: [],
-        portfoliolink: '',
-        resume: '',
-        bio: '',
-        year: '',
-        pronouns: '',
+        portfoliolink: 'NA',
+        resume: 'NA',
+        bio: 'Hi',
+        year: 'Senior',
+        pronouns: 'he/him',
         student: true,
     }
 
@@ -446,14 +446,17 @@ const StudentProfile = () => {
                 </div>
                 <div className="done">
                     <Link className="button-link" to="/projectspage">
-                        <Button
+                        <button
                             type="button"
                             className="done-btn1"
                             size="large"
                             variant="contained"
+                            onClick={() =>
+                                postFunction('profiles-engine', defaultData)
+                            }
                         >
                             Done
-                        </Button>
+                        </button>
                     </Link>
                 </div>
             </div>
