@@ -4,9 +4,6 @@ import '../Styles/Profile.css'
 import Button from '@mui/material/Button'
 import beaker from '../Images/blackLinedBeakerBgRemoved.png'
 import { Link } from 'react-router-dom'
-import 'firebase/firestore'
-import { useAuth0 } from '@auth0/auth0-react'
-import { storage } from '../firebase'
 import Uploadfile from '../Components/UploadFile'
 import '../Styles/Dropdown.css'
 import InputLabel from '@mui/material/InputLabel'
@@ -14,13 +11,9 @@ import MenuItem from '@mui/material/MenuItem'
 import FormControl from '@mui/material/FormControl'
 import Select from '@mui/material/Select'
 import TextField from '@mui/material/TextField'
-import {
-    listFunction,
-    postFunction,
-    getFunction,
-    deleteFunction,
-    updateFunction,
-} from '../EngineFunctions/ProjectsFetch'
+import { useEffect } from 'react'
+import { useAuth0 } from '@auth0/auth0-react'
+import { postFunction, updateFunction } from '../EngineFunctions/ProjectsFetch'
 
 const useStyles = makeStyles((theme) => ({
     yearDropdown: {
@@ -43,83 +36,104 @@ const useStyles = makeStyles((theme) => ({
     },
 }))
 
-const StudentProfile = () => {
-    const { user } = useAuth0()
-    const [firstName, setFirstName] = useState('')
-    const [middleName, setMiddleName] = useState('')
-    const [lastName, setLastName] = useState('')
-    const [nickname, setNickname] = useState('')
-    const [major, setMajor] = useState([])
-    const [minor, setMinor] = useState([])
-    const [link, setPortfolioLink] = useState(6)
-    const [resume, setResume] = useState('')
-    const [softskills, setSoftskills] = useState('')
-    const [bio, setBio] = useState('')
-    const [year, setYear] = useState('')
-    const [pronouns, setPronouns] = useState('')
-    const [url, setURL] = useState('')
-    const [students, setStudents] = useState(true)
-    const [users, setUsers] = useState([])
-    const defaultData = {
-        email: user.email,
-        firstname: '',
-        middlename: '',
-        lastname: '',
-        nickname: '',
-        major: [],
-        minor: [],
-        portfoliolink: '',
-        resume: '',
-        bio: '',
-        year: '',
-        pronouns: '',
-        student: true,
-    }
+const StudentProfile = ({user, editing=false, type="New User"}) => {
+    // const {
+    //     firstName,
+    //     middleName,
+    //     lastName,
+    //     nickname,
+    //     year,
+    //     major,
+    //     minor,
+    //     link,
+    //     pronouns,
+    //     resume,
+    //     softskills,
 
-    const [data, setData] = useState(defaultData)
+    //     bio,
+    //     imageAsUrl,
+    //     students,
+    //     email,
+    //     password,
+    // } = values
+    const defaultUser = {firstName: '', 
+    middleName: '', 
+    lastName: '', 
+    nickname: '', 
+    major: [], 
+    minor: [], 
+    link: '', 
+    resume: '', 
+    softskills: '', 
+    bio: '', 
+    year: '', 
+    pronouns: '', 
+    url: '', 
+    student: true, 
+    users: []}
 
+    
+    const [currentUser, setCurrentUser] = useState(defaultUser)
+    const editStyle = () => {if (editing){return {paddingLeft: '30vw'}} else return {}}
     const [imageAsFile, setImageAsFile] = useState(null)
     const [imageAsUrl, setImageAsUrl] = useState(
         `${process.env.PUBLIC_URL}/projectImages/user.png`
     )
 
     const handleChangeYear = (e) => {
-        setYear(e.target.value)
+        setCurrentUser({...currentUser, year: e.target.value})
     }
     const handleChangeMajor = (e) => {
         const {
             target: { value },
         } = e
-        setMajor(typeof value === 'string' ? value.split(',') : value)
+        setCurrentUser({...currentUser, major: typeof value === 'string' ? value.split(',') : value})
     }
 
     const handleChangeMinor = (e) => {
         const {
             target: { value },
         } = e
-        setMinor(typeof value === 'string' ? value.split(',') : value)
+        setCurrentUser({...currentUser, minor: typeof value === 'string' ? value.split(',') : value})
     }
 
     const handleUploads = (f) => {
-        setResume(f.target.files[0])
+        setCurrentUser({...currentUser, resume: f.target.files[0]})
     }
 
-    console.log(imageAsFile)
+    
     const handleImageAsFile = (e) => {
+        console.log(imageAsFile)
         setImageAsFile(e.target.files[0])
     }
 
     function handleUpload(e) {
         e.preventDefault()
-        const ref = storage.ref(`/Images/${imageAsFile.name}`)
-        const uploadTask = ref.put(imageAsFile)
-        uploadTask.on('state_changed', console.log, console.error, () => {
-            ref.getDownloadURL().then((url) => {
-                setImageAsFile(null)
-                setImageAsUrl(url)
-            })
-        })
+        //TODO handle uploading images
     }
+
+    function submitUser () {
+        const requiredFields = ['nickname', 'major', 'year', 'bio']
+        let missing = 0;
+        requiredFields.forEach((n)=>{
+            if (currentUser[n] === defaultUser[n]) {
+                missing++
+            }
+        })
+        if (missing === 0) {
+            if (user?.id) {
+                updateFunction('posts-engine', {...user, ...currentUser})
+                console.log("PUTED")
+            } else {
+                postFunction('posts-engine', {...user, ...currentUser})
+                console.log("POSTED")
+            }
+            
+        } else {
+            console.log(`Missing ${missing} Fields`)
+        }
+    }
+
     const classes = useStyles()
 
     const widget = window.cloudinary.createUploadWidget(
@@ -268,14 +282,18 @@ const StudentProfile = () => {
 
     return (
         <div className="new-profile">
-            <div className="left-screen-student">
-                <h1 className="left-text-info" id="left-text">
-                    Create <br></br> Your <br></br> Profile
-                </h1>
-            </div>
-            <div className="right-screen">
+            {editing ? 
+                <></> 
+                : 
+                <div className="left-screen-student">
+                    <h1 className="left-text-info" id="left-text">
+                        Create <br></br> Your <br></br> Profile
+                    </h1>
+                </div>
+            }
+            <div style={editStyle()} className="right-screen">
                 <img className="profile-image" src={beaker} alt="logo" />
-                <h1 className="new-user">New User</h1>
+                <h1 className="new-user">{type}</h1>
                 <p className="profile">Profile</p>
 
                 <div>
@@ -335,9 +353,9 @@ const StudentProfile = () => {
                         type="text"
                         label="Nickname/Preferred Name"
                         placeholder="Nickname/Preferred Name"
-                        defaultValue={nickname}
+                        defaultValue={currentUser.nickname}
                         style={{ width: '50%' }}
-                        // onChange={handleChange('nickname')}
+                        onChange={(e)=>{setCurrentUser({...currentUser, nickname: e.target.value})}}
                     />
                 </div>
                 <FormControl />
@@ -346,7 +364,7 @@ const StudentProfile = () => {
                         type="text"
                         label="Pronouns (Ex: she/her)"
                         placeholder="Pronouns (Ex: she/her)"
-                        defaultValue={pronouns}
+                        defaultValue={currentUser.pronouns}
                         style={{ width: '50%' }}
                         // onChange={handleChange('pronouns')}
                     />
@@ -355,8 +373,8 @@ const StudentProfile = () => {
                     <FormControl required style={{ width: '55%' }}>
                         <InputLabel>Year</InputLabel>
                         <Select
-                            defaultValue={year}
-                            // onChange={handleChange('year')}
+                            defaultValue={currentUser.year}
+                            onChange={handleChangeYear}
                         >
                             {yearOptionsSP.map((yearOption) => (
                                 <MenuItem key={yearOption} value={yearOption}>
@@ -371,8 +389,8 @@ const StudentProfile = () => {
                         <InputLabel>Major(s)</InputLabel>
                         <Select
                             multiple
-                            defaultValue={major}
-                            // onChange={handleChange(major)}
+                            defaultValue={currentUser.major}
+                            onChange={handleChangeMajor}
                         >
                             {majorOptionsSP.map((majorOption) => (
                                 <MenuItem key={majorOption} value={majorOption}>
@@ -387,7 +405,7 @@ const StudentProfile = () => {
                         <InputLabel>Minor(s)</InputLabel>
                         <Select
                             multiple
-                            value={minor}
+                            value={currentUser.minor}
                             onChange={handleChangeMinor}
                         >
                             {minorOptions.map((minorOption) => (
@@ -404,10 +422,10 @@ const StudentProfile = () => {
                         type="text"
                         label="Soft Skills (separate by commas)"
                         placeholder="Soft Skills (separate by commas)"
-                        value={softskills}
+                        value={currentUser.softskills}
                         style={{ width: '50%' }}
                         onChange={(event) => {
-                            setSoftskills(event.target.value)
+                            setCurrentUser({...currentUser, softskills: event.target.value})
                         }}
                     />
                 </div>
@@ -418,10 +436,10 @@ const StudentProfile = () => {
                         rows={6}
                         label="Tell us about yourself"
                         placeholder="Tell us about yourself"
-                        value={bio}
+                        value={currentUser.bio}
                         style={{ width: '50%' }}
                         onChange={(event) => {
-                            setBio(event.target.value)
+                            setCurrentUser({...currentUser, bio: event.target.value})
                         }}
                     />
                 </div>
@@ -437,24 +455,23 @@ const StudentProfile = () => {
                         type="text"
                         label="Link to Portfolio/Website"
                         placeholder="Link to Portfolio/Website"
-                        value={link}
+                        value={currentUser.link}
                         style={{ width: '50%' }}
                         onChange={(event) => {
-                            setPortfolioLink(event.target.value)
+                            setCurrentUser({...currentUser, link: event.target.value})
                         }}
                     />
                 </div>
                 <div className="done">
-                    <Link className="button-link" to="/projectspage">
                         <Button
                             type="button"
                             className="done-btn1"
                             size="large"
                             variant="contained"
+                            onClick={submitUser}
                         >
                             Done
                         </Button>
-                    </Link>
                 </div>
             </div>
         </div>

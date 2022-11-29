@@ -224,7 +224,7 @@ function ProjectTable({ projects }) {
                         rowsPerPage={rowsPerPage}
                         page={page}
                         onChangePage={handleChangePage}
-                        onChangeRowsPerPage={handleChangeRowsPerPage}
+                        onRowsPerPageChange={handleChangeRowsPerPage}
                     />
                 </TableFooter>
             </Table>
