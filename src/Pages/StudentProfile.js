@@ -13,7 +13,7 @@ import Select from '@mui/material/Select'
 import TextField from '@mui/material/TextField'
 import { useEffect } from 'react'
 import { useAuth0 } from '@auth0/auth0-react'
-import { postFunction, updateFunction, listFunction } from '../EngineFunctions/ProjectsFetch'
+import { postFunction, updateFunction } from '../EngineFunctions/ProjectsFetch'
 
 const useStyles = makeStyles((theme) => ({
     yearDropdown: {
@@ -74,8 +74,7 @@ export default function StudentProfile ({user=defaultUser, editing=false, type="
     //     password,
     // } = values
     
-    const {user: auth0user,
-    } = useAuth0()
+
     let history = useHistory();
     const [currentUser, setCurrentUser] = useState(user)
     const editStyle = () => {if (editing){return {paddingLeft: '30vw'}} else return {}}
@@ -131,7 +130,7 @@ export default function StudentProfile ({user=defaultUser, editing=false, type="
                 updateFunction('profiles-engine', {...currentUser, email: user.email, id: user.id})
                 console.log("PUTED")
             } else {
-                postFunction('profiles-engine', {...currentUser, email: auth0user.email})
+                postFunction('profiles-engine', {...currentUser, email: user.email})
                 console.log("POSTED")
             }
             if (redirect) {
@@ -489,4 +488,3 @@ export default function StudentProfile ({user=defaultUser, editing=false, type="
         </div>
     )
 }
-
