@@ -74,7 +74,8 @@ export default function StudentProfile ({user=defaultUser, editing=false, type="
     //     password,
     // } = values
     
-
+    const {user: auth0user,
+    } = useAuth0()
     let history = useHistory();
     const [currentUser, setCurrentUser] = useState(user)
     const editStyle = () => {if (editing){return {paddingLeft: '30vw'}} else return {}}
@@ -130,11 +131,13 @@ export default function StudentProfile ({user=defaultUser, editing=false, type="
                 updateFunction('profiles-engine', {...currentUser, email: user.email, id: user.id})
                 console.log("PUTED")
             } else {
-                postFunction('profiles-engine', {...currentUser, email: user.email})
+                postFunction('profiles-engine', {...currentUser, email: auth0user.email})
                 console.log("POSTED")
             }
             if (redirect) {
                 history.push("/dashboard")
+            } else {
+                window.reload()
             }
             
         } else {

@@ -50,7 +50,7 @@ function App() {
         console.log(auth0user)
         listFunction('profiles-engine').then((data) => {
             if (data && auth0user) {
-                setEngineUser(data.filter((usr)=>usr.email === auth0user?.name))
+                setEngineUser(data.filter((usr)=>usr.email === auth0user?.email))
             }
         })
     }, [auth0user])
@@ -136,7 +136,7 @@ function App() {
                             <AboutMember {...props} members={members} />
                         )}
                     />
-                    {!isLoading && isAuthenticated && auth0user ? 
+                    {!isLoading && isAuthenticated && engineUser ? 
                     <Route
                     path="/dashboard"
                     exact

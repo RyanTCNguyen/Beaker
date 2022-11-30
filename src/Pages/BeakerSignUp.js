@@ -18,6 +18,9 @@ export default function BeakerSignUp() {
                 if (data.filter((usr) => usr.email === user.name)?.length) {
                     setExistingUser(true)
                     setUsers(data)
+                } else {
+                    setExistingUser(false)
+                    setUsers([])
                 }
             })
         }

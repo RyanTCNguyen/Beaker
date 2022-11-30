@@ -20,16 +20,18 @@ function Dashboard({ user, projects }) {
     useEffect(()=>{if (user?.student) {console.log(user)}},[user])
     return (
         <Layout>
-            {user ? 
             <Side sidebaritems={sidebaritems} setPage={setPage}>
+            {user ? 
+            <>
             {(page === 'Profile'  ) ? <>{user?.student ? <Profile type="Student" user={user} editing={true} redirect={false}/>: <Profile type="Faculty" user={user} editing={true} redirect={false}/>}</>:<></>}
             {(page === 'MyProjects'  ) ? <div>{<div style={{paddingLeft: '25vw', paddingTop: '5vh'}}><h1 style={{fontSize: '3vh'}}>My Projects</h1><ProjectTableNew projects={projects?.filter((project)=>project.members?.includes(user.name))} /></div>}</div>:<></>}
             {(page === 'Bookmarks'  ) ? <div>{<div style={{paddingLeft: '25vw', paddingTop: '5vh'}}><h1 style={{fontSize: '3vh'}}>Bookmarked Projects</h1><ProjectTableNew projects={projects?.filter((project)=>user?.bookmarked?.includes(project.id))} /></div>}</div>:<></>}
             {(page === 'Discover'  ) ? <div>{<div style={{paddingLeft: '25vw', paddingTop: '5vh'}}><h1 style={{fontSize: '3vh'}}>Discover Projects</h1><ProjectTableNew projects={projects?.filter((project)=>user?.bookmarked?.includes(project.id))} /></div>}</div>:<></>}
-            </Side>
+            </>
             :
             <></>
             }
+            </Side>
         </Layout>
     )
 }
