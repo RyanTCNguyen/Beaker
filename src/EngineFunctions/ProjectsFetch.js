@@ -27,7 +27,7 @@ export const listFunction = async (engine) => {
         mode: 'cors',
     }
     return fetch(
-        `https://beaker-56e3d8.ent.us-central1.gcp.cloud.es.io/api/as/v1/engines/${engine}/documents/list`,
+        `https://beaker-f21d97.ent.us-central1.gcp.cloud.es.io/as/v1/engines/${engine}/documents/list`,
         params
     )
         .then((data) => {
@@ -51,7 +51,7 @@ export const getFunction = async (engine, docID) => {
         mode: 'cors',
     }
     return fetch(
-        `https://beaker-56e3d8.ent.us-central1.gcp.cloud.es.io/api/as/v1/engines/${engine}/documents?ids%5B%5D=${docID}`,
+        `https://beaker-f21d97.ent.us-central1.gcp.cloud.es.io/api/as/v1/engines/${engine}/documents?ids%5B%5D=${docID}`,
         params
     )
         .then((data) => {
