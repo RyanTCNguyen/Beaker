@@ -173,6 +173,8 @@ const StudentProfile = () => {
             }
             if (redirect) {
                 history.push('/dashboard')
+            } else {
+                window.reload()
             }
         } else {
             console.log(`Missing ${missing} Fields`)
