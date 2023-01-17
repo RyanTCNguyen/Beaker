@@ -27,7 +27,8 @@ export const listFunction = async (engine) => {
         mode: 'cors',
     }
     return fetch(
-        `https://beaker-f21d97.ent.us-central1.gcp.cloud.es.io/as/v1/engines/${engine}/documents/list`,
+        process.env.REACT_APP_ENDPOINT_BASE +
+            `/engines/${engine}/documents/list`,
         params
     )
         .then((data) => {
@@ -51,7 +52,8 @@ export const getFunction = async (engine, docID) => {
         mode: 'cors',
     }
     return fetch(
-        `https://beaker-f21d97.ent.us-central1.gcp.cloud.es.io/api/as/v1/engines/${engine}/documents?ids%5B%5D=${docID}`,
+        process.env.REACT_APP_ENDPOINT_BASE +
+            `/engines/${engine}/documents?ids%5B%5D=${docID}`,
         params
     )
         .then((data) => {
