@@ -16,7 +16,7 @@ function ProjectTableNew({ projects }) {
                             display: 'inline-block',
                             position: 'relative',
                             width: 50,
-                            height: 50,
+                            height: '8vh',
                             overflow: 'hidden',
                             borderRadius: 50,
                         }}

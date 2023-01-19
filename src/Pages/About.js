@@ -21,7 +21,7 @@ function About() {
             <Box
                 sx={{
                     display: 'grid',
-                    gridTemplateColumns: '33% 34% 33%',
+                    gridTemplateColumns: '30% 40% 30%',
                     gridTemplateAreas:
                         '"header header header" "message1 message2 message3" "footer footer footer"',
                     rowGap: 10,
@@ -119,8 +119,6 @@ function About() {
                         gridArea: 'photo1',
                         textAlign: 'center',
                         margin: '50px',
-                        // backgroundColor: '#0076A5',
-                        // padding: '20px',
                         height: '80%',
                         width: '80%',
                         objectFit: 'contain',
