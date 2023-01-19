@@ -23,7 +23,7 @@ function CreateProject() {
         applicants: [],
         creator: user.name,
         description: '',
-        groupmembers: [],
+        groupmembers: [user.name],
         image: '',
         incentives: [],
         members: 1,
