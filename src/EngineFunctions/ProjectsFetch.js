@@ -90,3 +90,26 @@ export const deleteFunction = async (engine, docID) => {
             console.log(data)
         })
 }
+
+export const verifyEmail = async (user) => {
+    const ApiKey = process.env.REACT_APP_VERIFY_KEY
+    const params = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${ApiKey}`,
+        },
+        mode: 'cors',
+        body: JSON.stringify([user]),
+    }
+    return await fetch(
+        process.env.REACT_APP_AUTH0_API + 'jobs/verification-email',
+        params
+    )
+        .then((data) => {
+            return data.json()
+        })
+        .then((data) => {
+            console.log(data)
+        })
+}
