@@ -14,6 +14,7 @@ import TextField from '@mui/material/TextField'
 import { useEffect } from 'react'
 import { useAuth0 } from '@auth0/auth0-react'
 import { postFunction, updateFunction } from '../EngineFunctions/ProjectsFetch'
+import { WorkRounded } from '@material-ui/icons'
 
 const useStyles = makeStyles((theme) => ({
     yearDropdown: {
@@ -43,13 +44,11 @@ const defaultUser = {
     nickname: '',
     major: [],
     minor: [],
-    link: '',
     resume: '',
     softskills: '',
     bio: '',
     year: '',
     pronouns: '',
-    url: '',
     student: true,
     users: [],
 }
@@ -81,6 +80,7 @@ export default function StudentProfile({
     // } = values
 
     let history = useHistory()
+    const { user: authUser } = useAuth0()
     const [currentUser, setCurrentUser] = useState(user)
     const editStyle = () => {
         if (editing) {
@@ -131,28 +131,32 @@ export default function StudentProfile({
 
     const submitUser = () => {
         console.log(currentUser)
-        const requiredFields = ['nickname', 'major', 'year', 'bio']
+        const requiredFields = ['firstname', 'lastname', 'major', 'year', 'bio']
         let missing = 0
+        let missingArr = []
         requiredFields.forEach((n) => {
             if (currentUser[n] === defaultUser[n]) {
+                let tempReqField = n
+                if (tempReqField === 'firstname') {
+                    tempReqField = 'First Name'
+                } else if (tempReqField === 'lastname') {
+                    tempReqField = 'Last Name'
+                } else {
+                    tempReqField = n.charAt(0).toUpperCase() + n.slice(1)
+                }
+                missingArr[missing] = tempReqField
                 missing++
             }
         })
+        for (let i = 1; i < missingArr.length; i++) {
+            missingArr[i] = ` ` + missingArr[i]
+        }
         if (missing === 0) {
-            if (user?.id) {
-                updateFunction('profiles-engine', {
-                    ...currentUser,
-                    email: user.email,
-                    id: user.id,
-                })
-                console.log('PUTED')
-            } else {
-                postFunction('profiles-engine', {
-                    ...currentUser,
-                    email: user.email,
-                })
-                console.log('POSTED')
-            }
+            postFunction('profiles-engine', {
+                ...currentUser,
+                email: authUser.email,
+            })
+            console.log('POSTED')
             if (redirect) {
                 history.push('/dashboard')
             } else {
@@ -160,6 +164,7 @@ export default function StudentProfile({
             }
         } else {
             console.log(`Missing ${missing} Fields`)
+            alert(`Missing these required fields: ${missingArr}`)
         }
     }
 
@@ -324,19 +329,20 @@ export default function StudentProfile({
                 <img className="profile-image" src={beaker} alt="logo" />
                 <h1 className="new-user">{type}</h1>
                 <p className="profile">Profile</p>
-
                 <div>
-                    {/* <img
-                        style={{
-                            width: 250,
-                            height: 250,
-                            clipPath: 'circle()',
-                            paddingTop: 0,
-                        }}
-                        alt="profile"
-                        src={imageAsUrl}
-                        onClick={(e) => openWidget(e, widget)}
-                    /> */}
+                    {/*
+                        <img
+                            style={{
+                                width: 250,
+                                height: 250,
+                                clipPath: 'circle()',
+                                paddingTop: 0,
+                            }}
+                            alt="profile"
+                            src={imageAsUrl}
+                            onClick={(e) => openWidget(e, widget)}
+                        />
+                          */}
                 </div>
                 <FormControl />
                 <div className="first-name">
@@ -412,7 +418,12 @@ export default function StudentProfile({
                         placeholder="Pronouns (Ex: she/her)"
                         defaultValue={currentUser.pronouns}
                         style={{ width: '50%' }}
-                        // onChange={handleChange('pronouns')}
+                        onChange={(e) => {
+                            setCurrentUser({
+                                ...currentUser,
+                                pronouns: e.target.value,
+                            })
+                        }}
                     />
                 </div>
                 <div className="year-dropdown">
@@ -495,28 +506,22 @@ export default function StudentProfile({
                         }}
                     />
                 </div>
-                <label className="resume">Upload CV or Resume</label>
+                {/* <label className="resume">Upload CV or Resume</label>
                 <div></div>
                 <br></br>
-                <Uploadfile> </Uploadfile>
+                { <Uploadfile
+                    onUpload={(e) => {
+                        setCurrentUser({
+                            ...currentUser,
+                            resume: e.target.files[0],
+                        })
+                    }}
+                >
+                    {' '}
+                </Uploadfile> }
                 <div></div>
-                <br></br>
+                <br></br> */}
                 <FormControl />
-                <div className="portfolio">
-                    <TextField
-                        type="text"
-                        label="Link to Portfolio/Website"
-                        placeholder="Link to Portfolio/Website"
-                        value={currentUser.link}
-                        style={{ width: '50%' }}
-                        onChange={(event) => {
-                            setCurrentUser({
-                                ...currentUser,
-                                link: event.target.value,
-                            })
-                        }}
-                    />
-                </div>
                 <div className="done">
                     <Button
                         type="button"
