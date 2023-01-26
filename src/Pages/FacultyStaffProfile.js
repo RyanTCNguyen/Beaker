@@ -2,7 +2,7 @@ import React, { useState, useMemo } from 'react'
 import '../Styles/Profile.css'
 import Button from '@mui/material/Button'
 import beaker from '../Images/blackLinedBeakerBgRemoved.png'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import 'firebase/firestore'
 import { db, storage } from '../firebase'
 import { collection, getDocs, addDoc } from 'firebase/firestore'
@@ -11,86 +11,75 @@ import MenuItem from '@mui/material/MenuItem'
 import FormControl from '@mui/material/FormControl'
 import Select from '@mui/material/Select'
 import TextField from '@mui/material/TextField'
+import { postFunction, updateFunction } from '../EngineFunctions/ProjectsFetch'
+import { useAuth0 } from '@auth0/auth0-react'
 
-// function FacultyStaffProfile({ setUser }) {
-function FacultyStaffProfile({}) {
-    const [fsMember, setMembers] = useState([])
-    const [title, setTitle] = useState('')
-    const [facultyFirstName, setFacultyFirstName] = useState('')
-    const [facultyMiddleName, setFacultyMiddleName] = useState('')
-    const [facultyLastName, setFacultyLastName] = useState('')
-    const [facultyNickname, setFacultyNickname] = useState('')
-    const [facultyPronouns, setFacultyPronouns] = useState('')
-    const [department, setDepartment] = useState('')
-    const [labDesc, setLabDesc] = useState('')
-    const [facultyLink, setFacultyPortfolioLink] = useState(6)
-    const [url, setURL] = useState('')
-    const [professor, setProfessor] = useState(true)
-    const [facultyImageAsFile, setFacultyImageAsFile] = useState(null)
+const defaultUser = {
+    firstname: '',
+    title: '',
+    middlename: '',
+    email: '',
+    lastname: '',
+    nickname: '',
+    major: null,
+    minor: null,
+    link: '',
+    resume: null,
+    softskills: null,
+    bio: '',
+    year: null,
+    pronouns: '',
+    url: '',
+    student: false,
+    users: [],
+    department: [],
+}
+
+export default function FacultyStaffProfile({
+    user = defaultUser,
+    editing = false,
+    type = 'New User',
+    redirect = true,
+}) {
+    let history = useHistory()
+    const [currentUser, setCurrentUser] = useState(defaultUser)
     const [facultyImageAsUrl, setFacultyImageAsUrl] = useState(
         `${process.env.PUBLIC_URL}/projectImages/user.png`
     )
+    const {user: authUser } = useAuth0()
 
     const handleChangeDepartment = (event) => {
-        setDepartment(event.target.value)
-    }
-
-    const handleSelect = (e) => {
-        console.log(e)
-        setTitle(e)
-    }
-
-    console.log(facultyImageAsFile)
-    const handleImageAsFile = (e) => {
-        setFacultyImageAsFile(e.target.files[0])
+        setCurrentUser({...user, department: event.target.value})
     }
 
     function handleUpload(e) {
         e.preventDefault()
-        const ref = storage.ref(`/Images/${facultyImageAsFile.name}`)
-        const uploadTask = ref.put(facultyImageAsFile)
-        uploadTask.on('state_changed', console.log, console.error, () => {
-            ref.getDownloadURL().then((url) => {
-                setFacultyImageAsFile(null)
-                setFacultyImageAsUrl(url)
-            })
-        })
     }
 
-    const facultystaffCollectionRef = useMemo(
-        () => collection(db, 'facultystaff'),
-        []
-    )
-    // const allUsersCollectionRef = useMemo(() => collection(db, 'allusers'), [])
-    const getFacultyStaff = async () => {
-        // const data = await getDocs(allUsersCollectionRef)
-        // setUser(data.docs.map((doc) => ({ ...doc.data(), key: doc.id })))
-        const data = await getDocs(facultystaffCollectionRef)
-        //loop through documents in collection
-        setMembers(data.docs.map((doc) => ({ ...doc.data(), key: doc.id })))
-    }
-    // const getFacultyStaff = async () => {
-    //     const data = await getDocs(allUsersCollectionRef)
-    //     //loop through documents in collection
-    //     setUser(data.docs.map((doc) => ({ ...doc.data(), key: doc.id })))
-    // }
-    const createFacultyStaff = async () => {
-        await addDoc(facultystaffCollectionRef, {
-            // allUsersCollectionRef
-            title: title,
-            facultyFirst: facultyFirstName,
-            facultyMiddle: facultyMiddleName,
-            facultyLast: facultyLastName,
-            facultyNickname: facultyNickname,
-            facultyPronouns: facultyPronouns,
-            department: department,
-            labDesc: labDesc,
-            facultyPortfolioLink: facultyLink,
-            facultyImage: facultyImageAsUrl,
-            professor: professor,
+    const submitUser = (e) => {
+        e.preventDefault
+        console.log(currentUser)
+        const requiredFields = ['nickname', 'major', 'year', 'bio']
+        let missing = 0
+        requiredFields.forEach((n) => {
+            if (currentUser[n] === defaultUser[n]) {
+                missing++
+            }
         })
-
-        getFacultyStaff()
+                postFunction('profiles-engine', {
+                    ...currentUser,
+                    email: authUser.email,
+                })
+                console.log('POSTED')
+    
+            if (redirect) {
+                //history.push('/dashboard')
+            } else {
+                //window.reload()
+            }
+        
+            console.log(`Missing ${missing} Fields`)
+        
     }
 
     const widget = window.cloudinary.createUploadWidget(
@@ -204,8 +193,8 @@ function FacultyStaffProfile({}) {
                         label="Title (Ex: Professor)"
                         placeholder="Title (Ex: Professor)"
                         style={{ width: '50%' }}
-                        onChange={(event) => {
-                            setTitle(event.target.value)
+                        onChange={(e) => {
+                            setCurrentUser({...currentUser, title: e.target.value})
                         }}
                     />
                 </div>
@@ -217,8 +206,8 @@ function FacultyStaffProfile({}) {
                         label="First Name(s)"
                         placeholder="First Name(s)"
                         style={{ width: '50%' }}
-                        onChange={(event) => {
-                            setFacultyFirstName(event.target.value)
+                        onChange={(e) => {
+                            setCurrentUser({...currentUser, firstname: e.target.value})
                         }}
                     />
                 </div>
@@ -229,8 +218,8 @@ function FacultyStaffProfile({}) {
                         label="Middle Name(s)"
                         placeholder="Middle Name(s)"
                         style={{ width: '50%' }}
-                        onChange={(event) => {
-                            setFacultyMiddleName(event.target.value)
+                        onChange={(e) => {
+                            setCurrentUser({...currentUser, middlename: e.target.value})
                         }}
                     />
                 </div>
@@ -242,8 +231,8 @@ function FacultyStaffProfile({}) {
                         label="Last Name(s)"
                         placeholder="Last Name(s)"
                         style={{ width: '50%' }}
-                        onChange={(event) => {
-                            setFacultyLastName(event.target.value)
+                        onChange={(e) => {
+                            setCurrentUser({...currentUser, lastname: e.target.value})
                         }}
                     />
                 </div>
@@ -254,8 +243,8 @@ function FacultyStaffProfile({}) {
                         label="Preferred way to be addressed"
                         placeholder="Preferred way to be addressed"
                         style={{ width: '50%' }}
-                        onChange={(event) => {
-                            setFacultyNickname(event.target.value)
+                        onChange={(e) => {
+                            setCurrentUser({...currentUser, nickname: e.target.value})
                         }}
                     />
                 </div>
@@ -266,8 +255,8 @@ function FacultyStaffProfile({}) {
                         label="Pronouns (Ex: she/her)"
                         placeholder="Pronouns (Ex: she/her)"
                         style={{ width: '50%' }}
-                        onChange={(event) => {
-                            setFacultyPronouns(event.target.value)
+                        onChange={(e) => {
+                            setCurrentUser({...currentUser, pronouns: e.target.value})
                         }}
                     />
                 </div>
@@ -275,7 +264,7 @@ function FacultyStaffProfile({}) {
                     <FormControl style={{ width: '55%' }}>
                         <InputLabel>Department</InputLabel>
                         <Select
-                            value={department}
+                            value={user.department}
                             onChange={handleChangeDepartment}
                         >
                             {departmentOptions.map((departmentOption) => (
@@ -290,18 +279,7 @@ function FacultyStaffProfile({}) {
                     </FormControl>
                 </div>
                 <FormControl />
-                <div className="lab-description">
-                    <TextField
-                        multiline
-                        rows={6}
-                        label="Lab Description"
-                        placeholder="Lab Description"
-                        style={{ width: '50%' }}
-                        onChange={(event) => {
-                            setLabDesc(event.target.value)
-                        }}
-                    />
-                </div>
+
                 {/* <label className="resume">Upload CV or Resume</label> */}
                 <FormControl />
                 <div className="fs-portfolio">
@@ -310,8 +288,8 @@ function FacultyStaffProfile({}) {
                         label="Link to Portfolio/Website"
                         placeholder="Link to Portfolio/Website"
                         style={{ width: '50%' }}
-                        onChange={(event) => {
-                            setFacultyPortfolioLink(event.target.value)
+                        onChange={(e) => {
+                            setCurrentUser({...currentUser, link: e.target.value})
                         }}
                     />
                 </div>
@@ -322,7 +300,7 @@ function FacultyStaffProfile({}) {
                             size="large"
                             color="primary"
                             variant="contained"
-                            onClick={createFacultyStaff}
+                            onClick={(e)=>{submitUser(e)}}
                         >
                             Done
                         </Button>
@@ -333,4 +311,3 @@ function FacultyStaffProfile({}) {
     )
 }
 
-export default FacultyStaffProfile
