@@ -36,24 +36,30 @@ const useStyles = makeStyles((theme) => ({
     },
 }))
 const defaultUser = {
-    firstname: '', 
-    middlename: '', 
+    firstname: '',
+    middlename: '',
     email: '',
-    lastname: '', 
-    nickname: '', 
-    major: [], 
-    minor: [], 
-    link: '', 
-    resume: '', 
-    softskills: '', 
-    bio: '', 
-    year: '', 
-    pronouns: '', 
-    url: '', 
-    student: true, 
-    users: []}
+    lastname: '',
+    nickname: '',
+    major: [],
+    minor: [],
+    link: '',
+    resume: '',
+    softskills: '',
+    bio: '',
+    year: '',
+    pronouns: '',
+    url: '',
+    student: true,
+    users: [],
+}
 
-export default function StudentProfile ({user=defaultUser, editing=false, type="New User", redirect=true}) {
+export default function StudentProfile({
+    user = defaultUser,
+    editing = false,
+    type = 'New User',
+    redirect = true,
+}) {
     // const {
     //     firstname,
     //     middlename,
@@ -73,38 +79,46 @@ export default function StudentProfile ({user=defaultUser, editing=false, type="
     //     email,
     //     password,
     // } = values
-    
 
-    let history = useHistory();
+    let history = useHistory()
     const [currentUser, setCurrentUser] = useState(user)
-    const editStyle = () => {if (editing){return {paddingLeft: '30vw'}} else return {}}
+    const editStyle = () => {
+        if (editing) {
+            return { paddingLeft: '30vw' }
+        } else return {}
+    }
     const [imageAsFile, setImageAsFile] = useState(null)
     const [imageAsUrl, setImageAsUrl] = useState(
         `${process.env.PUBLIC_URL}/projectImages/user.png`
     )
 
     const handleChangeYear = (e) => {
-        setCurrentUser({...currentUser, year: e.target.value})
+        setCurrentUser({ ...currentUser, year: e.target.value })
     }
     const handleChangeMajor = (e) => {
         const {
             target: { value },
         } = e
-        setCurrentUser({...currentUser, major: typeof value === 'string' ? value.split(',') : value})
+        setCurrentUser({
+            ...currentUser,
+            major: typeof value === 'string' ? value.split(',') : value,
+        })
     }
 
     const handleChangeMinor = (e) => {
         const {
             target: { value },
         } = e
-        setCurrentUser({...currentUser, minor: typeof value === 'string' ? value.split(',') : value})
+        setCurrentUser({
+            ...currentUser,
+            minor: typeof value === 'string' ? value.split(',') : value,
+        })
     }
 
     const handleUploads = (f) => {
-        setCurrentUser({...currentUser, resume: f.target.files[0]})
+        setCurrentUser({ ...currentUser, resume: f.target.files[0] })
     }
 
-    
     const handleImageAsFile = (e) => {
         console.log(imageAsFile)
         setImageAsFile(e.target.files[0])
@@ -118,31 +132,35 @@ export default function StudentProfile ({user=defaultUser, editing=false, type="
     const submitUser = () => {
         console.log(currentUser)
         const requiredFields = ['nickname', 'major', 'year', 'bio']
-        let missing = 0;
-        requiredFields.forEach((n)=>{
+        let missing = 0
+        requiredFields.forEach((n) => {
             if (currentUser[n] === defaultUser[n]) {
                 missing++
             }
         })
         if (missing === 0) {
-            
             if (user?.id) {
-                updateFunction('profiles-engine', {...currentUser, email: user.email, id: user.id})
-                console.log("PUTED")
+                updateFunction('profiles-engine', {
+                    ...currentUser,
+                    email: user.email,
+                    id: user.id,
+                })
+                console.log('PUTED')
             } else {
-                postFunction('profiles-engine', {...currentUser, email: user.email})
-                console.log("POSTED")
+                postFunction('profiles-engine', {
+                    ...currentUser,
+                    email: user.email,
+                })
+                console.log('POSTED')
             }
             if (redirect) {
-                history.push("/dashboard")
+                history.push('/dashboard')
             } else {
                 window.reload()
             }
-            
         } else {
             console.log(`Missing ${missing} Fields`)
         }
-        
     }
 
     const classes = useStyles()
@@ -293,15 +311,15 @@ export default function StudentProfile ({user=defaultUser, editing=false, type="
 
     return (
         <div className="new-profile">
-            {editing ? 
-                <></> 
-                : 
+            {editing ? (
+                <></>
+            ) : (
                 <div className="left-screen-student">
                     <h1 className="left-text-info" id="left-text">
                         Create <br></br> Your <br></br> Profile
                     </h1>
                 </div>
-            }
+            )}
             <div style={editStyle()} className="right-screen">
                 <img className="profile-image" src={beaker} alt="logo" />
                 <h1 className="new-user">{type}</h1>
@@ -320,16 +338,20 @@ export default function StudentProfile ({user=defaultUser, editing=false, type="
                         onClick={(e) => openWidget(e, widget)}
                     /> */}
                 </div>
-                {/* <FormControl />
+                <FormControl />
                 <div className="first-name">
                     <TextField
                         required
                         type="text"
                         label="First Name(s)"
                         placeholder="First Name(s)"
+                        defaultValue={currentUser.firstname}
                         style={{ width: '50%' }}
-                        onChange={(event) => {
-                            setFirstName(event.target.value)
+                        onChange={(e) => {
+                            setCurrentUser({
+                                ...currentUser,
+                                firstname: e.target.value,
+                            })
                         }}
                     />
                 </div>
@@ -339,9 +361,13 @@ export default function StudentProfile ({user=defaultUser, editing=false, type="
                         type="text"
                         label="Middle Name(s)"
                         placeholder="Middle Name(s)"
+                        defaultValue={currentUser.middlename}
                         style={{ width: '50%' }}
-                        onChange={(event) => {
-                            setMiddleName(event.target.value)
+                        onChange={(e) => {
+                            setCurrentUser({
+                                ...currentUser,
+                                middlename: e.target.value,
+                            })
                         }}
                     />
                 </div>
@@ -352,12 +378,16 @@ export default function StudentProfile ({user=defaultUser, editing=false, type="
                         type="text"
                         label="Last Name(s)"
                         placeholder="Last Name(s)"
+                        defaultValue={currentUser.lastname}
                         style={{ width: '50%' }}
-                        onChange={(event) => {
-                            setLastName(event.target.value)
+                        onChange={(e) => {
+                            setCurrentUser({
+                                ...currentUser,
+                                lastname: e.target.value,
+                            })
                         }}
                     />
-                </div> */}
+                </div>
                 <FormControl />
                 <div className="preferred-name">
                     <TextField
@@ -366,7 +396,12 @@ export default function StudentProfile ({user=defaultUser, editing=false, type="
                         placeholder="Nickname/Preferred Name"
                         defaultValue={currentUser.nickname}
                         style={{ width: '50%' }}
-                        onChange={(e)=>{setCurrentUser({...currentUser, nickname: e.target.value})}}
+                        onChange={(e) => {
+                            setCurrentUser({
+                                ...currentUser,
+                                nickname: e.target.value,
+                            })
+                        }}
                     />
                 </div>
                 <FormControl />
@@ -436,7 +471,10 @@ export default function StudentProfile ({user=defaultUser, editing=false, type="
                         value={currentUser.softskills}
                         style={{ width: '50%' }}
                         onChange={(event) => {
-                            setCurrentUser({...currentUser, softskills: event.target.value})
+                            setCurrentUser({
+                                ...currentUser,
+                                softskills: event.target.value,
+                            })
                         }}
                     />
                 </div>
@@ -450,7 +488,10 @@ export default function StudentProfile ({user=defaultUser, editing=false, type="
                         value={currentUser.bio}
                         style={{ width: '50%' }}
                         onChange={(event) => {
-                            setCurrentUser({...currentUser, bio: event.target.value})
+                            setCurrentUser({
+                                ...currentUser,
+                                bio: event.target.value,
+                            })
                         }}
                     />
                 </div>
@@ -469,20 +510,23 @@ export default function StudentProfile ({user=defaultUser, editing=false, type="
                         value={currentUser.link}
                         style={{ width: '50%' }}
                         onChange={(event) => {
-                            setCurrentUser({...currentUser, link: event.target.value})
+                            setCurrentUser({
+                                ...currentUser,
+                                link: event.target.value,
+                            })
                         }}
                     />
                 </div>
                 <div className="done">
-                        <Button
-                            type="button"
-                            className="done-btn1"
-                            size="large"
-                            variant="contained"
-                            onClick={()=>submitUser()}
-                        >
-                            Done
-                        </Button>
+                    <Button
+                        type="button"
+                        className="done-btn1"
+                        size="large"
+                        variant="contained"
+                        onClick={() => submitUser()}
+                    >
+                        Done
+                    </Button>
                 </div>
             </div>
         </div>
