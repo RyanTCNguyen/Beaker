@@ -32,7 +32,7 @@ const defaultUser = {
     url: '',
     student: false,
     users: [],
-    department: [],
+    department: []
 }
 
 export default function FacultyStaffProfile({
@@ -49,7 +49,7 @@ export default function FacultyStaffProfile({
     const { user: authUser } = useAuth0()
 
     const handleChangeDepartment = (event) => {
-        setCurrentUser({ ...user, department: event.target.value })
+        setCurrentUser({...user, department: event.target.value})
     }
 
     function handleUpload(e) {
@@ -57,27 +57,30 @@ export default function FacultyStaffProfile({
     }
 
     const submitUser = (e) => {
+        e.preventDefault
         console.log(currentUser)
-        const requiredFields = ['nickname', 'major', 'year', 'bio']
+        const requiredFields = ['firstname', 'lastname', 'department']
         let missing = 0
         requiredFields.forEach((n) => {
             if (currentUser[n] === defaultUser[n]) {
                 missing++
+                console.log(`Missing: ${n}`)
             }
         })
-        postFunction('profiles-engine', {
-            ...currentUser,
-            email: authUser.email,
-        })
-        console.log('POSTED')
-
-        if (redirect) {
-            //history.push('/dashboard')
-        } else {
-            //window.reload()
-        }
-
-        console.log(`Missing ${missing} Fields`)
+                postFunction('profiles-engine', {
+                    ...currentUser,
+                    email: authUser.email,
+                })
+                console.log('POSTED')
+    
+            if (redirect) {
+                //history.push('/dashboard')
+            } else {
+                //window.reload()
+            }
+        
+            console.log(`Missing ${missing} Fields`)
+        
     }
 
     const widget = window.cloudinary.createUploadWidget(
@@ -202,6 +205,7 @@ export default function FacultyStaffProfile({
                 <FormControl />
                 <div className="fs-first-name">
                     <TextField
+                        defaultValue={currentUser.firstname}
                         required
                         type="text"
                         label="First Name(s)"
@@ -280,7 +284,8 @@ export default function FacultyStaffProfile({
                     <FormControl style={{ width: '55%' }}>
                         <InputLabel>Department</InputLabel>
                         <Select
-                            value={user.department}
+                            multiple
+                            value={currentUser.department}
                             onChange={handleChangeDepartment}
                         >
                             {departmentOptions.map((departmentOption) => (
