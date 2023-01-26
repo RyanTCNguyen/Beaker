@@ -36,7 +36,7 @@ function AboutProject({ match, projects }) {
                             {' '}
                             <img
                                 src={project.image}
-                                alt="project.title"
+                                alt={project.title}
                                 style={{
                                     width: 500,
                                     height: 500,

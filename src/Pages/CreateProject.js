@@ -268,6 +268,25 @@ function CreateProject() {
                             </Select>
                         </FormControl>
                     </div>
+                    <br></br>
+                    <div className="image-link">
+                        <TextField
+                            type="text"
+                            className="image-link"
+                            label="Image Link"
+                            placeholder="Image Link"
+                            inputref={data.image}
+                            style={{ width: '55%' }}
+                            onChange={(event) =>
+                                setData((prevData) => ({
+                                    ...prevData,
+                                    image: event.target.value,
+                                }))
+                            }
+                            required
+                        />
+                    </div>
+                    <br></br>
                     <div className="timeline-dropdown">
                         <FormControl style={{ width: '55%' }}>
                             <InputLabel>Project Timeline</InputLabel>
