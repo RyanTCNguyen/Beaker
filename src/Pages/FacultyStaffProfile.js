@@ -57,7 +57,7 @@ export default function FacultyStaffProfile({
     }
 
     const submitUser = (e) => {
-        e.preventDefault
+        e.preventDefault()
         console.log(currentUser)
         const requiredFields = ['firstname', 'lastname', 'department']
         let missing = 0
