@@ -46,10 +46,10 @@ export default function FacultyStaffProfile({
     const [facultyImageAsUrl, setFacultyImageAsUrl] = useState(
         `${process.env.PUBLIC_URL}/projectImages/user.png`
     )
-    const {user: authUser } = useAuth0()
+    const { user: authUser } = useAuth0()
 
     const handleChangeDepartment = (event) => {
-        setCurrentUser({...user, department: event.target.value})
+        setCurrentUser({ ...user, department: event.target.value })
     }
 
     function handleUpload(e) {
@@ -57,7 +57,7 @@ export default function FacultyStaffProfile({
     }
 
     const submitUser = (e) => {
-        e.preventDefault
+        //e.preventDefault
         console.log(currentUser)
         const requiredFields = ['nickname', 'major', 'year', 'bio']
         let missing = 0
@@ -66,20 +66,19 @@ export default function FacultyStaffProfile({
                 missing++
             }
         })
-                postFunction('profiles-engine', {
-                    ...currentUser,
-                    email: authUser.email,
-                })
-                console.log('POSTED')
-    
-            if (redirect) {
-                //history.push('/dashboard')
-            } else {
-                //window.reload()
-            }
-        
-            console.log(`Missing ${missing} Fields`)
-        
+        postFunction('profiles-engine', {
+            ...currentUser,
+            email: authUser.email,
+        })
+        console.log('POSTED')
+
+        if (redirect) {
+            //history.push('/dashboard')
+        } else {
+            //window.reload()
+        }
+
+        console.log(`Missing ${missing} Fields`)
     }
 
     const widget = window.cloudinary.createUploadWidget(
@@ -194,7 +193,10 @@ export default function FacultyStaffProfile({
                         placeholder="Title (Ex: Professor)"
                         style={{ width: '50%' }}
                         onChange={(e) => {
-                            setCurrentUser({...currentUser, title: e.target.value})
+                            setCurrentUser({
+                                ...currentUser,
+                                title: e.target.value,
+                            })
                         }}
                     />
                 </div>
@@ -207,7 +209,10 @@ export default function FacultyStaffProfile({
                         placeholder="First Name(s)"
                         style={{ width: '50%' }}
                         onChange={(e) => {
-                            setCurrentUser({...currentUser, firstname: e.target.value})
+                            setCurrentUser({
+                                ...currentUser,
+                                firstname: e.target.value,
+                            })
                         }}
                     />
                 </div>
@@ -219,7 +224,10 @@ export default function FacultyStaffProfile({
                         placeholder="Middle Name(s)"
                         style={{ width: '50%' }}
                         onChange={(e) => {
-                            setCurrentUser({...currentUser, middlename: e.target.value})
+                            setCurrentUser({
+                                ...currentUser,
+                                middlename: e.target.value,
+                            })
                         }}
                     />
                 </div>
@@ -232,7 +240,10 @@ export default function FacultyStaffProfile({
                         placeholder="Last Name(s)"
                         style={{ width: '50%' }}
                         onChange={(e) => {
-                            setCurrentUser({...currentUser, lastname: e.target.value})
+                            setCurrentUser({
+                                ...currentUser,
+                                lastname: e.target.value,
+                            })
                         }}
                     />
                 </div>
@@ -244,7 +255,10 @@ export default function FacultyStaffProfile({
                         placeholder="Preferred way to be addressed"
                         style={{ width: '50%' }}
                         onChange={(e) => {
-                            setCurrentUser({...currentUser, nickname: e.target.value})
+                            setCurrentUser({
+                                ...currentUser,
+                                nickname: e.target.value,
+                            })
                         }}
                     />
                 </div>
@@ -256,7 +270,10 @@ export default function FacultyStaffProfile({
                         placeholder="Pronouns (Ex: she/her)"
                         style={{ width: '50%' }}
                         onChange={(e) => {
-                            setCurrentUser({...currentUser, pronouns: e.target.value})
+                            setCurrentUser({
+                                ...currentUser,
+                                pronouns: e.target.value,
+                            })
                         }}
                     />
                 </div>
@@ -289,7 +306,10 @@ export default function FacultyStaffProfile({
                         placeholder="Link to Portfolio/Website"
                         style={{ width: '50%' }}
                         onChange={(e) => {
-                            setCurrentUser({...currentUser, link: e.target.value})
+                            setCurrentUser({
+                                ...currentUser,
+                                link: e.target.value,
+                            })
                         }}
                     />
                 </div>
@@ -300,7 +320,9 @@ export default function FacultyStaffProfile({
                             size="large"
                             color="primary"
                             variant="contained"
-                            onClick={(e)=>{submitUser(e)}}
+                            onClick={(e) => {
+                                submitUser(e)
+                            }}
                         >
                             Done
                         </Button>
@@ -310,4 +332,3 @@ export default function FacultyStaffProfile({
         </div>
     )
 }
-
