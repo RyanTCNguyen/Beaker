@@ -506,9 +506,7 @@ export default function StudentProfile({
                         }}
                     />
                 </div>
-                {/* <label className="resume">Upload CV or Resume</label>
-                <div></div>
-                <br></br>
+                <label className="resume">Upload CV or Resume</label>
                 { <Uploadfile
                     onUpload={(e) => {
                         setCurrentUser({
@@ -519,8 +517,6 @@ export default function StudentProfile({
                 >
                     {' '}
                 </Uploadfile> }
-                <div></div>
-                <br></br> */}
                 <FormControl />
                 <div className="done">
                     <Button

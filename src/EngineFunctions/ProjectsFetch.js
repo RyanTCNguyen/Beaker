@@ -1,7 +1,7 @@
-import axios from 'axios'
 const baseURL = process.env.REACT_APP_ENDPOINT_BASE
 
 const AppSearchClient = require('@elastic/app-search-node')
+
 const baseURLFn = () => {
     return process.env.REACT_APP_ENDPOINT_BASE
 }
@@ -14,6 +14,14 @@ const client = new AppSearchClient(
 
 export const postFunction = async (engine, data) => {
     await client.indexDocuments(engine, data)
+}
+
+export const getUserProfile = async (userEmail) => {
+    const searchFields = { email: {}}
+    const resultFields = { email: { raw: {}}}
+    const options = {search_fields : searchFields, results_fields: resultFields} 
+    const data = await client.search('profiles-engine', `${userEmail}`, options)
+    console.log(await data)
 }
 
 export const listFunction = async (engine) => {

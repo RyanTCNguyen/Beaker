@@ -17,6 +17,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import ScienceIcon from '@mui/icons-material/Science'
 import MenuList from '@material-ui/core/MenuList'
 import { useAuth0 } from '@auth0/auth0-react'
+import { getUserProfile } from '../EngineFunctions/ProjectsFetch'
 
 const useStyles = makeStyles((theme) => ({
     helpButton: {
@@ -213,6 +214,7 @@ const Navbar = () => {
                                 )}
                             </Popper>
                         </div>
+                        <button onClick={()=>getUserProfile(user.email)}> Get User </button>
                     </div>
                 </Toolbar>
             </AppBar>

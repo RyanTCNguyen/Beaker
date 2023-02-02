@@ -13,17 +13,7 @@ class Uploadfile extends Component {
     }
 
     onFileUpload = () => {
-        const formData = new FormData()
-
-        formData.append(
-            'myFile',
-            this.state.selectedFile,
-            this.state.selectedFile.name
-        )
-
-        console.log(this.state.selectedFile)
-
-        axios.post('api/uploadfile', formData)
+        
     }
 
     fileData = () => {
