@@ -113,6 +113,36 @@ function About() {
                     columnGap: 0,
                 }}
             >
+                {' '}
+                <Box
+                    component="img"
+                    sx={{
+                        gridArea: 'photo3',
+                        textAlign: 'center',
+                        margin: '50px',
+                        height: '80%',
+                        width: '80%',
+                        objectFit: 'contain',
+                    }}
+                    alt="createprofile"
+                    src={createProfileSS}
+                ></Box>
+                <Box
+                    sx={{
+                        gridArea: 'message6',
+                        backgroundColor: '#AB0C2F',
+                        textAlign: 'center',
+                        margin: '50px',
+                        padding: '20px',
+                        fontSize: '32px',
+                        borderRadius: '50%',
+                    }}
+                >
+                    <p className="infoTitle"> Customize your Profile </p>
+                    <p className="info">
+                        Create your profile to show off your skills.
+                    </p>
+                </Box>
                 <Box
                     component="img"
                     sx={{
@@ -170,35 +200,6 @@ function About() {
                     <p className="infoTitle"> Create a Project </p>
                     <p className="info">
                         Create a project with all your necessary information.
-                    </p>
-                </Box>
-                <Box
-                    component="img"
-                    sx={{
-                        gridArea: 'photo3',
-                        textAlign: 'center',
-                        margin: '50px',
-                        height: '80%',
-                        width: '80%',
-                        objectFit: 'contain',
-                    }}
-                    alt="createprofile"
-                    src={createProfileSS}
-                ></Box>
-                <Box
-                    sx={{
-                        gridArea: 'message6',
-                        backgroundColor: '#AB0C2F',
-                        textAlign: 'center',
-                        margin: '50px',
-                        padding: '20px',
-                        fontSize: '32px',
-                        borderRadius: '50%',
-                    }}
-                >
-                    <p className="infoTitle"> Customize your Profile </p>
-                    <p className="info">
-                        Create your profile to show off your skills.
                     </p>
                 </Box>
             </Box>
