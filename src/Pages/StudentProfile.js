@@ -48,9 +48,9 @@ const defaultUser = {
     softskills: '',
     bio: '',
     year: '',
+    bookmarked: [],
     pronouns: '',
     student: true,
-    users: [],
 }
 
 export default function StudentProfile({
@@ -507,16 +507,18 @@ export default function StudentProfile({
                     />
                 </div>
                 <label className="resume">Upload CV or Resume</label>
-                { <Uploadfile
-                    onUpload={(e) => {
-                        setCurrentUser({
-                            ...currentUser,
-                            resume: e.target.files[0],
-                        })
-                    }}
-                >
-                    {' '}
-                </Uploadfile> }
+                {
+                    <Uploadfile
+                        onUpload={(e) => {
+                            setCurrentUser({
+                                ...currentUser,
+                                resume: e.target.files[0],
+                            })
+                        }}
+                    >
+                        {' '}
+                    </Uploadfile>
+                }
                 <FormControl />
                 <div className="done">
                     <Button

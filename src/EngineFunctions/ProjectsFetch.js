@@ -16,14 +16,6 @@ export const postFunction = async (engine, data) => {
     await client.indexDocuments(engine, data)
 }
 
-export const getUserProfile = async (userEmail) => {
-    const searchFields = { email: {}}
-    const resultFields = { email: { raw: {}}}
-    const options = {search_fields : searchFields, results_fields: resultFields} 
-    const data = await client.search('profiles-engine', `${userEmail}`, options)
-    console.log(await data)
-}
-
 export const listFunction = async (engine) => {
     const ApiKey = process.env.REACT_APP_API_KEY
     const params = {
@@ -74,6 +66,27 @@ export const getFunction = async (engine, docID) => {
 
 export const updateFunction = async (engine, data) => {
     client.updateDocuments(engine, data)
+}
+
+export const updateUserFunction = async (data, docID) => {
+    const userUpdate = {
+        ID: data.ID,
+        firstname: data.firstname,
+        middlename: data.middlename,
+        email: data.email,
+        lastname: data.lastname,
+        nickname: data.nickname,
+        major: data.major,
+        minor: data.minor,
+        resume: data.resume,
+        softskills: data.softskills,
+        bio: data.bio,
+        year: data.year,
+        bookmarked: data.bookmarked.push(docID),
+        pronouns: data.pronouns,
+        student: data.student,
+    }
+    client.updateDocuments('profiles-engine', userUpdate)
 }
 
 export const deleteFunction = async (engine, docID) => {
