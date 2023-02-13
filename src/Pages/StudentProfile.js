@@ -85,9 +85,7 @@ export default function StudentProfile({
     const editStyle = () => {
         if (editing) {
             return { paddingLeft: '30vw' }
-        } else return {
-
-        }
+        } else return {}
     }
     const [imageAsFile, setImageAsFile] = useState(null)
     const [imageAsUrl, setImageAsUrl] = useState(
@@ -155,7 +153,6 @@ export default function StudentProfile({
             alert(`Missing these required fields: ${missingArr}`)
         }
     }
-
     const classes = useStyles()
 
     const widget = window.cloudinary.createUploadWidget(
@@ -176,6 +173,18 @@ export default function StudentProfile({
     const openWidget = (e, widget) => {
         e.preventDefault()
         widget.open()
+    }
+
+    const downloadPDF = () => {
+        fetch(currentUser.resume).then((response) => {
+            response.blob().then((blob) => {
+                const fileURL = window.URL.createObjectURL(blob)
+                let alink = document.createElement('a')
+                alink.href = fileURL
+                alink.download = currentUser.resume
+                alink.click()
+            })
+        })
     }
 
     const yearOptionsSP = [
@@ -497,15 +506,23 @@ export default function StudentProfile({
                 <label className="resume">Upload CV or Resume</label>
                 {
                     <Uploadfile
-                        setResume={resume=>{console.log(resume); setCurrentUser({...currentUser, resume: resume})}}
+                        setResume={(resume) => {
+                            console.log(resume)
+                            setCurrentUser({ ...currentUser, resume: resume })
+                        }}
                         resume={currentUser.resume}
                     >
                         {' '}
                     </Uploadfile>
-                    
                 }
                 <FormControl />
-                {currentUser.resume? <a href={currentUser.resume}>Download Resume</a>:<></>}
+                {currentUser.resume ? (
+                    <Button onClick={() => downloadPDF()}>
+                        Download Resume
+                    </Button>
+                ) : (
+                    <></>
+                )}
                 <div className="done">
                     <Button
                         type="button"
