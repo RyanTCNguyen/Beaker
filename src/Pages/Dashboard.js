@@ -3,13 +3,14 @@ import Layout from '../Components/Layout'
 import Side from '../Components/Side'
 import '../Styles/Sidebar.css'
 import {useState} from 'react'
-import Profile from './StudentProfile'
+import StudentProfile from './StudentProfile'
 import { useEffect } from 'react'
 import FacultyStaffProfile from './FacultyStaffProfile'
 import MyProjects from './MyProjects'
 import ProjectTableNew from '../Components/ProjectTableNew'
 
 function Dashboard({ user, projects }) {
+    console.log(user)
     const [page, setPage] = useState('Profile')
     const sidebaritems = [
         { page: 'Profile', value: 'My Profile', key: 0 },
@@ -23,8 +24,8 @@ function Dashboard({ user, projects }) {
             <Side sidebaritems={sidebaritems} setPage={setPage}>
             {user ? 
             <>
-            {(page === 'Profile'  ) ? <>{user?.student ? <Profile type="Student" user={user} editing={true} redirect={false}/>: <Profile type="Faculty" user={user} editing={true} redirect={false}/>}</>:<></>}
-            {(page === 'MyProjects'  ) ? <div>{<div style={{paddingLeft: '25vw', paddingTop: '5vh'}}><h1 style={{fontSize: '3vh'}}>My Projects</h1><ProjectTableNew projects={projects?.filter((project)=>project.members?.includes(user.name))} /></div>}</div>:<></>}
+            {(page === 'Profile'  ) ? <>{user?.student !== "false" ? <StudentProfile type="Student" user={user} editing={true} redirect={false}/>: <FacultyStaffProfile type="Faculty" user={user} editing={true} redirect={false}/>}</>:<></>}
+            {(page === 'MyProjects'  ) ? <div>{<div style={{paddingLeft: '25vw', paddingTop: '5vh'}}><h1 style={{fontSize: '3vh'}}>My Projects</h1><ProjectTableNew projects={projects?.filter((project)=>project.groupmembers?.includes(user.name))} /></div>}</div>:<></>}
             {(page === 'Bookmarks'  ) ? <div>{<div style={{paddingLeft: '25vw', paddingTop: '5vh'}}><h1 style={{fontSize: '3vh'}}>Bookmarked Projects</h1><ProjectTableNew projects={projects?.filter((project)=>user?.bookmarked?.includes(project.id))} /></div>}</div>:<></>}
             {(page === 'Discover'  ) ? <div>{<div style={{paddingLeft: '25vw', paddingTop: '5vh'}}><h1 style={{fontSize: '3vh'}}>Discover Projects</h1><ProjectTableNew projects={projects?.filter((project)=>user?.bookmarked?.includes(project.id))} /></div>}</div>:<></>}
             </>
