@@ -50,11 +50,12 @@ function App() {
         console.log(auth0user)
         listFunction('profiles-engine').then((data) => {
             if (data && auth0user) {
-                setEngineUser(data.filter((usr)=>usr.email === auth0user?.email))
+                setEngineUser(
+                    data.filter((usr) => usr.email === auth0user?.email)
+                )
             }
         })
     }, [auth0user])
-
 
     return (
         <>
@@ -70,10 +71,8 @@ function App() {
                         )}
                     />
 
-                    <Route
-                        path="/studentprofile"
-                        exact>
-                            <StudentProfile/>
+                    <Route path="/studentprofile" exact>
+                        <StudentProfile />
                     </Route>
                     <Route
                         path="/createproject"
@@ -136,16 +135,29 @@ function App() {
                             <AboutMember {...props} members={members} />
                         )}
                     />
-                    {!isLoading && isAuthenticated && engineUser ? 
-                    <Route
-                    path="/dashboard"
-                    exact
-                    render={(props) => <Dashboard user={engineUser[0]} projects={projects} />}/>
-                    :
-                    <Route
-                    path="/dashboard"
-                    exact
-                    render={(props) => <Dashboard user={engineUser[0]} projects={projects}  />}/>}
+                    {!isLoading && isAuthenticated && engineUser ? (
+                        <Route
+                            path="/dashboard"
+                            exact
+                            render={(props) => (
+                                <Dashboard
+                                    user={engineUser[0]}
+                                    projects={projects}
+                                />
+                            )}
+                        />
+                    ) : (
+                        <Route
+                            path="/dashboard"
+                            exact
+                            render={(props) => (
+                                <Dashboard
+                                    user={engineUser[0]}
+                                    projects={projects}
+                                />
+                            )}
+                        />
+                    )}
                     <Route
                         path="/bookmarkedprojects"
                         exact
@@ -164,7 +176,11 @@ function App() {
                         path="/aboutproject/:projectId"
                         exact
                         render={(props) => (
-                            <AboutProject {...props} projects={projects} />
+                            <AboutProject
+                                {...props}
+                                projects={projects}
+                                user={engineUser[0]}
+                            />
                         )}
                     />
                     <Route

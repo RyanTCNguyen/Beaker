@@ -8,8 +8,9 @@ import Grid from '@mui/material/Grid'
 import TelegramIcon from '@mui/icons-material/Telegram'
 import Layout from '../Components/Layout'
 import { IconButton } from '@mui/material'
+import { updateUserFunction } from '../EngineFunctions/ProjectsFetch'
 
-function AboutProject({ match, projects }) {
+function AboutProject({ match, projects, user }) {
     const [project, setProject] = useState({})
     const [isShown, setIsShown] = useState(false)
     const [isShownT, setIsShownT] = useState(false)
@@ -138,6 +139,7 @@ function AboutProject({ match, projects }) {
                                     <IconButton
                                         onMouseEnter={() => setIsShownB(true)}
                                         onMouseLeave={() => setIsShownB(false)}
+                                        onClick={updateUserFunction(user, id)}
                                     >
                                         <BookmarkBorderIcon fontSize="large"></BookmarkBorderIcon>
                                         {isShownB && (

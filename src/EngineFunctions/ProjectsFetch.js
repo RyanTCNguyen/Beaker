@@ -1,7 +1,7 @@
-import axios from 'axios'
 const baseURL = process.env.REACT_APP_ENDPOINT_BASE
 
 const AppSearchClient = require('@elastic/app-search-node')
+
 const baseURLFn = () => {
     return process.env.REACT_APP_ENDPOINT_BASE
 }
@@ -66,6 +66,27 @@ export const getFunction = async (engine, docID) => {
 
 export const updateFunction = async (engine, data) => {
     client.updateDocuments(engine, data)
+}
+
+export const updateUserFunction = async (data, docID) => {
+    const userUpdate = {
+        ID: data.ID,
+        firstname: data.firstname,
+        middlename: data.middlename,
+        email: data.email,
+        lastname: data.lastname,
+        nickname: data.nickname,
+        major: data.major,
+        minor: data.minor,
+        resume: data.resume,
+        softskills: data.softskills,
+        bio: data.bio,
+        year: data.year,
+        bookmarked: data.bookmarked.push(docID),
+        pronouns: data.pronouns,
+        student: data.student,
+    }
+    client.updateDocuments('profiles-engine', userUpdate)
 }
 
 export const deleteFunction = async (engine, docID) => {

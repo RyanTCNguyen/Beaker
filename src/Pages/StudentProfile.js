@@ -48,9 +48,9 @@ const defaultUser = {
     softskills: '',
     bio: '',
     year: '',
+    bookmarked: [],
     pronouns: '',
     student: true,
-    users: [],
 }
 
 export default function StudentProfile({
@@ -85,7 +85,9 @@ export default function StudentProfile({
     const editStyle = () => {
         if (editing) {
             return { paddingLeft: '30vw' }
-        } else return {}
+        } else return {
+
+        }
     }
     const [imageAsFile, setImageAsFile] = useState(null)
     const [imageAsUrl, setImageAsUrl] = useState(
@@ -113,20 +115,6 @@ export default function StudentProfile({
             ...currentUser,
             minor: typeof value === 'string' ? value.split(',') : value,
         })
-    }
-
-    const handleUploads = (f) => {
-        setCurrentUser({ ...currentUser, resume: f.target.files[0] })
-    }
-
-    const handleImageAsFile = (e) => {
-        console.log(imageAsFile)
-        setImageAsFile(e.target.files[0])
-    }
-
-    function handleUpload(e) {
-        e.preventDefault()
-        //TODO handle uploading images
     }
 
     const submitUser = () => {
@@ -160,7 +148,7 @@ export default function StudentProfile({
             if (redirect) {
                 history.push('/dashboard')
             } else {
-                window.reload()
+                window.location.reload()
             }
         } else {
             console.log(`Missing ${missing} Fields`)
@@ -506,22 +494,18 @@ export default function StudentProfile({
                         }}
                     />
                 </div>
-                {/* <label className="resume">Upload CV or Resume</label>
-                <div></div>
-                <br></br>
-                { <Uploadfile
-                    onUpload={(e) => {
-                        setCurrentUser({
-                            ...currentUser,
-                            resume: e.target.files[0],
-                        })
-                    }}
-                >
-                    {' '}
-                </Uploadfile> }
-                <div></div>
-                <br></br> */}
+                <label className="resume">Upload CV or Resume</label>
+                {
+                    <Uploadfile
+                        setResume={resume=>{console.log(resume); setCurrentUser({...currentUser, resume: resume})}}
+                        resume={currentUser.resume}
+                    >
+                        {' '}
+                    </Uploadfile>
+                    
+                }
                 <FormControl />
+                {currentUser.resume? <a href={currentUser.resume}>Download Resume</a>:<></>}
                 <div className="done">
                     <Button
                         type="button"

@@ -1,29 +1,25 @@
 //source for upload file component: https://www.geeksforgeeks.org/file-uploading-in-react-js/
-
 import React, { Component } from 'react'
-import axios from 'axios'
 
 class Uploadfile extends Component {
+    constructor(props) {
+        super(props)
+    }
     state = {
-        selectedFile: null,
+        selectedFile: fetch(this.props.resume).then(res=>res.blob()).then(data=>{console.log(data); return data}),
     }
 
     onFileChange = (event) => {
-        this.setState({ selectedFile: event.target.files[0] })
-    }
-
-    onFileUpload = () => {
-        const formData = new FormData()
-
-        formData.append(
-            'myFile',
-            this.state.selectedFile,
-            this.state.selectedFile.name
-        )
-
-        console.log(this.state.selectedFile)
-
-        axios.post('api/uploadfile', formData)
+        let file = event.target.files[0]
+        this.state.selectedFile = file
+        let reader = new FileReader()
+        reader.readAsDataURL(file)
+        reader.onloadend = () => {
+            this.props.setResume(reader.result)
+        }
+        reader.onerror = (error) => {
+        console.log('Error: ' , error)
+        }
     }
 
     fileData = () => {
@@ -45,7 +41,6 @@ class Uploadfile extends Component {
             <div>
                 <div>
                     <input type="file" onChange={this.onFileChange} />
-                    <button onClick={this.onFileUpload}>Upload</button>
                 </div>
                 {this.fileData()}
             </div>
