@@ -6,7 +6,12 @@ class Uploadfile extends Component {
         super(props)
     }
     state = {
-        selectedFile: fetch(this.props.resume).then(res=>res.blob()).then(data=>{console.log(data); return data}),
+        selectedFile: fetch(this.props.resume)
+            .then((res) => res.blob())
+            .then((data) => {
+                console.log(data)
+                return data
+            }),
     }
 
     onFileChange = (event) => {
@@ -18,31 +23,14 @@ class Uploadfile extends Component {
             this.props.setResume(reader.result)
         }
         reader.onerror = (error) => {
-        console.log('Error: ' , error)
-        }
-    }
-
-    fileData = () => {
-        if (this.state.selectedFile) {
-            return (
-                <div>
-                    <h2>File Details:</h2>
-                    <p>File Name: {this.state.selectedFile.name}</p>
-                    <p>File Type: {this.state.selectedFile.type}</p>
-                </div>
-            )
-        } else {
-            return <div></div>
+            console.log('Error: ', error)
         }
     }
 
     render() {
         return (
             <div>
-                <div>
-                    <input type="file" onChange={this.onFileChange} />
-                </div>
-                {this.fileData()}
+                <input type="file" onChange={this.onFileChange} />
             </div>
         )
     }
