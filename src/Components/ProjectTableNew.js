@@ -16,7 +16,7 @@ function ProjectTableNew({ projects }) {
                             display: 'inline-block',
                             position: 'relative',
                             width: 50,
-                            height: '8vh',
+                            height: '20%',
                             overflow: 'hidden',
                             borderRadius: 50,
                         }}
@@ -29,7 +29,7 @@ function ProjectTableNew({ projects }) {
         { title: 'Desired Year', field: 'year' },
         { title: 'Incentives', field: 'incentives' },
         { title: 'Status', field: 'status' },
-        { title: 'Owner' },
+        { title: 'Owner', field: 'creator' },
     ]
 
     return (

@@ -47,7 +47,7 @@ function Projectspage({ projects }) {
                                 style={{
                                     position: 'absolute',
                                     left: '70rem',
-                                    paddingTop: '30px',
+                                    margin: '10px',
                                 }}
                                 aria-label="upload picture"
                                 component="span"
