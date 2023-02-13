@@ -41,8 +41,13 @@ export default function FacultyStaffProfile({
     type = 'New User',
     redirect = true,
 }) {
+    const editStyle = () => {
+        if (editing) {
+            return { paddingLeft: '30vw' }
+        } else return {}
+    }
     let history = useHistory()
-    const [currentUser, setCurrentUser] = useState(defaultUser)
+    const [currentUser, setCurrentUser] = useState({ ...defaultUser, ...user })
     const [facultyImageAsUrl, setFacultyImageAsUrl] = useState(
         `${process.env.PUBLIC_URL}/projectImages/user.png`
     )
@@ -74,9 +79,9 @@ export default function FacultyStaffProfile({
         console.log('POSTED')
 
         if (redirect) {
-            //history.push('/dashboard')
+            history.push('/dashboard')
         } else {
-            //window.reload()
+            window.location.reload()
         }
 
         console.log(`Missing ${missing} Fields`)
@@ -162,14 +167,18 @@ export default function FacultyStaffProfile({
 
     return (
         <div className="new-profile">
-            <div className="left-screen-fs">
-                <h1 className="left-text-info" id="left-text">
-                    Create <br></br> Your <br></br> Profile
-                </h1>
-            </div>
-            <div className="right-screen">
+            {editing ? (
+                <></>
+            ) : (
+                <div className="left-screen-fs">
+                    <h1 className="left-text-info" id="left-text">
+                        Create <br></br> Your <br></br> Profile
+                    </h1>
+                </div>
+            )}
+            <div className="right-screen" style={editStyle()}>
                 <img className="profile-image" src={beaker} alt="logo" />
-                <h1 className="new-user">New User</h1>
+                <h1 className="new-user">{type}</h1>
                 <p className="profile">Profile</p>
                 <div>
                     <img
@@ -188,7 +197,8 @@ export default function FacultyStaffProfile({
                 <FormControl />
                 <div className="fs-title">
                     <TextField
-                        required
+                        value={currentUser.title}
+                        required={true}
                         type="text"
                         label="Title (Ex: Professor)"
                         placeholder="Title (Ex: Professor)"
@@ -204,7 +214,7 @@ export default function FacultyStaffProfile({
                 <FormControl />
                 <div className="fs-first-name">
                     <TextField
-                        defaultValue={currentUser.firstname}
+                        value={currentUser.firstname}
                         required
                         type="text"
                         label="First Name(s)"
@@ -221,6 +231,7 @@ export default function FacultyStaffProfile({
                 <FormControl />
                 <div className="fs-middle-name">
                     <TextField
+                        value={currentUser.middlename}
                         type="text"
                         label="Middle Name(s)"
                         placeholder="Middle Name(s)"
@@ -236,6 +247,7 @@ export default function FacultyStaffProfile({
                 <FormControl />
                 <div className="fs-last-name">
                     <TextField
+                        value={currentUser.lastname}
                         required
                         type="text"
                         label="Last Name(s)"
@@ -252,6 +264,7 @@ export default function FacultyStaffProfile({
                 <FormControl />
                 <div className="fs-preferred-name">
                     <TextField
+                        value={currentUser.nickname}
                         type="text"
                         label="Preferred way to be addressed"
                         placeholder="Preferred way to be addressed"
@@ -267,6 +280,7 @@ export default function FacultyStaffProfile({
                 <FormControl />
                 <div className="fs-pronouns">
                     <TextField
+                        value={currentUser.pronouns}
                         type="text"
                         label="Pronouns (Ex: she/her)"
                         placeholder="Pronouns (Ex: she/her)"
@@ -284,7 +298,7 @@ export default function FacultyStaffProfile({
                         <InputLabel>Department</InputLabel>
                         <Select
                             multiple
-                            value={currentUser.department}
+                            value={[currentUser.department]}
                             onChange={handleChangeDepartment}
                         >
                             {departmentOptions.map((departmentOption) => (
@@ -304,6 +318,7 @@ export default function FacultyStaffProfile({
                 <FormControl />
                 <div className="fs-portfolio">
                     <TextField
+                        value={currentUser.resume}
                         type="text"
                         label="Link to Portfolio/Website"
                         placeholder="Link to Portfolio/Website"
