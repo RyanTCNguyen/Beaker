@@ -6,7 +6,7 @@ const Layout = ({ children }) => {
         <>
             <Navbar />
 
-            <div>{children}</div>
+            <div style={{paddingTop:"10vh"}}>{children}</div>
         </>
     )
 }

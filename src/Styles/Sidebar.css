@@ -3,12 +3,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:ital,wght@1,300&family=Oswald:wght@200&display=swap');
 
 .sidebar {
+    padding-top: 10vh;
     height: 100vh;
     position: fixed;
     left: 0;
     background-color: rgb(249, 249, 249);
     box-shadow: 30px;
     /* z-index: -1; */
+}
+
+.side-children {
+    padding-top: 15vh;
 }
 
 .side-text-title {

@@ -8,9 +8,7 @@ import sidebaritems from './sidebaritems'
 import Projectspage from './Pages/Projectspage'
 
 import StudentProfile from './Pages/StudentProfile'
-import EditStudentProfile from './Pages/EditStudentProfile'
 import FacultyStaffProfile from './Pages/FacultyStaffProfile'
-import EditFacultyStaffProfile from './Pages/EditFacultyStaffProfile'
 
 import AboutProject from './Pages/AboutProject'
 import AboutMember from './Pages/AboutMember'
@@ -82,12 +80,6 @@ function App() {
                     <Route
                         path="/facultystaffprofile"
                         exact
-                        // render={(props) => (
-                        //     <FacultyStaffProfile
-                        //         {...props}
-                        //         setFSMembers={setFSMembers}
-                        //     />
-                        // )}
                         component={FacultyStaffProfile}
                     />
                     <Route
@@ -119,13 +111,6 @@ function App() {
                                 {...props}
                                 projects={projects}
                             />
-                        )}
-                    />
-                    <Route
-                        path="/editstudentprofile/:memberId"
-                        exact
-                        render={(props) => (
-                            <EditStudentProfile {...props} members={members} />
                         )}
                     />
                     <Route

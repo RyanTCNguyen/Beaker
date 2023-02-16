@@ -21,7 +21,7 @@ function Dashboard({ user, projects }) {
     useEffect(()=>{if (user?.student) {console.log(user)}},[user])
     return (
         <Layout>
-            <Side sidebaritems={sidebaritems} setPage={setPage}>
+            <Side sidebaritems={sidebaritems} setPage={setPage} page={page}>
             {user ? 
             <>
             {(page === 'Profile'  ) ? <>{user?.student !== "false" ? <StudentProfile type="Student" user={user} editing={true} redirect={false}/>: <FacultyStaffProfile type="Faculty" user={user} editing={true} redirect={false}/>}</>:<></>}

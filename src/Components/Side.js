@@ -5,21 +5,21 @@ import { Button } from "@material-ui/core"
  * @param {*} sidebaritems
  * @returns a sidebar
  */
-export default function Side({ children, sidebaritems, setPage=()=>{} }) {
+export default function Side({ children, sidebaritems, setPage=()=>{}, page }) {
     return (
         <>
         <ul className="sidebar">
             {sidebaritems.map((e) => {
                 return (
                     <li className="side-text-title" key={e.key}>
-                        <Button key={e.key} onClick={()=>{setPage(e.page)}}>
+                        <Button style={{backgroundColor: page === e.page? '#BBBBBB' : ""}} key={e.key} onClick={()=>{setPage(e.page)}}>
                             {e.value}
                         </Button>
                     </li>
                 )
             })}
         </ul>
-        <div className="">{children}</div>
+        <div className="side-children">{children}</div>
         </>
     )
 }

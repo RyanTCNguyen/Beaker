@@ -180,7 +180,7 @@ export default function FacultyStaffProfile({
                 <img className="profile-image" src={beaker} alt="logo" />
                 <h1 className="new-user">{type}</h1>
                 <p className="profile">Profile</p>
-                <div>
+                {/* <div>
                     <img
                         style={{
                             width: 250,
@@ -193,7 +193,7 @@ export default function FacultyStaffProfile({
                         src={facultyImageAsUrl}
                         onClick={(e) => openWidget(e, widget)}
                     />
-                </div>
+                </div> */}
                 <FormControl />
                 <div className="fs-title">
                     <TextField
@@ -295,7 +295,7 @@ export default function FacultyStaffProfile({
                 </div>
                 <div className="department-options">
                     <FormControl style={{ width: '55%' }}>
-                        <InputLabel>Department</InputLabel>
+                        <InputLabel style={{backgroundColor:'white', paddingLeft: '4px', paddingRight: '4px'}}> Department </InputLabel>
                         <Select
                             multiple
                             value={[currentUser.department]}

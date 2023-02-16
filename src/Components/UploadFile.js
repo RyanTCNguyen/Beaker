@@ -30,7 +30,7 @@ class Uploadfile extends Component {
     render() {
         return (
             <div>
-                <input type="file" onChange={this.onFileChange} />
+                <input type="file" accept={this.props.accept} onChange={this.onFileChange} />
             </div>
         )
     }

@@ -178,10 +178,11 @@ export default function StudentProfile({
     const downloadPDF = () => {
         fetch(currentUser.resume).then((response) => {
             response.blob().then((blob) => {
+                blob.filename = "TEST.pdf"
                 const fileURL = window.URL.createObjectURL(blob)
                 let alink = document.createElement('a')
                 alink.href = fileURL
-                alink.download = currentUser.resume
+                alink.download = `${currentUser.firstname}-Resume.pdf`
                 alink.click()
             })
         })
@@ -425,7 +426,7 @@ export default function StudentProfile({
                 </div>
                 <div className="year-dropdown">
                     <FormControl required style={{ width: '55%' }}>
-                        <InputLabel>Year</InputLabel>
+                        <InputLabel style={{backgroundColor:'white', paddingLeft: '4px', paddingRight: '4px'}}>Year</InputLabel>
                         <Select
                             defaultValue={currentUser.year}
                             onChange={handleChangeYear}
@@ -440,7 +441,7 @@ export default function StudentProfile({
                 </div>
                 <div className="major-dropdown">
                     <FormControl required style={{ width: '55%' }}>
-                        <InputLabel>Major(s)</InputLabel>
+                        <InputLabel style={{backgroundColor:'white', paddingLeft: '4px', paddingRight: '4px'}}>Major(s)</InputLabel>
                         <Select
                             multiple
                             defaultValue={currentUser.major}
@@ -456,7 +457,7 @@ export default function StudentProfile({
                 </div>
                 <div className="minor-dropdown">
                     <FormControl style={{ width: '55%' }}>
-                        <InputLabel>Minor(s)</InputLabel>
+                        <InputLabel style={{backgroundColor:'white', paddingLeft: '4px', paddingRight: '4px'}}>Minor(s)</InputLabel>
                         <Select
                             multiple
                             value={currentUser.minor}
@@ -506,6 +507,7 @@ export default function StudentProfile({
                 <label className="resume">Upload CV or Resume</label>
                 {
                     <Uploadfile
+                        accept="application/pdf"
                         setResume={(resume) => {
                             console.log(resume)
                             setCurrentUser({ ...currentUser, resume: resume })

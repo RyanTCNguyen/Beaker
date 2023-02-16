@@ -82,7 +82,7 @@ const Navbar = () => {
 
     return (
         <>
-            <AppBar position="static">
+            <AppBar position="fixed">
                 <Toolbar style={{ backgroundColor: 'black' }}>
                     <IconButton
                         edge="start"
@@ -165,14 +165,6 @@ const Navbar = () => {
                                                         handleListKeyDown
                                                     }
                                                 >
-                                                    <MenuItem
-                                                        onClick={handleClose}
-                                                    >
-                                                        <Link to="/userprofile">
-                                                            {' '}
-                                                            Profile{' '}
-                                                        </Link>
-                                                    </MenuItem>
                                                     {!isAuthenticated &&
                                                     !isLoading ? (
                                                         <MenuItem
