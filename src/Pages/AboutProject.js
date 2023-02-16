@@ -139,7 +139,7 @@ function AboutProject({ match, projects, user }) {
                                     <IconButton
                                         onMouseEnter={() => setIsShownB(true)}
                                         onMouseLeave={() => setIsShownB(false)}
-                                        onClick={updateUserFunction(user, id)}
+                                        //onClick={updateUserFunction(user, id)}
                                     >
                                         <BookmarkBorderIcon fontSize="large"></BookmarkBorderIcon>
                                         {isShownB && (
@@ -148,6 +148,11 @@ function AboutProject({ match, projects, user }) {
                                             </div>
                                         )}
                                     </IconButton>
+                                </div>
+                                <div>
+                                    <Link to={`/editproject/${project.id}`}>
+                                        Edit
+                                    </Link>
                                 </div>
                             </Grid>
                         </div>

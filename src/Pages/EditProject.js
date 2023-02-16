@@ -1,46 +1,52 @@
-import React, { useState, useEffect, useMemo, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import '../Styles/Profile.css'
 import Button from '@mui/material/Button'
 import beaker from '../Images/blackLinedBeakerBgRemoved.png'
-import { Link } from 'react-router-dom'
-import 'firebase/firestore'
-import { db, storage } from '../firebase'
-import { doc, collection, getDoc, getDocs, updateDoc } from 'firebase/firestore'
-import Layout from '../Components/Layout'
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
-import Box from '@material-ui/core/Box'
 import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
 import FormControl from '@mui/material/FormControl'
 import Select from '@mui/material/Select'
-import { TextField } from '@mui/material'
+import TextField from '@mui/material/TextField'
 import RequiredDialog from '../Components/RequiredDialog'
+import {
+    listFunction,
+    postFunction,
+    getFunction,
+    deleteFunction,
+    updateFunction,
+} from '../EngineFunctions/ProjectsFetch'
+import { useAuth0 } from '@auth0/auth0-react'
 
 function EditProject({ match, projects }) {
+    const id = match.params.projectId
     const [project, setProject] = useState({})
-    const [projectName, setProjectName] = useState('')
-    const [projectStatus, setStatus] = useState('')
-    const [desc, setDesc] = useState('')
-    const [memberAmount, setMemAmount] = useState('')
-    const [reqMajor, setReqMajor] = useState([])
-    const [reqYear, setReqYear] = useState([])
-    const [softskills, setSoftSkills] = useState('')
-    const [timeline, setTimeline] = useState('')
-    const [incentives, setIncentives] = useState([])
-    const [imageAsFile, setImageAsFile] = useState(null)
-    const [imageAsUrl, setImageAsUrl] = useState(
-        `${process.env.PUBLIC_URL}/projectImages/user.png`
-    )
-    // const [creator, setCreator] = useState('')
-    const [groupMembers, setGroupMembers] = useState([])
-    const [applicants, setApplicants] = useState([])
-    const [rejected, setRejected] = useState([])
+    const { user } = useAuth0()
+
+    useEffect(() => {
+        //send the network request to retrieve data for this project
+        const selected = projects.filter((project) => project.id === id)[0]
+        setProject(selected)
+        console.log(selected)
+    }, [id, projects])
+
+    const defaultData = {
+        applicants: [],
+        creator: user.name,
+        description: '',
+        groupmembers: [user.name],
+        image: '',
+        incentives: [],
+        members: 1,
+        major: [],
+        status: '',
+        timeline: '',
+        title: '',
+        year: [],
+    }
+
+    const [data, setData] = useState(defaultData)
 
     const [open, setOpen] = useState(false)
-
-    const projNameRef = useRef()
-    const projDescRef = useRef()
-    const projPrefSoftSkillsRef = useRef()
 
     const handleOpen = () => {
         setOpen(true)
@@ -50,225 +56,9 @@ function EditProject({ match, projects }) {
         setOpen(false)
     }
 
-    const projectsCollectionRef = useMemo(() => collection(db, 'projects'), [])
-    const id = match.params.projectId
-    const projectCollectionRef = doc(db, 'projects', id)
-    const [projectState, setProjectState] = useState({})
-
-    const getProjects = async () => {
-        const data = await getDocs(projectsCollectionRef)
-        projects = data.docs.map((doc) => ({ ...doc.data(), key: doc.id }))
-    }
-
-    const [editedProjectName, setEditedProjectName] = useState('')
-    const [editedDesc, setEditedDesc] = useState('')
-    const [editedSoftSkills, setEditedSoftSkills] = useState('')
-    const [editedProjectStatus, setEditedProjectStatus] = useState('')
-    const [editedMemberAmount, setEditedMemAmount] = useState('')
-    const [editedReqMajor, setEditedReqMajor] = useState([])
-    const [editedReqYear, setEditedReqYear] = useState([])
-    const [editedTimeline, setEditedTimeline] = useState('')
-    const [editedIncentives, setEditedIncentives] = useState([])
-    const [editedImageAsUrl, setEditedImageAsUrl] = useState('')
-
-    const getProject = async () => {
-        const data = await getDoc(projectCollectionRef)
-        const selected = data.data()
-        setProject(selected)
-        setProjectState(selected)
-        setEditedProjectName(selected?.title)
-        setEditedProjectStatus(selected?.status)
-        setEditedDesc(selected?.description)
-        setEditedMemAmount(selected?.members)
-        setEditedReqMajor(selected?.major)
-        setEditedReqYear(selected?.year)
-        setEditedSoftSkills(selected?.softskills)
-        setEditedTimeline(selected?.timeline)
-        setEditedIncentives(selected?.incentives)
-        setEditedImageAsUrl(selected?.image)
-        // setCreator(selected?.creator)
-        setGroupMembers(selected?.groupMembers)
-        setApplicants(selected?.applicants)
-        setRejected(selected?.rejected)
-    }
-
-    useEffect(() => {
-        getProject()
-    }, [])
-
-    const checkAllRequiredValid = (reqValues) => {
-        let invalid = reqValues.filter((x) => x.length === 0 || x === undefined)
-        if (invalid.length >= 1) {
-            setOpen(true)
-            return false
-        }
-        return true
-    }
-
-    const compareValues = () => {
-        let updatedProjectName =
-            projectState.title !== editedProjectName
-                ? editedProjectName
-                : projectState.title
-        setProjectName(updatedProjectName)
-
-        let updatedStatus =
-            projectState.status !== editedProjectStatus
-                ? editedProjectStatus
-                : projectState.status
-        setStatus(updatedStatus)
-
-        let updatedDesc =
-            projectState.description !== editedDesc
-                ? editedDesc
-                : projectState.description
-        setDesc(updatedDesc)
-
-        let updatedMemAmount =
-            projectState.members !== editedMemberAmount
-                ? editedMemberAmount
-                : projectState.members
-        setMemAmount(updatedMemAmount)
-
-        let updatedReqMajor = !checkArrEquality(
-            projectState.major,
-            editedReqMajor
-        )
-            ? [...editedReqMajor]
-            : [...projectState.major]
-        setReqMajor(updatedReqMajor)
-
-        let updatedReqYear = !checkArrEquality(projectState.year, editedReqYear)
-            ? [...editedReqYear]
-            : [...projectState.year]
-        setReqYear(updatedReqYear)
-
-        let updatedSoftSkills =
-            projectState.softskills !== editedSoftSkills
-                ? editedSoftSkills
-                : projectState.softskills
-        setSoftSkills(updatedSoftSkills)
-
-        let updatedTimeline =
-            projectState.timeline !== editedTimeline
-                ? editedTimeline
-                : projectState.timeline
-        setTimeline(updatedTimeline)
-
-        let updatedIncentives = !checkArrEquality(
-            projectState.incentives,
-            editedIncentives
-        )
-            ? [...editedIncentives]
-            : [...projectState.incentives]
-        setIncentives(updatedIncentives)
-
-        let updatedImageAsUrl =
-            projectState.image !== editedImageAsUrl
-                ? editedImageAsUrl
-                : projectState.image
-        setImageAsUrl(updatedTimeline)
-
-        return {
-            updatedProjectName,
-            updatedStatus,
-            updatedDesc,
-            updatedMemAmount,
-            updatedReqMajor,
-            updatedReqYear,
-            updatedSoftSkills,
-            updatedTimeline,
-            updatedIncentives,
-            updatedImageAsUrl,
-        }
-    }
-
-    const editProject = async () => {
-        let {
-            updatedProjectName,
-            updatedStatus,
-            updatedDesc,
-            updatedMemAmount,
-            updatedReqMajor,
-            updatedReqYear,
-            updatedSoftSkills,
-            updatedTimeline,
-            updatedIncentives,
-            updatedImageAsUrl,
-        } = compareValues()
-
-        let valid = checkAllRequiredValid([
-            updatedProjectName,
-            updatedDesc,
-            updatedReqMajor,
-            updatedMemAmount,
-        ])
-        if (!valid) return
-        await updateDoc(projectCollectionRef, {
-            title: updatedProjectName,
-            status: updatedStatus,
-            description: updatedDesc,
-            members: updatedMemAmount,
-            major: updatedReqMajor,
-            year: updatedReqYear,
-            softskills: updatedSoftSkills,
-            timeline: updatedTimeline,
-            incentives: updatedIncentives,
-            image: updatedImageAsUrl,
-            // creator: creator,
-            groupMembers: groupMembers,
-            applicants: applicants,
-            rejected: rejected,
-        })
-        getProjects()
-        window.location = `/projectdetails/${id}`
-    }
-
-    const handleImageAsFile = (e) => {
-        setImageAsFile(e.target.files[0])
-    }
-
-    function handleUpload(e) {
-        e.preventDefault()
-        const ref = storage.ref(`/Images/${imageAsFile.name}`)
-        const uploadTask = ref.put(imageAsFile)
-        uploadTask.on('state_changed', console.log, console.error, () => {
-            ref.getDownloadURL().then((url) => {
-                setImageAsFile(null)
-                setImageAsUrl(url)
-            })
-        })
-    }
-
-    const widget = window.cloudinary.createUploadWidget(
-        {
-            cloudName: process.env.REACT_APP_CLOUD_NAME,
-            uploadPreset: process.env.REACT_APP_UPLOAD_PRESET,
-        },
-
-        (error, result) => {
-            console.log('result:', result)
-            if (!error && result && result.event === 'success') {
-                console.log('Done! Here is the image info: ', result.info)
-                setEditedImageAsUrl(result.info.url)
-            }
-        }
-    )
-
     const openWidget = (e, widget) => {
         e.preventDefault()
         widget.open()
-    }
-
-    const checkArrEquality = (a, b) => {
-        if (a === b) return true
-        if (a == null || b == null) return false
-        if (a.length !== b.length) return false
-
-        for (let i = 0; i < a.length; i++) {
-            if (!a.includes(b[i]) || !b.includes(a[i])) return false
-        }
-        return true
     }
 
     const memberAmtOptions = [
@@ -283,10 +73,6 @@ function EditProject({ match, projects }) {
         '9',
         '10+',
     ]
-
-    const handleChangeMemAmt = (event) => {
-        setEditedMemAmount(event.target.value)
-    }
 
     const majorOptions = [
         'Accounting (ACCT)',
@@ -346,13 +132,6 @@ function EditProject({ match, projects }) {
         'Womens and Gender Studies (WGST)',
     ]
 
-    const handleChangeMajor = (event) => {
-        const {
-            target: { value },
-        } = event
-        setEditedReqMajor(typeof value === 'string' ? value.split(',') : value)
-    }
-
     const yearOptions = [
         'Freshman',
         'Sophomore',
@@ -360,13 +139,6 @@ function EditProject({ match, projects }) {
         'Senior',
         'Graduate',
     ]
-
-    const handleChangeYear = (event) => {
-        const {
-            target: { value },
-        } = event
-        setEditedReqYear(typeof value === 'string' ? value.split(',') : value)
-    }
 
     const timelineOptions = [
         '1 Semester',
@@ -376,262 +148,224 @@ function EditProject({ match, projects }) {
         '4 Years+',
     ]
 
-    const handleChangeTimeline = (event) => {
-        setEditedTimeline(event.target.value)
-    }
-
-    const status = ['Open', 'Closed', 'Completed']
-
-    const handleChangeStatus = (event) => {
-        setEditedProjectStatus(event.target.value)
-    }
-
     const incentiveOptions = ['Paid', 'Funding Available', 'Internship Credit']
-
-    const handleChangeIncentives = (event) => {
-        setEditedIncentives(event.target.value)
-    }
-
     return (
-        <Layout>
+        <div>
             <div className="new-profile">
                 <div className="left-screen-project">
-                    <h1 className="left-text-info" id="left-text">
-                        Edit<br></br> Project!
-                    </h1>
+                    <img src={project.image} alt={project.title}></img>
                 </div>
-                <div className="middle-screen">
-                    <Box display="flex" flexGrow={1}>
-                        <Link to={`/projectdetails/${id}`}>
-                            <ArrowBackIosIcon
-                                style={{
-                                    color: 'black',
-                                    paddingTop: '10',
-                                    paddingLeft: '10',
-                                }}
-                            ></ArrowBackIosIcon>
-                        </Link>
-                    </Box>
-                </div>
-
-                {project && (
-                    <div className="right-screen-proj">
-                        <img
-                            className="profile-image"
-                            src={beaker}
-                            alt="logo"
+                <div className="middle-screen"></div>
+                <div className="right-screen-proj">
+                    <img className="profile-image" src={beaker} alt="logo" />
+                    <h1 className="new-user">Edit Project</h1>
+                    <FormControl inputref={data.title} />
+                    <div className="project-name">
+                        <TextField
+                            type="text"
+                            className="proj-name"
+                            label="Project Name"
+                            placeholder="Project Name"
+                            //inputref={data.title}
+                            value={project.title}
+                            style={{ width: '55%' }}
+                            onChange={(event) =>
+                                setData((prevData) => ({
+                                    ...data,
+                                    title: event.target.value,
+                                }))
+                            }
+                            required
                         />
-                        <h1 className="new-user">
-                            Edit {project.title} Project
-                        </h1>
-                        <p className="profile">Project Image</p>
-                        <div>
-                            <img
-                                style={{
-                                    width: 250,
-                                    height: 250,
-                                    paddingTop: 0,
-                                    paddingTop: '0%',
-                                    borderRadius: '5px',
-                                    textShadow: '2px 2px 5px',
-                                }}
-                                alt="profile"
-                                src={editedImageAsUrl}
-                                // onClick={(e) => openWidget(e, widget)}
-                            />
-                        </div>
-                        <FormControl inputRef={projNameRef} />
-                        <div className="proj-name">
-                            <TextField
-                                type="text"
-                                className="project-name"
-                                placeholder="Project Name"
-                                label="Project Name"
-                                inputRef={projNameRef}
-                                value={editedProjectName}
-                                style={{ width: '55%' }}
-                                onChange={(event) => {
-                                    setEditedProjectName(event.target.value)
-                                }}
-                                required
-                            />
-                        </div>
-                        <FormControl inputRef={projDescRef} />
-                        <div className="project-desc">
-                            <TextField
-                                multiline
-                                rows={6}
-                                type="text"
-                                label="Project Description"
-                                className="project-desc"
-                                placeholder="Project Description"
-                                inputRef={projDescRef}
-                                value={editedDesc}
-                                style={{ width: '55%' }}
-                                onChange={(event) => {
-                                    setEditedDesc(event.target.value)
-                                }}
-                                required
-                            />
-                        </div>
-                        <div className="project-status">
-                            <FormControl style={{ width: '55%' }}>
-                                <InputLabel>Project Status</InputLabel>
-                                <Select
-                                    value={editedProjectStatus}
-                                    onChange={handleChangeStatus}
-                                >
-                                    {status.map((s) => (
-                                        <MenuItem key={s} value={s}>
-                                            {s}
-                                        </MenuItem>
-                                    ))}
-                                </Select>
-                            </FormControl>
-                        </div>
-                        <div className="members-dropdown">
-                            <FormControl style={{ width: '55%' }} required>
-                                <InputLabel>
-                                    Number Of Members Needed
-                                </InputLabel>
-                                <Select
-                                    value={editedMemberAmount}
-                                    onChange={handleChangeMemAmt}
-                                >
-                                    {memberAmtOptions.map((memberAmtOption) => (
-                                        <MenuItem
-                                            key={memberAmtOption}
-                                            value={memberAmtOption}
-                                        >
-                                            {memberAmtOption}
-                                        </MenuItem>
-                                    ))}
-                                </Select>
-                            </FormControl>
-                        </div>
-                        <div className="preferred-majors-options">
-                            <FormControl style={{ width: '55%' }} required>
-                                <InputLabel>Preferred Majors</InputLabel>
-                                <Select
-                                    multiple
-                                    value={editedReqMajor}
-                                    onChange={handleChangeMajor}
-                                >
-                                    {majorOptions.map((majorOption) => (
-                                        <MenuItem
-                                            key={majorOption}
-                                            value={majorOption}
-                                        >
-                                            {majorOption}
-                                        </MenuItem>
-                                    ))}
-                                </Select>
-                            </FormControl>
-                        </div>
-                        <div className="preferred-years-options">
-                            <FormControl style={{ width: '55%' }}>
-                                <InputLabel>Preferred Years</InputLabel>
-                                <Select
-                                    multiple
-                                    value={editedReqYear}
-                                    onChange={handleChangeYear}
-                                >
-                                    {yearOptions.map((yearOption) => (
-                                        <MenuItem
-                                            key={yearOption}
-                                            value={yearOption}
-                                        >
-                                            {yearOption}
-                                        </MenuItem>
-                                    ))}
-                                </Select>
-                            </FormControl>
-                        </div>
-                        <FormControl inputRef={projPrefSoftSkillsRef} />
-                        <div className="preferred-soft-skill">
-                            <TextField
-                                type="text"
-                                className="preferred-soft-skill"
-                                label="Preferred Soft Skill(s)"
-                                placeholder="Preferred Soft Skill(s)"
-                                inputRef={projPrefSoftSkillsRef}
-                                value={editedSoftSkills}
-                                style={{ width: '55%' }}
-                                onChange={(event) => {
-                                    setEditedSoftSkills(event.target.value)
-                                }}
-                            />
-                        </div>
-                        <div className="timeline-dropdown">
-                            <FormControl style={{ width: '55%' }}>
-                                <InputLabel>Project Timeline</InputLabel>
-                                <Select
-                                    value={editedTimeline}
-                                    onChange={handleChangeTimeline}
-                                >
-                                    {timelineOptions.map((timelineOption) => (
-                                        <MenuItem
-                                            key={timelineOption}
-                                            value={timelineOption}
-                                        >
-                                            {timelineOption}
-                                        </MenuItem>
-                                    ))}
-                                </Select>
-                            </FormControl>
-                        </div>
-                        <div className="incentive-options">
-                            <FormControl style={{ width: '55%' }}>
-                                <InputLabel>Incentives</InputLabel>
-                                <Select
-                                    multiple
-                                    value={editedIncentives}
-                                    onChange={handleChangeIncentives}
-                                >
-                                    {incentiveOptions.map((incentiveOption) => (
-                                        <MenuItem
-                                            key={incentiveOption}
-                                            value={incentiveOption}
-                                        >
-                                            {incentiveOption}
-                                        </MenuItem>
-                                    ))}
-                                </Select>
-                            </FormControl>
-                        </div>
-                        <div></div>
-                        <br></br>
-                        <div className="create-proj">
-                            <Button
-                                className="post-proj-btn1"
-                                size="large"
-                                color="warning"
-                                component={Link}
-                                to={`/projectdetails/${id}`}
-                            >
-                                Cancel
-                            </Button>
-                            <Button
-                                className="post-proj-btn1"
-                                size="large"
-                                color="primary"
-                                onClick={editProject}
-                            >
-                                Save
-                            </Button>
-                            <RequiredDialog
-                                onClickState={open}
-                                onClose={handleClose}
-                                fields={[
-                                    'Project Name, Project Description, Number of Members, Preferred Majors',
-                                ]}
-                            />
-                        </div>
                     </div>
-                )}
-                <div className="right-most-screen"></div>
+                    <FormControl inputref={data.description} />
+                    <div className="project-desc">
+                        <TextField
+                            multiline
+                            rows={6}
+                            label="Project Description"
+                            placeholder="Project Description"
+                            //inputref={data.description}
+                            value={project.description}
+                            style={{ width: '55%' }}
+                            onChange={(event) =>
+                                setData((prevData) => ({
+                                    ...prevData,
+                                    description: event.target.value,
+                                }))
+                            }
+                            required
+                        />
+                    </div>
+                    <div className="members-dropdown">
+                        <FormControl style={{ width: '55%' }} required>
+                            <InputLabel>Number Of Members Needed</InputLabel>
+                            <Select
+                                value={data.members}
+                                onChange={(event) =>
+                                    setData((prevData) => ({
+                                        ...prevData,
+                                        members: event.target.value,
+                                    }))
+                                }
+                            >
+                                {memberAmtOptions.map((memberAmtOption) => (
+                                    <MenuItem
+                                        key={memberAmtOption}
+                                        value={memberAmtOption}
+                                    >
+                                        {memberAmtOption}
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
+                    </div>
+                    <div className="preferred-majors-options">
+                        <FormControl style={{ width: '55%' }} required>
+                            <InputLabel>Preferred Majors</InputLabel>
+                            <Select
+                                multiple
+                                value={[project.major]}
+                                onChange={(event) =>
+                                    setData((prevData) => ({
+                                        ...prevData,
+                                        major:
+                                            typeof event.target.value ===
+                                            'string'
+                                                ? event.target.value.split(',')
+                                                : event.target.value,
+                                    }))
+                                }
+                            >
+                                {majorOptions.map((majorOption) => (
+                                    <MenuItem
+                                        key={majorOption}
+                                        value={majorOption}
+                                    >
+                                        {majorOption}
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
+                    </div>
+                    <div className="preferred-years-options">
+                        <FormControl style={{ width: '55%' }}>
+                            <InputLabel>Preferred Years</InputLabel>
+                            <Select
+                                multiple
+                                value={[project.year]}
+                                onChange={(event) =>
+                                    setData((prevData) => ({
+                                        ...prevData,
+                                        year:
+                                            typeof event.target.value ===
+                                            'string'
+                                                ? event.target.value.split(',')
+                                                : event.target.value,
+                                    }))
+                                }
+                            >
+                                {yearOptions.map((yearOption) => (
+                                    <MenuItem
+                                        key={yearOption}
+                                        value={yearOption}
+                                    >
+                                        {yearOption}
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
+                    </div>
+                    <br></br>
+                    <div className="image-link">
+                        <TextField
+                            type="text"
+                            className="image-link"
+                            label="Image Link"
+                            placeholder="Image Link"
+                            //inputref={data.image}
+                            value={project.image}
+                            style={{ width: '55%' }}
+                            onChange={(event) =>
+                                setData((prevData) => ({
+                                    ...prevData,
+                                    image: event.target.value,
+                                }))
+                            }
+                            required
+                        />
+                    </div>
+                    <br></br>
+                    <div className="timeline-dropdown">
+                        <FormControl style={{ width: '55%' }}>
+                            <InputLabel>Project Timeline</InputLabel>
+                            <Select
+                                //inputref={data.timeline}
+                                value={[project.timeline]}
+                                onChange={(event) =>
+                                    setData((prevData) => ({
+                                        ...prevData,
+                                        year: event.target.value,
+                                    }))
+                                }
+                            >
+                                {timelineOptions.map((timelineOption) => (
+                                    <MenuItem
+                                        key={timelineOption}
+                                        value={timelineOption}
+                                    >
+                                        {timelineOption}
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
+                    </div>
+                    <div className="incentive-options">
+                        <FormControl style={{ width: '55%' }}>
+                            <InputLabel>Incentives</InputLabel>
+                            <Select
+                                multiple
+                                value={[project.incentives]}
+                                onChange={(event) =>
+                                    setData((prevData) => ({
+                                        ...prevData,
+                                        incentives: event.target.value,
+                                    }))
+                                }
+                            >
+                                {incentiveOptions.map((incentiveOption) => (
+                                    <MenuItem
+                                        key={incentiveOption}
+                                        value={incentiveOption}
+                                    >
+                                        {incentiveOption}
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
+                    </div>
+                    <div className="create-proj">
+                        <Button
+                            className="post-proj-btn1"
+                            variant="contained"
+                            size="large"
+                            onClick={() => {
+                                postFunction('posts-engine', data)
+                            }}
+                        >
+                            Post
+                        </Button>
+                    </div>
+                    <RequiredDialog
+                        onClickState={open}
+                        onClose={handleClose}
+                        fields={[
+                            'Project Name, Project Description, Number of Members, Preferred Majors',
+                        ]}
+                    />
+                </div>
             </div>
-        </Layout>
+        </div>
     )
 }
 
