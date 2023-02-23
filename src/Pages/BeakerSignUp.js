@@ -1,5 +1,3 @@
-import EditStudentProfile from './EditStudentProfile'
-import EditFacultyStaffProfile from './EditFacultyStaffProfile'
 import { Redirect } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import { listFunction } from '../EngineFunctions/ProjectsFetch'
