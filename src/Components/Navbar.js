@@ -188,7 +188,8 @@ const Navbar = () => {
                                                                     returnTo:
                                                                         window
                                                                             .location
-                                                                            .href,
+                                                                            .origin +
+                                                                        '/about',
                                                                 })
                                                             }}
                                                         >
