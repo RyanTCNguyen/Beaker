@@ -90,13 +90,6 @@ function App() {
                     <Route path="/about" exact component={About} />
 
                     <Route
-                        path="/aboutproject/:projectId"
-                        exact
-                        render={(props) => (
-                            <AboutProject {...props} projects={projects} />
-                        )}
-                    />
-                    <Route
                         path="/editproject/:projectId"
                         exact
                         render={(props) => (
