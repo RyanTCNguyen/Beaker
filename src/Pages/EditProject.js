@@ -19,17 +19,18 @@ import { useAuth0 } from '@auth0/auth0-react'
 
 function EditProject({ match, projects }) {
     const id = match.params.projectId
-    const [project, setProject] = useState({})
+    //const location = useLocation()
+    //const id = new URLSearchParams(location.search)
+    
     const { user } = useAuth0()
 
     useEffect(() => {
         //send the network request to retrieve data for this project
         const selected = projects.filter((project) => project.id === id)[0]
         setProject(selected)
-        console.log(selected)
     }, [id, projects])
 
-    const defaultData = {
+    const defaultProject = {
         applicants: [],
         creator: user.name,
         description: '',
@@ -44,7 +45,7 @@ function EditProject({ match, projects }) {
         year: [],
     }
 
-    const [data, setData] = useState(defaultData)
+    const [project, setProject] = useState(defaultProject)
 
     const [open, setOpen] = useState(false)
 
@@ -159,7 +160,7 @@ function EditProject({ match, projects }) {
                 <div className="right-screen-proj">
                     <img className="profile-image" src={beaker} alt="logo" />
                     <h1 className="new-user">Edit Project</h1>
-                    <FormControl inputref={data.title} />
+                    <FormControl inputref={project.title} />
                     <div className="project-name">
                         <TextField
                             type="text"
@@ -170,15 +171,15 @@ function EditProject({ match, projects }) {
                             value={project.title}
                             style={{ width: '55%' }}
                             onChange={(event) =>
-                                setData((prevData) => ({
-                                    ...data,
+                                setProject({
+                                    ...project,
                                     title: event.target.value,
-                                }))
+                                })
                             }
                             required
                         />
                     </div>
-                    <FormControl inputref={data.description} />
+                    <FormControl inputref={project.description} />
                     <div className="project-desc">
                         <TextField
                             multiline
@@ -189,7 +190,7 @@ function EditProject({ match, projects }) {
                             value={project.description}
                             style={{ width: '55%' }}
                             onChange={(event) =>
-                                setData((prevData) => ({
+                                setProject((prevData) => ({
                                     ...prevData,
                                     description: event.target.value,
                                 }))
@@ -201,9 +202,9 @@ function EditProject({ match, projects }) {
                         <FormControl style={{ width: '55%' }} required>
                             <InputLabel>Number Of Members Needed</InputLabel>
                             <Select
-                                value={data.members}
+                                value={project.members}
                                 onChange={(event) =>
-                                    setData((prevData) => ({
+                                    setProject((prevData) => ({
                                         ...prevData,
                                         members: event.target.value,
                                     }))
@@ -227,7 +228,7 @@ function EditProject({ match, projects }) {
                                 multiple
                                 value={[project.major]}
                                 onChange={(event) =>
-                                    setData((prevData) => ({
+                                    setProject((prevData) => ({
                                         ...prevData,
                                         major:
                                             typeof event.target.value ===
@@ -255,7 +256,7 @@ function EditProject({ match, projects }) {
                                 multiple
                                 value={[project.year]}
                                 onChange={(event) =>
-                                    setData((prevData) => ({
+                                    setProject((prevData) => ({
                                         ...prevData,
                                         year:
                                             typeof event.target.value ===
@@ -287,7 +288,7 @@ function EditProject({ match, projects }) {
                             value={project.image}
                             style={{ width: '55%' }}
                             onChange={(event) =>
-                                setData((prevData) => ({
+                                setProject((prevData) => ({
                                     ...prevData,
                                     image: event.target.value,
                                 }))
@@ -301,12 +302,12 @@ function EditProject({ match, projects }) {
                             <InputLabel>Project Timeline</InputLabel>
                             <Select
                                 //inputref={data.timeline}
-                                value={[project.timeline]}
+                                value={project?.timeline? project.timeline : ''}
                                 onChange={(event) =>
-                                    setData((prevData) => ({
-                                        ...prevData,
-                                        year: event.target.value,
-                                    }))
+                                    setProject({
+                                        ...project,
+                                        timeline: event.target.value,
+                                    })
                                 }
                             >
                                 {timelineOptions.map((timelineOption) => (
@@ -327,10 +328,10 @@ function EditProject({ match, projects }) {
                                 multiple
                                 value={[project.incentives]}
                                 onChange={(event) =>
-                                    setData((prevData) => ({
-                                        ...prevData,
+                                    setProject({
+                                        ...project,
                                         incentives: event.target.value,
-                                    }))
+                                    })
                                 }
                             >
                                 {incentiveOptions.map((incentiveOption) => (
@@ -350,7 +351,7 @@ function EditProject({ match, projects }) {
                             variant="contained"
                             size="large"
                             onClick={() => {
-                                postFunction('posts-engine', data)
+                                postFunction('posts-engine', project)
                             }}
                         >
                             Post

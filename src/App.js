@@ -165,6 +165,7 @@ function App() {
                                 {...props}
                                 projects={projects}
                                 user={engineUser[0]}
+                                email={auth0user.email}
                             />
                         )}
                     />

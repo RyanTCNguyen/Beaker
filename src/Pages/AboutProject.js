@@ -9,12 +9,14 @@ import TelegramIcon from '@mui/icons-material/Telegram'
 import Layout from '../Components/Layout'
 import { IconButton } from '@mui/material'
 import { updateUserFunction } from '../EngineFunctions/ProjectsFetch'
+import ProjectApplication from './ProjectApplication'
 
-function AboutProject({ match, projects, user }) {
+function AboutProject({ match, projects, user, email }) {
     const [project, setProject] = useState({})
     const [isShown, setIsShown] = useState(false)
     const [isShownT, setIsShownT] = useState(false)
     const [isShownB, setIsShownB] = useState(false)
+    const [applicationPopUp, setApplicationPopUp] = useState(false)
     const id = match.params.projectId
 
     useEffect(() => {
@@ -117,6 +119,7 @@ function AboutProject({ match, projects, user }) {
                                 </div>
                                 <div>
                                     <IconButton
+                                        onClick={()=>{setApplicationPopUp(!applicationPopUp)}}
                                         onMouseEnter={() => setIsShownT(true)}
                                         onMouseLeave={() => setIsShownT(false)}
                                     >
@@ -125,6 +128,7 @@ function AboutProject({ match, projects, user }) {
                                             style={{
                                                 color: 'rgba(172, 12, 48, 1)',
                                             }}
+                                            
                                         >
                                             {' '}
                                         </TelegramIcon>
@@ -159,6 +163,7 @@ function AboutProject({ match, projects, user }) {
                     </div>
                 )}
             </div>
+            <div>{applicationPopUp?<ProjectApplication id={project?.id} email={email}/>:<></>}</div>
         </Layout>
     )
 }
