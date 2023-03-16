@@ -138,23 +138,12 @@ export default function StudentProfile({
             missingArr[i] = ` ` + missingArr[i]
         }
         if (missing === 0) {
-            if (!editing) {
-                postFunction('profiles-engine', {
-                    ...currentUser,
-                    email: authUser.email,
-                }).then(()=>{
-                    history.push('/dashboard')
-                })
-            } else {
-                updateUserFunction({
-                    ...currentUser,
-                    email: authUser.email,
-                }, currentUser.docID).then(()=>{
-                    //window.location.reload()
-                })
-                
-            }
-            
+            postFunction('profiles-engine', {
+                ...currentUser,
+                email: authUser.email,
+            }).then(()=>{
+                history.push('/dashboard')
+            })
             console.log('POSTED')
             
         } else {
