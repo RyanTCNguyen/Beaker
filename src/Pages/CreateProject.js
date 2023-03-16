@@ -16,6 +16,7 @@ import {
     updateFunction,
 } from '../EngineFunctions/ProjectsFetch'
 import { useAuth0 } from '@auth0/auth0-react'
+import { useHistory } from 'react-router-dom'
 
 function CreateProject() {
     const { user } = useAuth0()
@@ -37,6 +38,8 @@ function CreateProject() {
     const [data, setData] = useState(defaultData)
 
     const [open, setOpen] = useState(false)
+
+    let history = useHistory()
 
     const handleOpen = () => {
         setOpen(true)
@@ -340,7 +343,9 @@ function CreateProject() {
                             variant="contained"
                             size="large"
                             onClick={() => {
-                                postFunction('posts-engine', data)
+                                postFunction('posts-engine', data).then(() => {
+                                    history.push('./projectspage')
+                                })
                             }}
                         >
                             Post
