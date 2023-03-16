@@ -101,7 +101,7 @@ export const deleteFunction = async (engine, docID) => {
         body: JSON.stringify([docID]),
     }
     return await fetch(
-        process.env.REACT_APP_ENDPOINT_BASE + `engines/${engine}/documents`,
+        process.env.REACT_APP_ENDPOINT_BASE + `/engines/${engine}/documents`,
         params
     )
         .then((data) => {
