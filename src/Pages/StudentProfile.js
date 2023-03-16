@@ -13,7 +13,7 @@ import Select from '@mui/material/Select'
 import TextField from '@mui/material/TextField'
 import { useEffect } from 'react'
 import { useAuth0 } from '@auth0/auth0-react'
-import { postFunction, updateFunction } from '../EngineFunctions/ProjectsFetch'
+import { postFunction, updateFunction, updateUserFunction } from '../EngineFunctions/ProjectsFetch'
 import { WorkRounded } from '@material-ui/icons'
 
 const useStyles = makeStyles((theme) => ({
@@ -141,13 +141,11 @@ export default function StudentProfile({
             postFunction('profiles-engine', {
                 ...currentUser,
                 email: authUser.email,
+            }).then(()=>{
+                history.push('/dashboard')
             })
             console.log('POSTED')
-            if (redirect) {
-                history.push('/dashboard')
-            } else {
-                window.location.reload()
-            }
+            
         } else {
             console.log(`Missing ${missing} Fields`)
             alert(`Missing these required fields: ${missingArr}`)
@@ -509,7 +507,6 @@ export default function StudentProfile({
                     <Uploadfile
                         accept="application/pdf"
                         setResume={(resume) => {
-                            console.log(resume)
                             setCurrentUser({ ...currentUser, resume: resume })
                         }}
                         resume={currentUser.resume}
