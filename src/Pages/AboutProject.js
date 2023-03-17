@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import '../Styles/LearnMore.css'
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder'
+import BookmarkAddedIcon from '@mui/icons-material/BookmarkAdd'
 import HighlightOffIcon from '@mui/icons-material/HighlightOff'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import { Link } from 'react-router-dom'
@@ -8,16 +9,37 @@ import Grid from '@mui/material/Grid'
 import TelegramIcon from '@mui/icons-material/Telegram'
 import Layout from '../Components/Layout'
 import { IconButton } from '@mui/material'
-import { updateUserFunction } from '../EngineFunctions/ProjectsFetch'
+import { postFunction } from '../EngineFunctions/ProjectsFetch'
+import { useAuth0 } from '@auth0/auth0-react'
 import ProjectApplication from './ProjectApplication'
 
-function AboutProject({ match, projects, user, email }) {
+function AboutProject({ match, projects, user }) {
     const [project, setProject] = useState({})
     const [isShown, setIsShown] = useState(false)
     const [isShownT, setIsShownT] = useState(false)
     const [isShownB, setIsShownB] = useState(false)
     const [applicationPopUp, setApplicationPopUp] = useState(false)
     const id = match.params.projectId
+
+    let tempBookmarked = []
+    let index = ''
+    const submitBookmarked = () => {
+        tempBookmarked = user.bookmarked
+        index = tempBookmarked.indexOf(id)
+        if (index > -1) {
+            tempBookmarked.splice(index, 1)
+            postFunction('profiles-engine', {
+                ...user,
+                bookmarked: tempBookmarked,
+            })
+        } else {
+            tempBookmarked.push(id)
+            postFunction('profiles-engine', {
+                ...user,
+                bookmarked: tempBookmarked,
+            })
+        }
+    }
 
     useEffect(() => {
         //send the network request to retrieve data for this project
@@ -143,7 +165,7 @@ function AboutProject({ match, projects, user, email }) {
                                     <IconButton
                                         onMouseEnter={() => setIsShownB(true)}
                                         onMouseLeave={() => setIsShownB(false)}
-                                        //onClick={updateUserFunction(user, id)}
+                                        onClick={() => submitBookmarked()}
                                     >
                                         <BookmarkBorderIcon fontSize="large"></BookmarkBorderIcon>
                                         {isShownB && (
@@ -163,7 +185,7 @@ function AboutProject({ match, projects, user, email }) {
                     </div>
                 )}
             </div>
-            <div>{applicationPopUp?<ProjectApplication id={project?.id} email={email}/>:<></>}</div>
+            <div>{applicationPopUp?<ProjectApplication id={project?.id} email={user.email}/>:<></>}</div>
         </Layout>
     )
 }
