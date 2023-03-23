@@ -38,7 +38,6 @@ function App() {
     const [members, setMembers] = useState([])
     const [projects, setProjects] = useState([])
     const [engineUser, setEngineUser] = useState([])
-    const [user, setUser] = useState([])
     useEffect(() => {
         listFunction('posts-engine').then((data) => {
             if (data) {
@@ -72,11 +71,10 @@ function App() {
                     <Route path="/studentprofile" exact>
                         <StudentProfile />
                     </Route>
-                    <Route
-                        path="/createproject"
-                        exact
-                        component={CreateProject}
-                    />
+                    <Route path="/createproject">
+                        <CreateProject user={engineUser[0]}/>
+                    </Route>
+                        
                     <Route
                         path="/facultystaffprofile"
                         exact

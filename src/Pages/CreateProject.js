@@ -8,6 +8,10 @@ import FormControl from '@mui/material/FormControl'
 import Select from '@mui/material/Select'
 import TextField from '@mui/material/TextField'
 import RequiredDialog from '../Components/RequiredDialog'
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import dayjs from 'dayjs'
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import {
     listFunction,
     postFunction,
@@ -18,19 +22,20 @@ import {
 import { useAuth0 } from '@auth0/auth0-react'
 import { useHistory } from 'react-router-dom'
 
-function CreateProject() {
-    const { user } = useAuth0()
+function CreateProject({user}) {
+    console.log(user)
     const defaultData = {
         applicants: [],
-        creator: user.name,
+        creator: user.id,
+        createdby:'',
         description: '',
-        groupmembers: [user.name],
+        groupmembers: [user.id],
         image: '',
         incentives: [],
         members: 1,
         major: [],
-        status: '',
-        timeline: '',
+        status: 'Open',
+        timeline: [dayjs(),dayjs()],
         title: '',
         year: [],
     }
@@ -155,7 +160,6 @@ function CreateProject() {
                 <div className="right-screen-proj">
                     <img className="profile-image" src={beaker} alt="logo" />
                     <h1 className="new-user">New Project</h1>
-                    <p className="profile">Project Image</p>
                     <FormControl inputref={data.title} />
                     <div className="project-name">
                         <TextField
@@ -169,6 +173,23 @@ function CreateProject() {
                                 setData((prevData) => ({
                                     ...data,
                                     title: event.target.value,
+                                }))
+                            }
+                            required
+                        />
+                    </div>
+                    <div className="creator-name">
+                        <TextField
+                            type="text"
+                            className="creator-name"
+                            label="Creator Name"
+                            placeholder="Creator Name"
+                            inputref={data.createdby}
+                            style={{ width: '55%' }}
+                            onChange={(event) =>
+                                setData((prevData) => ({
+                                    ...data,
+                                    createdby: event.target.value,
                                 }))
                             }
                             required
@@ -293,24 +314,20 @@ function CreateProject() {
                     <div className="timeline-dropdown">
                         <FormControl style={{ width: '55%' }}>
                             <InputLabel>Project Timeline</InputLabel>
-                            <Select
-                                inputref={data.timeline}
-                                onChange={(event) =>
-                                    setData((prevData) => ({
-                                        ...prevData,
-                                        year: event.target.value,
-                                    }))
-                                }
-                            >
-                                {timelineOptions.map((timelineOption) => (
-                                    <MenuItem
-                                        key={timelineOption}
-                                        value={timelineOption}
-                                    >
-                                        {timelineOption}
-                                    </MenuItem>
-                                ))}
-                            </Select>
+                            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            <div>
+                                <DatePicker format="DD-MM-YYYY" label="Start Date" value={data.timeline[0]} onChange={(startDate) => {
+                                    let temp = data.timeline
+                                    temp[0] = startDate
+                                    setData({...data, timeline:temp})
+                                }}/>
+                                <DatePicker format="DD-MM-YYYY" label="End Date" value={data.timeline[1]} onChange={(endDate) => {
+                                    let temp = data.timeline
+                                    temp[1] = endDate
+                                    setData({...data, timeline:temp})
+                                }}/>
+                            </div>
+                            </LocalizationProvider>
                         </FormControl>
                     </div>
                     <div className="incentive-options">
