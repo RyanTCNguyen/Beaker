@@ -3,7 +3,7 @@ const baseURL = process.env.REACT_APP_ENDPOINT_BASE
 const AppSearchClient = require('@elastic/app-search-node')
 
 const baseURLFn = () => {
-    return process.env.REACT_APP_ENDPOINT_BASE
+    return process.env.REACT_APP_ENDPOINT_BASE + "/"
 }
 //const baseURLFn = process.env.REACT_APP_ENDPOINT_BASE
 const client = new AppSearchClient(
