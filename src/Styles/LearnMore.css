@@ -3,30 +3,20 @@
 }
 
 .column-right {
-    width: 50%;
+    width: 60%;
     display: table-cell;
-    padding: 10px;
-    margin-top: 8rem;
+    margin: 4%;
 }
 
 .column-left {
-    width: 50%;
-    display: table-cell;
-}
-.column-right.details {
-    width: 60%;
-    display: table-cell;
-    margin-top: 5px;
-}
-
-.column-left.details {
     width: 40%;
     display: table-cell;
+    margin: 2%;
 }
 
 .action-items {
-    /* position: absolute; */
-    /* bottom: 0; */
+    margin: 15px;
     display: flex;
     align-items: center;
+    padding: 20px;
 }

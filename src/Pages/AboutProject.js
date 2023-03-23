@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import '../Styles/LearnMore.css'
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder'
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
 import BookmarkAddedIcon from '@mui/icons-material/BookmarkAdd'
 import HighlightOffIcon from '@mui/icons-material/HighlightOff'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
@@ -12,6 +13,7 @@ import { IconButton } from '@mui/material'
 import { postFunction } from '../EngineFunctions/ProjectsFetch'
 import { useAuth0 } from '@auth0/auth0-react'
 import ProjectApplication from './ProjectApplication'
+//import 'src/Styles/AboutProject.css'
 
 function AboutProject({ match, projects, user }) {
     const [project, setProject] = useState({})
@@ -63,58 +65,93 @@ function AboutProject({ match, projects, user }) {
                                 src={project.image}
                                 alt={project.title}
                                 style={{
-                                    width: 500,
-                                    height: 500,
-                                    paddingBottom: '20px',
-                                    paddingTop: '0%',
+                                    width: '40vw',
                                 }}
                             />{' '}
                         </div>
                         <div className="column-right">
-                            <div style={{ fontSize: '50px' }}>
+                            <div
+                                style={{
+                                    fontSize: '50px',
+                                    paddingBottom: '10px',
+                                    textAlign: 'center',
+                                }}
+                            >
                                 {project.title}
                             </div>
-                            <div style={{ fontSize: '20px' }}>Created by:</div>
-
                             <div
-                                style={{ fontSize: '15px', maxWidth: '600px' }}
+                                style={{
+                                    fontSize: '18px',
+                                    fontStyle: 'italic',
+                                    paddingBottom: '20px',
+                                    textAlign: 'center',
+                                }}
                             >
-                                {project.description}
+                                Created by: {project.creator}
                             </div>
                             <br></br>
                             <div
-                                style={{ fontSize: '15px', maxWidth: '600px' }}
+                                style={{
+                                    fontSize: '16px',
+                                    maxWidth: '600px',
+                                    paddingBottom: '10px',
+                                }}
                             >
                                 <strong> Desired Major(s): </strong>{' '}
                                 {project.major}
                             </div>
                             <div
-                                style={{ fontSize: '15px', maxWidth: '600px' }}
+                                style={{
+                                    fontSize: '16px',
+                                    maxWidth: '600px',
+                                    paddingBottom: '10px',
+                                }}
                             >
                                 {project.softskills}
                             </div>
                             <div
-                                style={{ fontSize: '15px', maxWidth: '600px' }}
+                                style={{
+                                    fontSize: '16px',
+                                    maxWidth: '600px',
+                                    paddingBottom: '10px',
+                                }}
                             >
                                 <strong> Project Timeline: </strong>{' '}
                                 {project.timeline}
                             </div>
                             <div
-                                style={{ fontSize: '15px', maxWidth: '600px' }}
+                                style={{
+                                    fontSize: '16px',
+                                    maxWidth: '600px',
+                                    paddingBottom: '10px',
+                                }}
                             >
                                 {project.incentives}
                             </div>
                             <div
-                                style={{ fontSize: '15px', maxWidth: '600px' }}
+                                style={{
+                                    fontSize: '16px',
+                                    maxWidth: '600px',
+                                    paddingBottom: '10px',
+                                }}
                             >
                                 <strong> Desired Year(s):</strong>{' '}
                                 {project.year}
+                            </div>
+                            <br></br>
+                            <div
+                                style={{
+                                    fontSize: '16px',
+                                    maxWidth: '600px',
+                                }}
+                            >
+                                {project.description}
                             </div>
 
                             <Grid
                                 className="action-items"
                                 direction="row"
-                                justifyContent="space-evenly"
+                                justifyContent="space-between"
                             >
                                 <div>
                                     <IconButton
@@ -127,21 +164,23 @@ function AboutProject({ match, projects, user }) {
                                                 color: 'rgba(16, 127, 183, 1)',
                                             }}
                                         ></HighlightOffIcon>
-                                        {isShown && (
-                                            <div
-                                                style={{
-                                                    fontSize: '10px',
-                                                    alignContent: 'center',
-                                                }}
-                                            >
-                                                Not a fit
-                                            </div>
-                                        )}
+                                        <div
+                                            style={{
+                                                fontSize: '10px',
+                                                alignContent: 'center',
+                                            }}
+                                        >
+                                            {/* Not a fit */}
+                                        </div>
                                     </IconButton>
                                 </div>
                                 <div>
                                     <IconButton
-                                        onClick={()=>{setApplicationPopUp(!applicationPopUp)}}
+                                        onClick={() => {
+                                            setApplicationPopUp(
+                                                !applicationPopUp
+                                            )
+                                        }}
                                         onMouseEnter={() => setIsShownT(true)}
                                         onMouseLeave={() => setIsShownT(false)}
                                     >
@@ -150,15 +189,12 @@ function AboutProject({ match, projects, user }) {
                                             style={{
                                                 color: 'rgba(172, 12, 48, 1)',
                                             }}
-                                            
                                         >
                                             {' '}
                                         </TelegramIcon>
-                                        {isShownT && (
-                                            <div style={{ fontSize: '10px' }}>
-                                                I'm Interested!
-                                            </div>
-                                        )}
+                                        <div style={{ fontSize: '10px' }}>
+                                            {/* I'm Interested! */}
+                                        </div>
                                     </IconButton>
                                 </div>
                                 <div>
@@ -168,24 +204,45 @@ function AboutProject({ match, projects, user }) {
                                         onClick={() => submitBookmarked()}
                                     >
                                         <BookmarkBorderIcon fontSize="large"></BookmarkBorderIcon>
-                                        {isShownB && (
-                                            <div style={{ fontSize: '10px' }}>
-                                                Bookmark
-                                            </div>
-                                        )}
+                                        <div style={{ fontSize: '10px' }}>
+                                            {/* Bookmark */}
+                                        </div>
                                     </IconButton>
                                 </div>
-                                <div>
-                                    <Link to={`/editproject/${project.id}`}>
-                                        Edit
-                                    </Link>
-                                </div>
+                                {project.creator === user.email && (
+                                    <div>
+                                        <Link to={`/editproject/${project.id}`}>
+                                            <IconButton
+                                                onMouseEnter={() =>
+                                                    setIsShownB(true)
+                                                }
+                                                onMouseLeave={() =>
+                                                    setIsShownB(false)
+                                                }
+                                                onClick={() =>
+                                                    submitBookmarked()
+                                                }
+                                            >
+                                                <EditOutlinedIcon fontSize="large"></EditOutlinedIcon>
+                                                <div
+                                                    style={{ fontSize: '10px' }}
+                                                ></div>
+                                            </IconButton>
+                                        </Link>
+                                    </div>
+                                )}
                             </Grid>
                         </div>
                     </div>
                 )}
             </div>
-            <div>{applicationPopUp?<ProjectApplication id={project?.id} email={user.email}/>:<></>}</div>
+            <div>
+                {applicationPopUp ? (
+                    <ProjectApplication id={project?.id} email={user.email} />
+                ) : (
+                    <></>
+                )}
+            </div>
         </Layout>
     )
 }
