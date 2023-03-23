@@ -15,8 +15,8 @@ function ProjectTableNew({ projects }) {
                         style={{
                             display: 'inline-block',
                             position: 'relative',
-                            width: 50,
-                            height: '20%',
+                            width: 80,
+                            height: '100%',
                             overflow: 'hidden',
                             borderRadius: 50,
                         }}
@@ -48,6 +48,7 @@ function ProjectTableNew({ projects }) {
                 }}
                 options={{
                     headerStyle: {
+                        textTransform: 'uppercase',
                         fontWeight: 'bold',
                         backgroundColor: '#01579b',
                         color: '#FFF',
@@ -63,9 +64,7 @@ function ProjectTableNew({ projects }) {
                             style={{
                                 padding: 10,
                                 fontSize: 17,
-                                textAlign: 'center',
-                                color: 'grey',
-                                backgroundColor: 'white',
+                                color: ' dark grey',
                             }}
                         >
                             {project.description}
