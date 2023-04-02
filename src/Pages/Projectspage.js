@@ -35,7 +35,7 @@ function Projectspage({ projects }) {
                             </IconButton>
                         </Link>
                     ) : null}
-                <Typography id="Title">
+                <Typography id="Title" className="subTitle">
                     {' '}
                     Active Projects{' '}
                     
