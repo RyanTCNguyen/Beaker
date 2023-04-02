@@ -6,7 +6,7 @@ const Layout = ({ children }) => {
     return (
         <>
             <Navbar />
-            <img style={{width: '99vw', height: '99vh', position:'fixed', zIndex: -10}} src={lMUCampus}/>
+            <img style={{width: '99vw', height: '99vh', position:'fixed', zIndex: -10}} src={lMUCampus} alt="LMU Campus"/>
 
             <div style={{paddingTop:"10vh"}}>{children}</div>
         </>

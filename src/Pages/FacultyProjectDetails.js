@@ -1,6 +1,4 @@
-import React, { useState, useEffect } from 'react'
-import { db } from '../firebase'
-import { doc, getDoc } from 'firebase/firestore'
+import React, { useState } from 'react'
 import '../Styles/LearnMore.css'
 import Layout from '../Components/Layout'
 import ManageMembers from '../Components/ManageMembers'
@@ -10,24 +8,14 @@ import EditIcon from '@mui/icons-material/Edit'
 import Box from '@material-ui/core/Box'
 import Chip from '@material-ui/core/Chip'
 
-function ProjectDetails({ match, projects }) {
-    const [project, setProject] = useState({})
-    const [id, setId] = useState(match.params.projectId)
-    const projectCollectionRef = doc(db, 'projects', id)
-
-    const getProject = async () => {
-        const data = await getDoc(projectCollectionRef)
-        const selected = data.data()
-        setProject({ ...selected })
-    }
+function ProjectDetails({ match }) {
+    const [project, ] = useState({})
+    const [id, ] = useState(match.params.projectId)
 
     const getProjectState = () => {
         return project
     }
 
-    useEffect(() => {
-        getProject()
-    }, [])
 
     const incentiveComp = (project) => {
         let heading = ''
