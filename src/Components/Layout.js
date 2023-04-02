@@ -6,7 +6,7 @@ const Layout = ({ children, blur = true }) => {
     return (
         <>
             <Navbar />
-            <img style={{width: '102vw', height: 'auto', position:'fixed',top:'-2rem',left:'-1rem', zIndex: -10, filter: blur?'blur(6px)':'blur(0px)'}} src={campusBackground} alt="LMU Campus"/>
+            <img style={{ maxHeight: '110vw', width: 'auto',height: 'auto', position:'fixed',top:'50%',left:'50%', zIndex: -10, filter: blur?'blur(6px) saturate(1.2)':'blur(0px)', transform: 'translate(-50%,-50%)'}} src={campusBackground} alt="LMU Campus"/>
 
             <div style={{paddingTop:"10vh"}}>{children}</div>
         </>
