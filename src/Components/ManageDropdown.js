@@ -1,6 +1,4 @@
-import React, { useState, useEffect } from 'react'
-import { db } from '../firebase'
-import { doc, getDoc, updateDoc } from 'firebase/firestore'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
@@ -18,120 +16,17 @@ import SendIcon from '@mui/icons-material/Send'
 import Tooltip from '@mui/material/Tooltip'
 import ConfirmationDialog from './ConfirmationDialog'
 
-export default function ManageDropdown({ project, id, groupUse }) {
-    const [projectState, setProject] = useState({})
-    const [projectTitle, setProjectTitle] = useState('')
-    const [groupMembers, setGroupMembers] = useState([])
-    const [applicants, setApplicants] = useState([])
-    const [rejected, setRejected] = useState([])
+export default function ManageDropdown() {
+    const [projectTitle, ] = useState('')
     const [open, setOpen] = useState(false)
     const [dialogOpen, setDialogOpen] = useState(false)
     const [acceptConfirmation, setAcceptConfirmation] = useState()
-    const [groupMode, setGroupMode] = useState()
-    const [editedGroupMembers, setEditedGroupMembers] = useState([])
-    const [editedApplicants, setEditedApplicants] = useState([])
-    const [editedRejected, setEditedRejected] = useState([])
+    const [groupMode, ] = useState()
+    const [editedGroupMembers, ] = useState([])
+    const [editedApplicants, ] = useState([])
+    const [editedRejected, ] = useState([])
     const [currentMember, setCurrentMember] = useState(-1)
-    const [users, setUsers] = useState([])
 
-    const projectCollectionRef = doc(db, 'projects', id)
-
-    class Sample {
-        constructor(id, first, last, pronouns, email, photo, uid) {
-            this.id = id
-            this.firstname = first
-            this.lastname = last
-            this.pronouns = pronouns
-            this.email = email
-            this.photo = photo
-            this.uid = uid
-        }
-    }
-
-    const sampleMembers = [
-        new Sample(
-            1,
-            'Mina',
-            'Michaels',
-            'she/her',
-            'mina@example.com',
-            'https://content.gallup.com/origin/gallupinc/GallupSpaces/Production/Cms/EDUCMS/tz7n-7vqceaq86dprdnzag.jpg',
-            '124'
-        ),
-        new Sample(
-            2,
-            'Camden',
-            'Dile',
-            'he/him',
-            'camden@example.com',
-            'https://www.jmwsons.com/wp-content/uploads/sites/29/2018/08/student-3500990_640.jpg',
-            '125'
-        ),
-    ]
-
-    const sampleApplicants = [
-        new Sample(
-            4,
-            'James',
-            'Dove',
-            'he/him',
-            'james@example.com',
-            'https://www.usnews.com/dims4/USNEWS/e52d968/2147483647/thumbnail/640x420/quality/85/?url=http%3A%2F%2Fmedia.beam.usnews.com%2F44%2F94%2Ff9f5465143a28aac341409bb8d7b%2F200113-studyingman-stock.jpg',
-            '125'
-        ),
-        new Sample(
-            5,
-            'Helen',
-            'Bara',
-            'she/her',
-            'helen@example.com',
-            'https://s3-us-east-2.amazonaws.com/maryville/wp-content/uploads/2019/01/20092424/nutrition.jpg',
-            '126'
-        ),
-    ]
-
-    const sampleRejected = [
-        new Sample(
-            8,
-            'Isaac',
-            'Ali',
-            'him/they',
-            'ali@example.com',
-            'https://www.mayoclinichealthsystem.org/-/media/national-files/images/hometown-health/2021/college-student-glasses-backpack.jpg',
-            '127'
-        ),
-    ]
-
-    const getProject = async () => {
-        const data = await getDoc(projectCollectionRef)
-        const selected = data.data()
-        setProject({ ...selected })
-        setGroupMembers(selected.groupMembers)
-        setApplicants(selected.applicants)
-        setRejected(selected.rejected)
-        setProjectTitle(selected.title)
-        setEditedGroupMembers(groupMembers)
-        setEditedApplicants(applicants)
-        setEditedRejected(rejected)
-    }
-
-    useEffect(() => {
-        getProject()
-        setGroupMode(groupUse)
-        setCurrentMember(getCurrentMember())
-        setEditedGroupMembers(getCurrentMembers())
-        setEditedApplicants(getCurrentApplicants())
-        setEditedRejected(getCurrentRejected())
-    }, [
-        currentMember,
-        applicants.length,
-        editedApplicants.length,
-        groupMembers.length,
-        editedGroupMembers.length,
-        rejected.length,
-        editedRejected.length,
-        project,
-    ])
 
     const handleClick = () => {
         setOpen(!open)
@@ -164,19 +59,6 @@ export default function ManageDropdown({ project, id, groupUse }) {
         return group.filter((user) => user.id === id)[0]
     }
 
-    const getUserInfo = async (id) => {
-        const projectCollectionRef = doc(db, 'allusers', id)
-        const data = await getDoc(projectCollectionRef)
-        const selected = data.data()
-        let result = Promise.resolve(selected)
-        result.then((r) => {
-            return r
-        })
-    }
-
-    const getCurrentMember = () => {
-        return currentMember
-    }
 
     const getCurrentMembers = () => {
         return editedGroupMembers
@@ -196,84 +78,6 @@ export default function ManageDropdown({ project, id, groupUse }) {
         return getCurrentMembers()
     }
 
-    const updateArrayStates = (from, to, accepted) => {
-        let updatedApplicants, updatedGroupMembers, updatedRejected
-        if (groupMode === 'Applicants' && accepted) {
-            setEditedApplicants(from)
-            setEditedGroupMembers(to)
-            updatedApplicants = [...from]
-            updatedGroupMembers = [...to]
-            updatedRejected = [...editedRejected]
-        } else if (groupMode === 'Past Applicants' && accepted) {
-            setEditedRejected(from)
-            setEditedGroupMembers(to)
-            updatedApplicants = [...editedApplicants]
-            updatedGroupMembers = [...to]
-            updatedRejected = [...from]
-        } else if (groupMode === 'Applicants' && !accepted) {
-            setEditedApplicants(from)
-            setEditedRejected(to)
-            updatedApplicants = [...from]
-            updatedGroupMembers = [...editedGroupMembers]
-            updatedRejected = [...to]
-        } else if (groupMode === 'Members' && !accepted) {
-            setEditedGroupMembers(from)
-            setEditedRejected(to)
-            updatedApplicants = [...editedApplicants]
-            updatedGroupMembers = [...from]
-            updatedRejected = [...to]
-        }
-        return { updatedApplicants, updatedGroupMembers, updatedRejected }
-    }
-
-    //moves members from and to in-component arrays
-    const moveMember = (member, from, to) => {
-        const user = getUser(from, member)
-        let updatedFrom = from.filter((m) => m.id !== member)
-        updatedFrom.map((x) => (x = x.id))
-        let updatedTo = [...to, user]
-        updatedTo.map((x) => (x = x.id))
-        return { updatedFrom, updatedTo }
-    }
-
-    const translate = (arr) => {
-        let p = []
-        for (let obj of arr) {
-            p.push({
-                id: obj.id,
-                firstname: obj.firstname,
-                lastname: obj.lastname,
-                pronouns: obj.pronouns,
-                email: obj.email,
-                photo: obj.photo,
-            })
-        }
-        return p
-    }
-
-    //updates the members and sets them to be in firebase
-    const updateMembers = async (applicants, members, rejected) => {
-        let updatedMembers = translate(members)
-        let updatedApplicants = translate(applicants)
-        let updatedRejected = translate(rejected)
-        await updateDoc(projectCollectionRef, {
-            groupMembers: updatedMembers,
-            applicants: updatedApplicants,
-            rejected: updatedRejected,
-        })
-        setGroupMembers(updatedMembers)
-        setApplicants(updatedApplicants)
-        setRejected(updatedRejected)
-        getProject()
-    }
-
-    //moves members then updates firebase upon every action
-    const updateDocMembers = async (member, from, to, accepted) => {
-        let { updatedFrom, updatedTo } = moveMember(member, from, to)
-        let { updatedApplicants, updatedGroupMembers, updatedRejected } =
-            updateArrayStates(updatedFrom, updatedTo, accepted)
-        updateMembers(updatedApplicants, updatedGroupMembers, updatedRejected)
-    }
 
     const sendIcon = (member) => {
         return (
@@ -336,14 +140,11 @@ export default function ManageDropdown({ project, id, groupUse }) {
     }
 
     const handleAccept = async (id) => {
-        let arr = groupMode === 'Applicants' ? editedApplicants : editedRejected
-        updateDocMembers(id, arr, editedGroupMembers, true)
+        //TODO
     }
 
     const handleReject = async (id) => {
-        let arr =
-            groupMode === 'Applicants' ? editedApplicants : editedGroupMembers
-        updateDocMembers(id, arr, editedRejected, false)
+        //TODO
     }
 
     const confirmationComponent = (group) => {

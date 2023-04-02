@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import '../Styles/LearnMore.css'
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder'
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
-import BookmarkAddedIcon from '@mui/icons-material/BookmarkAdd'
 import HighlightOffIcon from '@mui/icons-material/HighlightOff'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import { Link } from 'react-router-dom'
@@ -11,15 +10,11 @@ import TelegramIcon from '@mui/icons-material/Telegram'
 import Layout from '../Components/Layout'
 import { IconButton } from '@mui/material'
 import { postFunction } from '../EngineFunctions/ProjectsFetch'
-import { useAuth0 } from '@auth0/auth0-react'
 import ProjectApplication from './ProjectApplication'
 //import 'src/Styles/AboutProject.css'
 
 function AboutProject({ match, projects, user }) {
     const [project, setProject] = useState({})
-    const [isShown, setIsShown] = useState(false)
-    const [isShownT, setIsShownT] = useState(false)
-    const [isShownB, setIsShownB] = useState(false)
     const [applicationPopUp, setApplicationPopUp] = useState(false)
     const id = match.params.projectId
 
@@ -155,8 +150,6 @@ function AboutProject({ match, projects, user }) {
                             >
                                 <div>
                                     <IconButton
-                                        onMouseEnter={() => setIsShown(true)}
-                                        onMouseLeave={() => setIsShown(false)}
                                     >
                                         <HighlightOffIcon
                                             fontSize="large"
@@ -181,8 +174,6 @@ function AboutProject({ match, projects, user }) {
                                                 !applicationPopUp
                                             )
                                         }}
-                                        onMouseEnter={() => setIsShownT(true)}
-                                        onMouseLeave={() => setIsShownT(false)}
                                     >
                                         <TelegramIcon
                                             fontSize="large"
@@ -199,8 +190,6 @@ function AboutProject({ match, projects, user }) {
                                 </div>
                                 <div>
                                     <IconButton
-                                        onMouseEnter={() => setIsShownB(true)}
-                                        onMouseLeave={() => setIsShownB(false)}
                                         onClick={() => submitBookmarked()}
                                     >
                                         <BookmarkBorderIcon fontSize="large"></BookmarkBorderIcon>
@@ -213,15 +202,7 @@ function AboutProject({ match, projects, user }) {
                                     <div>
                                         <Link to={`/editproject/${project.id}`}>
                                             <IconButton
-                                                onMouseEnter={() =>
-                                                    setIsShownB(true)
-                                                }
-                                                onMouseLeave={() =>
-                                                    setIsShownB(false)
-                                                }
-                                                onClick={() =>
-                                                    submitBookmarked()
-                                                }
+
                                             >
                                                 <EditOutlinedIcon fontSize="large"></EditOutlinedIcon>
                                                 <div

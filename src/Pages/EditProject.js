@@ -9,11 +9,7 @@ import Select from '@mui/material/Select'
 import TextField from '@mui/material/TextField'
 import RequiredDialog from '../Components/RequiredDialog'
 import {
-    listFunction,
-    postFunction,
-    getFunction,
-    deleteFunction,
-    updateFunction,
+    postFunction
 } from '../EngineFunctions/ProjectsFetch'
 import { useAuth0 } from '@auth0/auth0-react'
 
@@ -49,17 +45,8 @@ function EditProject({ match, projects }) {
 
     const [open, setOpen] = useState(false)
 
-    const handleOpen = () => {
-        setOpen(true)
-    }
-
     const handleClose = () => {
         setOpen(false)
-    }
-
-    const openWidget = (e, widget) => {
-        e.preventDefault()
-        widget.open()
     }
 
     const memberAmtOptions = [

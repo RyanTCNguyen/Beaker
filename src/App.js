@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react'
+import React, { useState, useEffect } from 'react'
 // import firebase from './firebase'
 
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
@@ -13,7 +13,6 @@ import FacultyStaffProfile from './Pages/FacultyStaffProfile'
 import AboutProject from './Pages/AboutProject'
 import AboutMember from './Pages/AboutMember'
 import AboutStudentProfile from './Pages/AboutStudentProfile'
-import AboutFacultyStaffProfile from './Pages/AboutFacultyStaffProfile'
 import Dashboard from './Pages/Dashboard'
 import About from './Pages/About'
 
@@ -23,19 +22,17 @@ import EditProject from './Pages/EditProject'
 import FacultyProjectDetails from './Pages/FacultyProjectDetails'
 import { useAuth0 } from '@auth0/auth0-react'
 import ForgotPassword from './Pages/ForgotPassword'
-import { listFunction, postFunction } from './EngineFunctions/ProjectsFetch'
+import { listFunction } from './EngineFunctions/ProjectsFetch'
 import BeakerSignUp from './Pages/BeakerSignUp'
 
 function App() {
     const {
-        loginWithRedirect,
         isAuthenticated,
         isLoading,
-        logout,
         user: auth0user,
     } = useAuth0()
-    const [isStudent, setIsStudent] = useState(true)
-    const [members, setMembers] = useState([])
+    const [isStudent, ] = useState(true)
+    const [members, ] = useState([])
     const [projects, setProjects] = useState([])
     const [engineUser, setEngineUser] = useState([])
     useEffect(() => {

@@ -1,17 +1,15 @@
-import React, { useState, useMemo } from 'react'
+import React, { useState } from 'react'
 import '../Styles/Profile.css'
 import Button from '@mui/material/Button'
 import beaker from '../Images/blackLinedBeakerBgRemoved.png'
 import { Link, useHistory } from 'react-router-dom'
 import 'firebase/firestore'
-import { db, storage } from '../firebase'
-import { collection, getDocs, addDoc } from 'firebase/firestore'
 import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
 import FormControl from '@mui/material/FormControl'
 import Select from '@mui/material/Select'
 import TextField from '@mui/material/TextField'
-import { postFunction, updateFunction } from '../EngineFunctions/ProjectsFetch'
+import { postFunction } from '../EngineFunctions/ProjectsFetch'
 import { useAuth0 } from '@auth0/auth0-react'
 
 const defaultUser = {
@@ -48,17 +46,10 @@ export default function FacultyStaffProfile({
     }
     let history = useHistory()
     const [currentUser, setCurrentUser] = useState({ ...defaultUser, ...user })
-    const [facultyImageAsUrl, setFacultyImageAsUrl] = useState(
-        `${process.env.PUBLIC_URL}/projectImages/user.png`
-    )
     const { user: authUser } = useAuth0()
 
     const handleChangeDepartment = (event) => {
         setCurrentUser({ ...user, department: event.target.value })
-    }
-
-    function handleUpload(e) {
-        e.preventDefault()
     }
 
     const submitUser = (e) => {
@@ -85,26 +76,6 @@ export default function FacultyStaffProfile({
         }
 
         console.log(`Missing ${missing} Fields`)
-    }
-
-    const widget = window.cloudinary.createUploadWidget(
-        {
-            cloudName: process.env.REACT_APP_CLOUD_NAME,
-            uploadPreset: process.env.REACT_APP_UPLOAD_PRESET,
-        },
-
-        (error, result) => {
-            console.log('result:', result)
-            if (!error && result && result.event === 'success') {
-                console.log('Done! Here is the image info: ', result.info)
-                setFacultyImageAsUrl(result.info.url)
-            }
-        }
-    )
-
-    const openWidget = (e, widget) => {
-        e.preventDefault()
-        widget.open()
     }
 
     const departmentOptions = [

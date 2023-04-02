@@ -30,11 +30,11 @@ function ProjectCards({ projects }) {
                             sm={8}
                             md={4}
                             spacing={3}
-                            key={project.key}
+                            key={project.id}
                         >
                             <Link
                                 className={classes.links}
-                                to={`/aboutproject/${project.key}`}
+                                to={`/aboutproject/${project.id}`}
                             >
                                 <CardItems project={project} />
                             </Link>

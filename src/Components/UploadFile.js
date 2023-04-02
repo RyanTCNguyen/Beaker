@@ -2,9 +2,6 @@
 import React, { Component } from 'react'
 
 class Uploadfile extends Component {
-    constructor(props) {
-        super(props)
-    }
     state = {
         selectedFile: fetch(this.props.resume)
             .then((res) => res.blob())
@@ -16,7 +13,7 @@ class Uploadfile extends Component {
 
     onFileChange = (event) => {
         let file = event.target.files[0]
-        this.state.selectedFile = file
+        this.setState({...this.state, selectedFile: file})
         let reader = new FileReader()
         reader.readAsDataURL(file)
         reader.onloadend = () => {

@@ -1,5 +1,3 @@
-const baseURL = process.env.REACT_APP_ENDPOINT_BASE
-
 const AppSearchClient = require('@elastic/app-search-node')
 
 const baseURLFn = () => {

@@ -5,8 +5,10 @@
 .sidebar {
     padding-top: 10vh;
     height: 100vh;
-    position: fixed;
+    position: absolute;
     left: 0;
+    top:1rem;
+    padding-right: 5vw;
     background-color: rgb(249, 249, 249);
     box-shadow: 30px;
     /* z-index: -1; */
@@ -18,7 +20,7 @@
 
 .side-text-title {
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
     align-items: center;
     padding: 20px 0px 0px 10px;
     list-style: none;
@@ -42,7 +44,7 @@
 
 .side-text {
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
     align-items: center;
     padding: 45px 0px 8px 16px;
     list-style: none;

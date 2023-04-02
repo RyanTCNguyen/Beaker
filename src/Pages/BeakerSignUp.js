@@ -24,11 +24,7 @@ export default function BeakerSignUp() {
                 }
             })
         }
-    }, [user])
-
-    useEffect(() => {
-        console.log(isStudent)
-    }, [isStudent])
+    }, [user, isAuthenticated, isLoading])
 
     return (
         <>

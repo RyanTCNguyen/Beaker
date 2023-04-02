@@ -13,13 +13,8 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from 'dayjs'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import {
-    listFunction,
-    postFunction,
-    getFunction,
-    deleteFunction,
-    updateFunction,
+    postFunction
 } from '../EngineFunctions/ProjectsFetch'
-import { useAuth0 } from '@auth0/auth0-react'
 import { useHistory } from 'react-router-dom'
 
 function CreateProject({user}) {
@@ -46,17 +41,8 @@ function CreateProject({user}) {
 
     let history = useHistory()
 
-    const handleOpen = () => {
-        setOpen(true)
-    }
-
     const handleClose = () => {
         setOpen(false)
-    }
-
-    const openWidget = (e, widget) => {
-        e.preventDefault()
-        widget.open()
     }
 
     const memberAmtOptions = [
@@ -136,14 +122,6 @@ function CreateProject({user}) {
         'Junior',
         'Senior',
         'Graduate',
-    ]
-
-    const timelineOptions = [
-        '1 Semester',
-        '1 Year',
-        '2 Years',
-        '3 Years',
-        '4 Years+',
     ]
 
     const incentiveOptions = ['Paid', 'Funding Available', 'Internship Credit']

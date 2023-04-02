@@ -1,15 +1,18 @@
 .title {
     font-style: bold;
-    font-size: 100px;
+    font-size: 10vh;
     margin: auto;
-    padding-top: 100px;
+    padding-top: 10vh;
 }
 
 .subTitle {
     margin: auto;
     padding: 0px;
+    text-shadow: 0px 4px 4px #282828;
     font-style: italic;
     font-size: 40px;
+    color: white;
+    -webkit-text-stroke: 1px black;
 }
 
 .infoTitle {

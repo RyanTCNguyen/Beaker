@@ -6,7 +6,6 @@ import { useState } from 'react'
 import StudentProfile from './StudentProfile'
 import { useEffect } from 'react'
 import FacultyStaffProfile from './FacultyStaffProfile'
-import MyProjects from './MyProjects'
 import ProjectTableNew from '../Components/ProjectTableNew'
 
 function Dashboard({ user, projects }) {

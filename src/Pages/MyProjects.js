@@ -1,7 +1,5 @@
 import 'firebase/firestore'
-import { db } from '../firebase'
-import React, { useState, useEffect } from 'react'
-import { collection, getDocs } from 'firebase/firestore'
+import React from 'react'
 import Layout from '../Components/Layout'
 import { ListItemButton, ListItemText, Grid } from '@mui/material'
 import Card from '@material-ui/core/Card'
@@ -25,20 +23,6 @@ const useStyles = makeStyles({
 
 function MyProjects() {
     const classes = useStyles()
-    const [projects, setProjects] = useState([])
-    const projectsCollectionRef = collection(db, 'projects')
-    useEffect(() => {
-        const getProjects = async () => {
-            const data = await getDocs(projectsCollectionRef)
-            //loop through documents in collection\
-            // console.log('things show up')
-            // console.log(data)
-            setProjects(
-                data.docs.map((doc) => ({ ...doc.data(), key: doc.id }))
-            )
-        }
-        getProjects()
-    }, [])
 
     return (
         <Layout>
@@ -90,18 +74,6 @@ function MyProjects() {
                         </Card>
                     </Grid>
                 </Grid>
-
-                {/* {projects.map((project) => {
-                    return (
-                        <div key={project.key}>
-                            {' '}
-                            <h1> {project.description} </h1>
-                            <h1> {project.title} </h1>
-                            <h1> {project.image} </h1>
-                            <h1> {project.type} </h1>
-                        </div>
-                    )
-                })} */}
             </div>
         </Layout>
     )

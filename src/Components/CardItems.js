@@ -5,12 +5,12 @@ import CardMedia from '@mui/material/CardMedia'
 import Typography from '@mui/material/Typography'
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
-import { makeStyles, useTheme } from '@material-ui/core/styles'
+import { makeStyles } from '@material-ui/core/styles'
 import '../Styles/Projectspage.css'
 
 /*passing in properties from Cards*/
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
     root: {
         display: 'flex',
         maxHeight: 200,
@@ -30,7 +30,6 @@ const useStyles = makeStyles((theme) => ({
 
 function CardItems({ project }) {
     const classes = useStyles()
-    const theme = useTheme()
     return (
         <Card className={classes.root}>
             <div className={classes.details}>

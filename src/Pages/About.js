@@ -5,17 +5,10 @@ import createProjectSS from '../Images/CreateProjectSS.png'
 import createProfileSS from '../Images/CreateProfileSS.png'
 import projectPageSS from '../Images/ProjectPageSS.png'
 import Layout from '../Components/Layout'
-import { borders } from '@mui/system'
-import { shadows } from '@mui/system'
-import { makeStyles } from '@material-ui/styles'
 import { Box } from '@mui/system'
 
-function About() {
-    const useStyles = makeStyles({
-        title: { textAlign: 'center', fontStyle: 'bold' },
 
-        subtitle: { textAlign: 'center' },
-    })
+function About() {
     return (
         <Layout>
             <Box
@@ -99,7 +92,10 @@ function About() {
                     }}
                 >
                     {' '}
+                    <p className="subTitle">
                     Scroll for more
+                    </p>
+                    
                 </Box>
             </Box>
             <Box

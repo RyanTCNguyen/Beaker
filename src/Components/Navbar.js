@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const Navbar = () => {
-    const { loginWithRedirect, isAuthenticated, isLoading, logout, user } =
+    const { loginWithRedirect, isAuthenticated, isLoading, logout } =
         useAuth0()
     const classes = useStyles()
     const [open, setOpen] = useState(false)

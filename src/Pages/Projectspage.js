@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import Layout from '../Components/Layout'
 import { Typography } from '@material-ui/core'
 import { IconButton } from '@mui/material'
-import { makeStyles } from '@material-ui/styles'
 import { Link } from 'react-router-dom'
 import '../Styles/Projectspage.css'
 import AddCircleIcon from '@mui/icons-material/AddCircle'
@@ -10,43 +9,18 @@ import ProjectTableNew from '../Components/ProjectTableNew'
 import 'firebase/firestore'
 import { useAuth0 } from '@auth0/auth0-react'
 
-const useStyles = makeStyles({
-    title: { textAlign: 'left' },
-
-    mainTitle: { textAlign: 'left', fontSize: '55px', fontWeight: 'lighter' },
-})
-
 function Projectspage({ projects }) {
-    const classes = useStyles()
     const { isAuthenticated } = useAuth0()
-    const [browse, setBrowse] = useState([])
-    const [profiles, setProfiles] = useState([])
-    const [bookmarks, setBookmarks] = useState([])
-
-    useEffect(() => {
-        const browse = projects.filter((project) => project.type === 'browse')
-        const profile = projects.filter((project) => project.type === 'profile')
-        const bookmarked = projects.filter(
-            (project) => project.type === 'bookmarked'
-        )
-
-        setBrowse(browse)
-        setProfiles(profile)
-        setBookmarks(bookmarked)
-    }, [projects])
 
     return (
-        <Layout>
-            <div>
-                <Typography id="Title">
-                    {' '}
-                    Projects{' '}
-                    {isAuthenticated ? (
+        <Layout >
+            <div style={{maxWidth: '75vw !important'}}>
+                {isAuthenticated ? (
                         <Link to="/createproject">
                             <IconButton
                                 style={{
                                     position: 'absolute',
-                                    left: '70rem',
+                                    right: '1rem',
                                     margin: '10px',
                                 }}
                                 aria-label="upload picture"
@@ -61,10 +35,15 @@ function Projectspage({ projects }) {
                             </IconButton>
                         </Link>
                     ) : null}
+                <Typography id="Title">
+                    {' '}
+                    Projects{' '}
+                    
                 </Typography>
+                
             </div>
 
-            <div>{<ProjectTableNew projects={projects} />}</div>
+            <div style={{paddingLeft: '10vw', paddingRight: '10vw'}}>{<ProjectTableNew projects={projects} />}</div>
         </Layout>
     )
 }

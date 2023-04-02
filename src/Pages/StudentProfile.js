@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { makeStyles } from '@material-ui/core/styles'
 import '../Styles/Profile.css'
 import Button from '@mui/material/Button'
 import beaker from '../Images/blackLinedBeakerBgRemoved.png'
@@ -11,31 +10,9 @@ import MenuItem from '@mui/material/MenuItem'
 import FormControl from '@mui/material/FormControl'
 import Select from '@mui/material/Select'
 import TextField from '@mui/material/TextField'
-import { useEffect } from 'react'
 import { useAuth0 } from '@auth0/auth0-react'
-import { postFunction, updateFunction, updateUserFunction } from '../EngineFunctions/ProjectsFetch'
-import { WorkRounded } from '@material-ui/icons'
+import { postFunction } from '../EngineFunctions/ProjectsFetch'
 
-const useStyles = makeStyles((theme) => ({
-    yearDropdown: {
-        color: 'grey',
-        textTransform: 'lowercase',
-        fontSize: '18px',
-        justifyContent: 'end',
-    },
-    majorDropdown: {
-        color: 'grey',
-        textTransform: 'lowercase',
-        fontSize: '18px',
-        justifyContent: 'end',
-    },
-    minorDropdown: {
-        color: 'grey',
-        textTransform: 'lowercase',
-        fontSize: '18px',
-        justifyContent: 'end',
-    },
-}))
 const defaultUser = {
     firstname: '',
     middlename: '',
@@ -57,27 +34,7 @@ export default function StudentProfile({
     user = defaultUser,
     editing = false,
     type = 'New User',
-    redirect = true,
 }) {
-    // const {
-    //     firstname,
-    //     middlename,
-    //     lastname,
-    //     nickname,
-    //     year,
-    //     major,
-    //     minor,
-    //     link,
-    //     pronouns,
-    //     resume,
-    //     softskills,
-
-    //     bio,
-    //     imageAsUrl,
-    //     students,
-    //     email,
-    //     password,
-    // } = values
 
     let history = useHistory()
     const { user: authUser } = useAuth0()
@@ -87,10 +44,6 @@ export default function StudentProfile({
             return { paddingLeft: '30vw' }
         } else return {}
     }
-    const [imageAsFile, setImageAsFile] = useState(null)
-    const [imageAsUrl, setImageAsUrl] = useState(
-        `${process.env.PUBLIC_URL}/projectImages/user.png`
-    )
 
     const handleChangeYear = (e) => {
         setCurrentUser({ ...currentUser, year: e.target.value })
@@ -150,27 +103,6 @@ export default function StudentProfile({
             console.log(`Missing ${missing} Fields`)
             alert(`Missing these required fields: ${missingArr}`)
         }
-    }
-    const classes = useStyles()
-
-    const widget = window.cloudinary.createUploadWidget(
-        {
-            cloudName: process.env.REACT_APP_CLOUD_NAME,
-            uploadPreset: process.env.REACT_APP_UPLOAD_PRESET,
-        },
-
-        (error, result) => {
-            console.log('result:', result)
-            if (!error && result && result.event === 'success') {
-                console.log('Done! Here is the image info: ', result.info)
-                setImageAsUrl(result.info.url)
-            }
-        }
-    )
-
-    const openWidget = (e, widget) => {
-        e.preventDefault()
-        widget.open()
     }
 
     const downloadPDF = () => {
