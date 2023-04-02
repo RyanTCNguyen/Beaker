@@ -20,7 +20,7 @@ function Projectspage({ projects }) {
                             <IconButton
                                 style={{
                                     position: 'absolute',
-                                    right: '1rem',
+                                    right: '10vw',
                                     margin: '10px',
                                 }}
                                 aria-label="upload picture"
@@ -37,7 +37,7 @@ function Projectspage({ projects }) {
                     ) : null}
                 <Typography id="Title">
                     {' '}
-                    Projects{' '}
+                    Active Projects{' '}
                     
                 </Typography>
                 

@@ -280,7 +280,7 @@ export default function StudentProfile({
                         label="First Name(s)"
                         placeholder="First Name(s)"
                         defaultValue={currentUser.firstname}
-                        style={{ width: '50%' }}
+                        style={{ width: '50%', background:'rgba(255,255,255,0.8)', borderRadius:'1.75rem' }}
                         onChange={(e) => {
                             setCurrentUser({
                                 ...currentUser,
@@ -296,7 +296,7 @@ export default function StudentProfile({
                         label="Middle Name(s)"
                         placeholder="Middle Name(s)"
                         defaultValue={currentUser.middlename}
-                        style={{ width: '50%' }}
+                        style={{ width: '50%', background:'rgba(255,255,255,0.8)', borderRadius:'1.75rem' }}
                         onChange={(e) => {
                             setCurrentUser({
                                 ...currentUser,
@@ -313,7 +313,7 @@ export default function StudentProfile({
                         label="Last Name(s)"
                         placeholder="Last Name(s)"
                         defaultValue={currentUser.lastname}
-                        style={{ width: '50%' }}
+                        style={{ width: '50%', background:'rgba(255,255,255,0.8)', borderRadius:'1.75rem' }}
                         onChange={(e) => {
                             setCurrentUser({
                                 ...currentUser,
@@ -329,7 +329,7 @@ export default function StudentProfile({
                         label="Nickname/Preferred Name"
                         placeholder="Nickname/Preferred Name"
                         defaultValue={currentUser.nickname}
-                        style={{ width: '50%' }}
+                        style={{ width: '50%', background:'rgba(255,255,255,0.8)', borderRadius:'1.75rem' }}
                         onChange={(e) => {
                             setCurrentUser({
                                 ...currentUser,
@@ -345,7 +345,7 @@ export default function StudentProfile({
                         label="Pronouns (Ex: she/her)"
                         placeholder="Pronouns (Ex: she/her)"
                         defaultValue={currentUser.pronouns}
-                        style={{ width: '50%' }}
+                        style={{ width: '50%', background:'rgba(255,255,255,0.8)', borderRadius:'1.75rem' }}
                         onChange={(e) => {
                             setCurrentUser({
                                 ...currentUser,
@@ -355,8 +355,8 @@ export default function StudentProfile({
                     />
                 </div>
                 <div className="year-dropdown">
-                    <FormControl required style={{ width: '55%' }}>
-                        <InputLabel style={{backgroundColor:'white', paddingLeft: '4px', paddingRight: '4px'}}>Year</InputLabel>
+                    <FormControl required style={{ width: '55%', background:'rgba(255,255,255,0.8)', borderRadius:'.25rem' }}>
+                        <InputLabel style={{backgroundColor:'rgba(0,0,0,0(', paddingLeft: '4px', paddingRight: '4px'}}>Year</InputLabel>
                         <Select
                             defaultValue={currentUser.year}
                             onChange={handleChangeYear}
@@ -370,8 +370,8 @@ export default function StudentProfile({
                     </FormControl>
                 </div>
                 <div className="major-dropdown">
-                    <FormControl required style={{ width: '55%' }}>
-                        <InputLabel style={{backgroundColor:'white', paddingLeft: '4px', paddingRight: '4px'}}>Major(s)</InputLabel>
+                    <FormControl required style={{ width: '55%', background:'rgba(255,255,255,0.8)', borderRadius:'.25rem' }}>
+                        <InputLabel style={{backgroundColor:'rgba(0,0,0,0(', paddingLeft: '4px', paddingRight: '4px'}}>Major(s)</InputLabel>
                         <Select
                             multiple
                             defaultValue={currentUser.major}
@@ -386,8 +386,8 @@ export default function StudentProfile({
                     </FormControl>
                 </div>
                 <div className="minor-dropdown">
-                    <FormControl style={{ width: '55%' }}>
-                        <InputLabel style={{backgroundColor:'white', paddingLeft: '4px', paddingRight: '4px'}}>Minor(s)</InputLabel>
+                    <FormControl style={{ width: '55%', background:'rgba(255,255,255,0.8)', borderRadius:'.25rem' }}>
+                        <InputLabel style={{backgroundColor:'rgba(0,0,0,0(', paddingLeft: '4px', paddingRight: '4px'}}>Minor(s)</InputLabel>
                         <Select
                             multiple
                             value={currentUser.minor}
@@ -408,7 +408,7 @@ export default function StudentProfile({
                         label="Soft Skills (separate by commas)"
                         placeholder="Soft Skills (separate by commas)"
                         value={currentUser.softskills}
-                        style={{ width: '50%' }}
+                        style={{ width: '50%', background:'rgba(255,255,255,0.8)', borderRadius:'1.75rem' }}
                         onChange={(event) => {
                             setCurrentUser({
                                 ...currentUser,
@@ -425,7 +425,7 @@ export default function StudentProfile({
                         label="Tell us about yourself"
                         placeholder="Tell us about yourself"
                         value={currentUser.bio}
-                        style={{ width: '50%' }}
+                        style={{ width: '50%', background:'rgba(255,255,255,0.8)', borderRadius:'.25rem' }}
                         onChange={(event) => {
                             setCurrentUser({
                                 ...currentUser,

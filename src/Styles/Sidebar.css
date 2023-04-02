@@ -5,7 +5,8 @@
 .sidebar {
     padding-top: 10vh;
     height: 100vh;
-    position: absolute;
+    width: 20vw;
+    position:fixed;
     left: 0;
     top:1rem;
     padding-right: 5vw;
@@ -15,7 +16,7 @@
 }
 
 .side-children {
-    padding-top: 15vh;
+    padding-top: 5vh;
 }
 
 .side-text-title {

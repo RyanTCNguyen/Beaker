@@ -38,6 +38,7 @@ function ProjectTableNew({ projects }) {
                 title="Find your match!"
                 data={projects}
                 columns={columns}
+                style={{backgroundColor: 'rgba(255,255,255,0.8)'}}
                 components={{
                     Pagination: (props) => (
                         <TablePagination

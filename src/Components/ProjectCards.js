@@ -6,9 +6,10 @@ import React from 'react'
 
 const useStyles = makeStyles({
     gridContainer: {
-        paddingLeft: '20px',
+        paddingLeft: '5vw',
         paddingRight: '20px',
         paddingBottom: '20px',
+        paddingTop: '5vh'
     },
     links: {
         color: 'black',
@@ -20,7 +21,7 @@ function ProjectCards({ projects }) {
     const classes = useStyles()
     return (
         <div>
-            <Grid container justify="center" className={classes.gridContainer}>
+            <Grid container justifyContent="left" className={classes.gridContainer}>
                 {projects.map((project) => {
                     return (
                         <Grid

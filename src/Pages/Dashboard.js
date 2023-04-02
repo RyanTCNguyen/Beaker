@@ -6,7 +6,8 @@ import { useState } from 'react'
 import StudentProfile from './StudentProfile'
 import { useEffect } from 'react'
 import FacultyStaffProfile from './FacultyStaffProfile'
-import ProjectTableNew from '../Components/ProjectTableNew'
+import ProjectCards from '../Components/ProjectCards'
+import dayjs from 'dayjs'
 
 function Dashboard({ user, projects }) {
     console.log(user)
@@ -58,15 +59,83 @@ function Dashboard({ user, projects }) {
                                         }}
                                     >
                                         <h1 style={{ fontSize: '3vh' }}>
-                                            My Projects
+                                            Owned Projects
                                         </h1>
-                                        <ProjectTableNew
+                                        <ProjectCards
                                             projects={projects?.filter(
                                                 (project) =>
                                                     project.groupmembers?.includes(
                                                         user.email
                                                     )
                                             )}
+                                        />
+                                        <h1 style={{ fontSize: '3vh' }}>
+                                            My Projects
+                                        </h1>
+                                        <ProjectCards
+                                            projects={[{
+                                                applicants: [],
+                                                creator: 'me',
+                                                createdby:'',
+                                                description: 'test!!',
+                                                groupmembers: ['123213'],
+                                                image: '',
+                                                incentives: [],
+                                                members: 1,
+                                                major: [],
+                                                status: 'Open',
+                                                timeline: [dayjs(),dayjs()],
+                                                title: 'TEST',
+                                                year: [],
+                                                id: 2
+                                            },
+                                            {
+                                                applicants: [],
+                                                creator: 'me',
+                                                createdby:'',
+                                                description: 'test!!',
+                                                groupmembers: ['123213'],
+                                                image: '',
+                                                incentives: [],
+                                                members: 1,
+                                                major: [],
+                                                status: 'Open',
+                                                timeline: [dayjs(),dayjs()],
+                                                title: 'TEST',
+                                                year: [],
+                                                id: 1
+                                            },
+                                            {
+                                                applicants: [],
+                                                creator: 'me',
+                                                createdby:'',
+                                                description: 'test!!',
+                                                groupmembers: ['123213'],
+                                                image: '',
+                                                incentives: [],
+                                                members: 1,
+                                                major: [],
+                                                status: 'Open',
+                                                timeline: [dayjs(),dayjs()],
+                                                title: 'TEST',
+                                                year: [],
+                                                id: 3
+                                            },{
+                                                applicants: [],
+                                                creator: 'me',
+                                                createdby:'',
+                                                description: 'test!!',
+                                                groupmembers: ['123213'],
+                                                image: '',
+                                                incentives: [],
+                                                members: 1,
+                                                major: [],
+                                                status: 'Open',
+                                                timeline: [dayjs(),dayjs()],
+                                                title: 'TEST',
+                                                year: [],
+                                                id: 4
+                                            }]}
                                         />
                                     </div>
                                 }
@@ -86,7 +155,7 @@ function Dashboard({ user, projects }) {
                                         <h1 style={{ fontSize: '3vh' }}>
                                             Bookmarked Projects
                                         </h1>
-                                        <ProjectTableNew
+                                        <ProjectCards
                                             projects={projects?.filter(
                                                 (project) =>
                                                     user?.bookmarked?.includes(
@@ -112,7 +181,7 @@ function Dashboard({ user, projects }) {
                                         <h1 style={{ fontSize: '3vh' }}>
                                             Discover Projects
                                         </h1>
-                                        <ProjectTableNew
+                                        <ProjectCards
                                             projects={projects?.filter(
                                                 (project) =>
                                                     user?.bookmarked?.includes(

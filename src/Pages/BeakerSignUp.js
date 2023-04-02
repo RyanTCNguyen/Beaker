@@ -9,18 +9,16 @@ export default function BeakerSignUp() {
     const [users, setUsers] = useState(null)
     useEffect(() => {
         if (isAuthenticated && !isLoading) {
-            console.log(user.name)
             setIsStudent(user.name.includes('lion.lmu.edu'))
             listFunction('profiles-engine').then((data) => {
-                console.log(data)
-                console.log(data.filter((usr) => usr.email === user.name))
-
-                if (data.filter((usr) => usr.email === user.name)?.length) {
-                    setExistingUser(true)
-                    setUsers(data)
-                } else {
-                    setExistingUser(false)
-                    setUsers([])
+                if (data) {
+                    if (data.filter((usr) => usr.email === user.name)?.length) {
+                        setExistingUser(true)
+                        setUsers(data)
+                    } else {
+                        setExistingUser(false)
+                        setUsers([])
+                    }
                 }
             })
         }
