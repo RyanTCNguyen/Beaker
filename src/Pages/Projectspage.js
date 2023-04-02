@@ -14,7 +14,7 @@ function Projectspage({ projects }) {
 
     return (
         <Layout >
-            <div style={{maxWidth: '75vw !important'}}>
+            <div>
                 {isAuthenticated ? (
                         <Link to="/createproject">
                             <IconButton

@@ -28,7 +28,6 @@ import BeakerSignUp from './Pages/BeakerSignUp'
 function App() {
     const {
         isAuthenticated,
-        isLoading,
         user: auth0user,
     } = useAuth0()
     const [isStudent, ] = useState(true)
@@ -108,29 +107,17 @@ function App() {
                             <AboutMember {...props} members={members} />
                         )}
                     />
-                    {!isLoading && isAuthenticated && engineUser ? (
-                        <Route
+                    <Route
                             path="/dashboard"
                             exact
                             render={(props) => (
                                 <Dashboard
                                     user={engineUser[0]}
                                     projects={projects}
+                                    isAuthenticated={isAuthenticated}
                                 />
                             )}
-                        />
-                    ) : (
-                        <Route
-                            path="/dashboard"
-                            exact
-                            render={(props) => (
-                                <Dashboard
-                                    user={engineUser[0]}
-                                    projects={projects}
-                                />
-                            )}
-                        />
-                    )}
+                    />
                     <Route
                         path="/bookmarkedprojects"
                         exact

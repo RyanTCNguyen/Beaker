@@ -7,24 +7,29 @@ import MonetizationOnIcon from '@mui/icons-material/MonetizationOn'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 import { makeStyles } from '@material-ui/core/styles'
 import '../Styles/Projectspage.css'
-
+import defaultLogo from '../Images/blackLinedBeakerBgRemoved.png'
 /*passing in properties from Cards*/
 
 const useStyles = makeStyles(() => ({
     root: {
         display: 'flex',
-        maxHeight: 200,
+        maxHeight: '200',
+        height: '10vw',
+        width: '20vw'
     },
     details: {
-        display: 'flex',
+        position: 'relative',
+        left: 0,
         flexDirection: 'column',
     },
     content: {
         flex: '1 0 auto',
     },
     cover: {
-        width: 151,
-        paddingTop: 0,
+        width: '10vw !important',
+        position: 'sticky',
+        left: 0,
+        height:'10vw',
     },
 }))
 
@@ -32,6 +37,12 @@ function CardItems({ project }) {
     const classes = useStyles()
     return (
         <Card className={classes.root}>
+            <CardMedia
+                className={classes.cover}
+                component="img"
+                image={project?.image?project.image:defaultLogo}
+                alt={project.title}
+            ></CardMedia>
             <div className={classes.details}>
                 <CardContent className={classes.content}>
                     <Typography id="title-project">{project.title}</Typography>
@@ -46,15 +57,10 @@ function CardItems({ project }) {
                     <Typography id="desc">{project.description}</Typography>
                 </CardContent>
             </div>
-            <CardMedia
-                className={classes.cover}
-                component="img"
-                height="200"
-                image={`${process.env.PUBLIC_URL}/projectImages/${project.image}`}
-                alt={project.title}
-            ></CardMedia>
+            
         </Card>
     )
 }
+//image={`${process.env.PUBLIC_URL}/projectImages/${project.image}`}
 
 export default CardItems

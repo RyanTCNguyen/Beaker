@@ -7,8 +7,8 @@ import React from 'react'
 const useStyles = makeStyles({
     gridContainer: {
         paddingLeft: '5vw',
-        paddingRight: '20px',
-        paddingBottom: '20px',
+        paddingRight: '5vw',
+        paddingBottom: '5vw',
         paddingTop: '5vh'
     },
     links: {
@@ -21,7 +21,7 @@ function ProjectCards({ projects }) {
     const classes = useStyles()
     return (
         <div>
-            <Grid container justifyContent="left" className={classes.gridContainer}>
+            <Grid container justifyContent="flex-start" className={classes.gridContainer}>
                 {projects.map((project) => {
                     return (
                         <Grid
