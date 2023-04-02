@@ -4,7 +4,6 @@ import Side from '../Components/Side'
 import '../Styles/Sidebar.css'
 import { useState } from 'react'
 import StudentProfile from './StudentProfile'
-import { useEffect } from 'react'
 import FacultyStaffProfile from './FacultyStaffProfile'
 import ProjectCards from '../Components/ProjectCards'
 import dayjs from 'dayjs'
@@ -21,11 +20,6 @@ function Dashboard({ user, projects, isAuthenticated }) {
         { page: 'Bookmarks', value: 'BookMarked Projects', key: 2 },
         { page: 'Discover', value: 'Discover Projects', key: 3 },
     ]
-    useEffect(() => {
-        if (user?.student) {
-            console.log(user)
-        }
-    }, [user])
     return (
         <Layout>
             <Side sidebaritems={sidebaritems} setPage={setPage} page={page}>
@@ -87,7 +81,7 @@ function Dashboard({ user, projects, isAuthenticated }) {
                                             paddingTop: '5vh',
                                         }}
                                     >
-                                        <h1 style={{ fontSize: '3vh' }}>
+                                        <h1 className='subTitle'>
                                             Owned Projects
                                         </h1>
                                         <ProjectCards
@@ -98,7 +92,7 @@ function Dashboard({ user, projects, isAuthenticated }) {
                                                     )
                                             )}
                                         />
-                                        <h1 style={{ fontSize: '3vh' }}>
+                                        <h1 className='subTitle'>
                                             My Projects
                                         </h1>
                                         <ProjectCards
@@ -181,7 +175,7 @@ function Dashboard({ user, projects, isAuthenticated }) {
                                             paddingTop: '5vh',
                                         }}
                                     >
-                                        <h1 style={{ fontSize: '3vh' }}>
+                                        <h1 className='subTitle'>
                                             Bookmarked Projects
                                         </h1>
                                         <ProjectCards
@@ -207,7 +201,7 @@ function Dashboard({ user, projects, isAuthenticated }) {
                                             paddingTop: '5vh',
                                         }}
                                     >
-                                        <h1 style={{ fontSize: '3vh' }}>
+                                        <h1 className='subTitle'>
                                             Discover Projects
                                         </h1>
                                         <ProjectCards
