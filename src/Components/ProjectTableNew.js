@@ -33,7 +33,7 @@ function ProjectTableNew({ projects, small=false}) {
     ]
 
     return (
-        <div style={{maxWidth:small?'60vw':'80vw',paddingLeft:small?'10vw':'0'}}>
+        <div style={{maxWidth:small?'60vw':'80vw',paddingLeft:small?'10vw':'0', paddingBottom:'5vh'}}>
             <MaterialTable
                 title="Find your match!"
                 data={projects}

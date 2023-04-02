@@ -32,6 +32,9 @@ function About() {
                         component="img"
                         sx={{
                             textAlign: 'center',
+                            backgroundColor:'rgba(255,255,255,0.6)',
+                            borderRadius:'.25rem'
+                            
                         }}
                         alt="logo"
                         src={beakerLogo}
