@@ -148,9 +148,8 @@ export default function FacultyStaffProfile({
                 </div>
             )}
             <div className="right-screen" style={editStyle()}>
-                <img className="profile-image" src={beaker} alt="logo" />
-                <h1 className="new-user">{type}</h1>
-                <p className="profile">Profile</p>
+                <img className="profile-image" style={{background:'rgba(255,255,255,0.8)', borderRadius:'0.25rem' }} src={beaker} alt="logo" />
+                <p className="subTitle" >{type+' Profile'} </p>
                 {/* <div>
                     <img
                         style={{
@@ -173,7 +172,7 @@ export default function FacultyStaffProfile({
                         type="text"
                         label="Title (Ex: Professor)"
                         placeholder="Title (Ex: Professor)"
-                        style={{ width: '50%' }}
+                        style={{ width: '50%', background:'rgba(255,255,255,0.8)', borderRadius:'1.75rem'  }}
                         onChange={(e) => {
                             setCurrentUser({
                                 ...currentUser,
@@ -190,7 +189,7 @@ export default function FacultyStaffProfile({
                         type="text"
                         label="First Name(s)"
                         placeholder="First Name(s)"
-                        style={{ width: '50%' }}
+                        style={{ width: '50%', background:'rgba(255,255,255,0.8)', borderRadius:'1.75rem'  }}
                         onChange={(e) => {
                             setCurrentUser({
                                 ...currentUser,
@@ -206,7 +205,7 @@ export default function FacultyStaffProfile({
                         type="text"
                         label="Middle Name(s)"
                         placeholder="Middle Name(s)"
-                        style={{ width: '50%' }}
+                        style={{ width: '50%', background:'rgba(255,255,255,0.8)', borderRadius:'1.75rem'  }}
                         onChange={(e) => {
                             setCurrentUser({
                                 ...currentUser,
@@ -223,7 +222,7 @@ export default function FacultyStaffProfile({
                         type="text"
                         label="Last Name(s)"
                         placeholder="Last Name(s)"
-                        style={{ width: '50%' }}
+                        style={{ width: '50%', background:'rgba(255,255,255,0.8)', borderRadius:'1.75rem'  }}
                         onChange={(e) => {
                             setCurrentUser({
                                 ...currentUser,
@@ -239,7 +238,7 @@ export default function FacultyStaffProfile({
                         type="text"
                         label="Preferred way to be addressed"
                         placeholder="Preferred way to be addressed"
-                        style={{ width: '50%' }}
+                        style={{ width: '50%', background:'rgba(255,255,255,0.8)', borderRadius:'1.75rem'  }}
                         onChange={(e) => {
                             setCurrentUser({
                                 ...currentUser,
@@ -255,7 +254,7 @@ export default function FacultyStaffProfile({
                         type="text"
                         label="Pronouns (Ex: she/her)"
                         placeholder="Pronouns (Ex: she/her)"
-                        style={{ width: '50%' }}
+                        style={{ width: '50%', background:'rgba(255,255,255,0.8)', borderRadius:'1.75rem'  }}
                         onChange={(e) => {
                             setCurrentUser({
                                 ...currentUser,
@@ -265,7 +264,7 @@ export default function FacultyStaffProfile({
                     />
                 </div>
                 <div className="department-options">
-                    <FormControl style={{ width: '55%' }}>
+                    <FormControl style={{ width: '55%', background:'rgba(255,255,255,0.8)', borderRadius:'.25rem'  }}>
                         <InputLabel style={{backgroundColor:'white', paddingLeft: '4px', paddingRight: '4px'}}> Department </InputLabel>
                         <Select
                             multiple
@@ -293,7 +292,7 @@ export default function FacultyStaffProfile({
                         type="text"
                         label="Link to Portfolio/Website"
                         placeholder="Link to Portfolio/Website"
-                        style={{ width: '50%' }}
+                        style={{ width: '50%', background:'rgba(255,255,255,0.8)', borderRadius:'1.75rem'  }}
                         onChange={(e) => {
                             setCurrentUser({
                                 ...currentUser,

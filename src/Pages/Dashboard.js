@@ -10,6 +10,7 @@ import dayjs from 'dayjs'
 import { Link } from 'react-router-dom'
 import { IconButton } from '@material-ui/core'
 import AddCircleIcon from '@mui/icons-material/AddCircle'
+import ProjectTableNew from '../Components/ProjectTableNew'
 
 function Dashboard({ user, projects, isAuthenticated }) {
     const devMode = true
@@ -204,7 +205,8 @@ function Dashboard({ user, projects, isAuthenticated }) {
                                         <h1 className='subTitle'>
                                             Discover Projects
                                         </h1>
-                                        <ProjectCards
+                                        <ProjectTableNew
+                                            small={true}
                                             projects={projects?.filter(
                                                 (project) =>
                                                     user?.bookmarked?.includes(

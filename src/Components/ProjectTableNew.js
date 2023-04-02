@@ -3,7 +3,7 @@ import MaterialTable from 'material-table'
 import { Link } from 'react-router-dom'
 import { TablePagination } from '@material-ui/core'
 
-function ProjectTableNew({ projects }) {
+function ProjectTableNew({ projects, small=false}) {
     const columns = [
         {
             field: 'image',
@@ -33,7 +33,7 @@ function ProjectTableNew({ projects }) {
     ]
 
     return (
-        <div>
+        <div style={{maxWidth:small?'60vw':'80vw',paddingLeft:small?'10vw':'0'}}>
             <MaterialTable
                 title="Find your match!"
                 data={projects}

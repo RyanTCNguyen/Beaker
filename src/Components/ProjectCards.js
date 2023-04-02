@@ -8,8 +8,8 @@ const useStyles = makeStyles({
     gridContainer: {
         paddingLeft: '5vw',
         paddingRight: '5vw',
-        paddingBottom: '5vw',
-        paddingTop: '5vh'
+        paddingBottom: '1vw',
+        paddingTop: '4vh'
     },
     links: {
         color: 'black',

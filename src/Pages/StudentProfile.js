@@ -254,9 +254,8 @@ export default function StudentProfile({
                 </div>
             )}
             <div style={editStyle()} className="right-screen">
-                <img className="profile-image" src={beaker} alt="logo" />
-                <h1 className="new-user">{type}</h1>
-                <p className="profile">Profile</p>
+                <img className="profile-image" style={{background:'rgba(255,255,255,0.8)', borderRadius:'.25rem' }} src={beaker} alt="logo" />
+                <p className="subTitle" >{type+' Profile'} </p>
                 <div>
                     {/*
                         <img
