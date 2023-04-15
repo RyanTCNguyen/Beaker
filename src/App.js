@@ -31,7 +31,7 @@ function App() {
         user: auth0user,
     } = useAuth0()
     const [isStudent, ] = useState(true)
-    const [members, ] = useState([])
+    const [members, setMembers] = useState([])
     const [projects, setProjects] = useState([])
     const [engineUser, setEngineUser] = useState([])
     useEffect(() => {
@@ -43,6 +43,7 @@ function App() {
         console.log(auth0user)
         listFunction('profiles-engine').then((data) => {
             if (data && auth0user) {
+                setMembers(data)
                 setEngineUser(
                     data.filter((usr) => usr.email === auth0user?.email)
                 )
