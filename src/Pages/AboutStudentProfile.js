@@ -3,7 +3,7 @@ import '../Styles/LearnMore.css'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import EditIcon from '@mui/icons-material/Edit'
 import { Link } from 'react-router-dom'
-import Layout from '../Components/Layout'
+import NavFormat from '../Components/NavFormat'
 
 function AboutStudentProfile({ match, students }) {
     const [student, setStudent] = useState({})
@@ -16,7 +16,7 @@ function AboutStudentProfile({ match, students }) {
     }, [id, students])
 
     return (
-        <Layout>
+        <NavFormat>
             <div style={{ margin: '20px' }}>
                 <Link to="/dashboard">
                     <ArrowBackIosIcon></ArrowBackIosIcon>
@@ -74,7 +74,7 @@ function AboutStudentProfile({ match, students }) {
                     <EditIcon></EditIcon>
                 </Link>
             </div>
-        </Layout>
+        </NavFormat>
     )
 }
 

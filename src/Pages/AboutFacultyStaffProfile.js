@@ -3,7 +3,7 @@ import '../Styles/LearnMore.css'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import EditIcon from '@mui/icons-material/Edit'
 import { Link } from 'react-router-dom'
-import Layout from '../Components/Layout'
+import NavFormat from '../Components/NavFormat'
 
 function AboutFacultyStaffProfile({ match, fsMembers }) {
     const [fsMember, setFSMember] = useState({})
@@ -16,7 +16,7 @@ function AboutFacultyStaffProfile({ match, fsMembers }) {
     }, [id, fsMembers])
 
     return (
-        <Layout>
+        <NavFormat>
             <div style={{ margin: '20px' }}>
                 <Link to="/dashboard">
                     <ArrowBackIosIcon></ArrowBackIosIcon>
@@ -71,7 +71,7 @@ function AboutFacultyStaffProfile({ match, fsMembers }) {
                     <EditIcon></EditIcon>
                 </Link>
             </div>
-        </Layout>
+        </NavFormat>
     )
 }
 

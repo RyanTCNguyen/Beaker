@@ -1,21 +1,23 @@
 import React, { useState } from 'react'
 import '../Styles/LearnMore.css'
-import Layout from '../Components/Layout'
-import ManageMembers from '../Components/ManageMembers'
+import NavFormat from '../Components/NavFormat'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import { Link } from 'react-router-dom'
 import EditIcon from '@mui/icons-material/Edit'
 import Box from '@material-ui/core/Box'
 import Chip from '@material-ui/core/Chip'
 
+//Page not touched by 2023 grads
+
+// Future implementation needed
+
 function ProjectDetails({ match }) {
-    const [project, ] = useState({})
-    const [id, ] = useState(match.params.projectId)
+    const [project] = useState({})
+    const [id] = useState(match.params.projectId)
 
-    const getProjectState = () => {
-        return project
-    }
-
+    // const getProjectState = () => {
+    //     return project
+    // }
 
     const incentiveComp = (project) => {
         let heading = ''
@@ -76,7 +78,7 @@ function ProjectDetails({ match }) {
     }
 
     return (
-        <Layout>
+        <NavFormat>
             <div>
                 <div style={{ margin: '20px' }}>
                     <Link to="/projectspage">
@@ -115,10 +117,11 @@ function ProjectDetails({ match }) {
                                     textShadow: '2px 2px 5px',
                                 }}
                             />{' '}
-                            <ManageMembers
+                            {/* Todo */}
+                            {/* <ManageMembers
                                 project={getProjectState()}
                                 id={id}
-                            />
+                            /> */}
                         </div>
                         <div className="column-right details">
                             <div style={{ fontSize: '50px' }}>
@@ -208,7 +211,7 @@ function ProjectDetails({ match }) {
                     </div>
                 )}
             </div>
-        </Layout>
+        </NavFormat>
     )
 }
 

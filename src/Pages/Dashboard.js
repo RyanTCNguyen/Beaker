@@ -1,5 +1,5 @@
 import React from 'react'
-import Layout from '../Components/Layout'
+import NavFormat from '../Components/NavFormat'
 import Side from '../Components/Side'
 import '../Styles/Sidebar.css'
 import { useState } from 'react'
@@ -8,7 +8,7 @@ import FacultyStaffProfile from './FacultyStaffProfile'
 import { Link } from 'react-router-dom'
 import { IconButton } from '@material-ui/core'
 import AddCircleIcon from '@mui/icons-material/AddCircle'
-import ProjectTableNew from '../Components/ProjectTableNew'
+import ProjectTable from '../Components/ProjectTable'
 import MyProjects from './MyProjects'
 import BookmarkedProjects from './BookmarkedProjects'
 
@@ -22,13 +22,13 @@ function Dashboard({ user, projects, isAuthenticated }) {
         { page: 'Discover', value: 'Discover Projects', key: 3 },
     ]
     return (
-        <Layout>
+        <NavFormat>
             <Side sidebaritems={sidebaritems} setPage={setPage} page={page}>
                 {user || devMode ? (
                     <>
-                        {page === 'MyProjects'?
+                        {page === 'MyProjects' ? (
                             <div>
-                            {isAuthenticated || devMode ? (
+                                {isAuthenticated || devMode ? (
                                     <Link to="/createproject">
                                         <IconButton
                                             style={{
@@ -48,10 +48,10 @@ function Dashboard({ user, projects, isAuthenticated }) {
                                         </IconButton>
                                     </Link>
                                 ) : null}
-                            
-                        </div> :
-                        <></>
-                        }
+                            </div>
+                        ) : (
+                            <></>
+                        )}
                         {page === 'Profile' ? (
                             <>
                                 {user?.student !== 'false' ? (
@@ -92,10 +92,10 @@ function Dashboard({ user, projects, isAuthenticated }) {
                                             paddingTop: '5vh',
                                         }}
                                     >
-                                        <h1 className='subTitle'>
+                                        <h1 className="subTitle">
                                             Discover Projects
                                         </h1>
-                                        <ProjectTableNew
+                                        <ProjectTable
                                             small={true}
                                             projects={projects?.filter(
                                                 (project) =>
@@ -110,13 +110,12 @@ function Dashboard({ user, projects, isAuthenticated }) {
                         ) : (
                             <></>
                         )}
-                        
                     </>
                 ) : (
                     <></>
                 )}
             </Side>
-        </Layout>
+        </NavFormat>
     )
 }
 

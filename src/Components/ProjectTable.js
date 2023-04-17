@@ -3,7 +3,7 @@ import MaterialTable from 'material-table'
 import { Link } from 'react-router-dom'
 import { TablePagination } from '@material-ui/core'
 
-function ProjectTableNew({ projects, small=false}) {
+function ProjectTable({ projects, small = false }) {
     const columns = [
         {
             field: 'image',
@@ -33,12 +33,18 @@ function ProjectTableNew({ projects, small=false}) {
     ]
 
     return (
-        <div style={{maxWidth:small?'60vw':'80vw',paddingLeft:small?'10vw':'0', paddingBottom:'5vh'}}>
+        <div
+            style={{
+                maxWidth: small ? '60vw' : '80vw',
+                paddingLeft: small ? '10vw' : '0',
+                paddingBottom: '5vh',
+            }}
+        >
             <MaterialTable
                 title="Find your match!"
                 data={projects}
                 columns={columns}
-                style={{backgroundColor: 'rgba(255,255,255,0.8)'}}
+                style={{ backgroundColor: 'rgba(255,255,255,0.8)' }}
                 components={{
                     Pagination: (props) => (
                         <TablePagination
@@ -77,4 +83,4 @@ function ProjectTableNew({ projects, small=false}) {
     )
 }
 
-export default ProjectTableNew
+export default ProjectTable
