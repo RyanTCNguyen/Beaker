@@ -31,7 +31,7 @@ function App() {
         user: auth0user,
     } = useAuth0()
     const [isStudent, ] = useState(true)
-    const [members, ] = useState([])
+    const [members,] = useState([])
     const [projects, setProjects] = useState([])
     const [engineUser, setEngineUser] = useState([])
     useEffect(() => {
