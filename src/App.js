@@ -40,14 +40,18 @@ function App() {
                 setProjects(data)
             }
         })
-        console.log(auth0user)
-        listFunction('profiles-engine').then((data) => {
-            if (data && auth0user) {
-                setEngineUser(
-                    data.filter((usr) => usr.email === auth0user?.email)
-                )
-            }
-        })
+        
+        if (auth0user!==undefined) {
+            
+            listFunction('profiles-engine').then((data) => {
+                console.log(data.filter((usr) => usr.email === auth0user?.email))
+                if (data) {
+                    setEngineUser(
+                        data.filter((usr) => usr.email === auth0user?.email)
+                    )
+                }
+            })
+        }
     }, [auth0user])
 
     return (

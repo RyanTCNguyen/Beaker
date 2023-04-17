@@ -54,7 +54,8 @@ function Dashboard({ user, projects, isAuthenticated }) {
                         )}
                         {page === 'Profile' ? (
                             <>
-                                {user?.student !== 'false' ? (
+                                {user? <>
+                                    {user?.student !== 'false' ? (
                                     <StudentProfile
                                         type="Student"
                                         user={user}
@@ -69,6 +70,7 @@ function Dashboard({ user, projects, isAuthenticated }) {
                                         redirect={false}
                                     />
                                 )}
+                                </>:<></>}
                             </>
                         ) : (
                             <></>
