@@ -1,6 +1,6 @@
 import 'firebase/firestore'
 import React from 'react'
-import Layout from '../Components/Layout'
+import NavFormat from '../Components/NavFormat'
 import { ListItemButton, ListItemText, Grid } from '@mui/material'
 import Card from '@material-ui/core/Card'
 import { makeStyles } from '@material-ui/styles'
@@ -25,7 +25,7 @@ function MyProjects() {
     const classes = useStyles()
 
     return (
-        <Layout>
+        <NavFormat>
             <div>
                 <h1> Dashboard </h1>
                 <Grid container justify="center">
@@ -75,7 +75,7 @@ function MyProjects() {
                     </Grid>
                 </Grid>
             </div>
-        </Layout>
+        </NavFormat>
     )
 }
 

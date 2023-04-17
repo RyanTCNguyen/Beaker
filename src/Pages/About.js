@@ -4,13 +4,12 @@ import beakerLogo from '../Images/blackBeakerLogoBgRemoved.png'
 import createProjectSS from '../Images/CreateProjectSS.png'
 import createProfileSS from '../Images/CreateProfileSS.png'
 import projectPageSS from '../Images/ProjectPageSS.png'
-import Layout from '../Components/Layout'
+import NavFormat from '../Components/NavFormat'
 import { Box } from '@mui/system'
-
 
 function About() {
     return (
-        <Layout>
+        <NavFormat>
             <Box
                 sx={{
                     display: 'grid',
@@ -32,9 +31,8 @@ function About() {
                         component="img"
                         sx={{
                             textAlign: 'center',
-                            backgroundColor:'rgba(255,255,255,0.6)',
-                            borderRadius:'.25rem'
-                            
+                            backgroundColor: 'rgba(255,255,255,0.6)',
+                            borderRadius: '.25rem',
                         }}
                         alt="logo"
                         src={beakerLogo}
@@ -95,10 +93,7 @@ function About() {
                     }}
                 >
                     {' '}
-                    <p className="subTitle">
-                    Scroll for more
-                    </p>
-                    
+                    <p className="subTitle">Scroll for more</p>
                 </Box>
             </Box>
             <Box
@@ -202,7 +197,7 @@ function About() {
                     </p>
                 </Box>
             </Box>
-        </Layout>
+        </NavFormat>
     )
 }
 

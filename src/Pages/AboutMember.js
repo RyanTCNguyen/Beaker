@@ -4,7 +4,7 @@ import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder'
 import HighlightOffIcon from '@mui/icons-material/HighlightOff'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import { Link } from 'react-router-dom'
-import Layout from '../Components/Layout'
+import NavFormat from '../Components/NavFormat'
 import Grid from '@mui/material/Grid'
 import { IconButton } from '@mui/material'
 import TelegramIcon from '@mui/icons-material/Telegram'
@@ -23,7 +23,7 @@ function AboutMember({ match, members }) {
     }, [id, members])
 
     return (
-        <Layout>
+        <NavFormat>
             <div style={{ margin: '20px' }}>
                 <Link to="/allmembers">
                     <ArrowBackIosIcon></ArrowBackIosIcon>
@@ -143,7 +143,7 @@ function AboutMember({ match, members }) {
                     </div>
                 )}
             </div>
-        </Layout>
+        </NavFormat>
     )
 }
 

@@ -7,7 +7,7 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import { Link } from 'react-router-dom'
 import Grid from '@mui/material/Grid'
 import TelegramIcon from '@mui/icons-material/Telegram'
-import Layout from '../Components/Layout'
+import NavFormat from '../Components/NavFormat'
 import { IconButton } from '@mui/material'
 import { postFunction } from '../EngineFunctions/ProjectsFetch'
 import ProjectApplication from './ProjectApplication'
@@ -45,7 +45,7 @@ function AboutProject({ match, projects, user }) {
     }, [id, projects])
 
     return (
-        <Layout>
+        <NavFormat>
             <div>
                 <div style={{ margin: '20px' }}>
                     <Link to="/projectspage">
@@ -149,8 +149,7 @@ function AboutProject({ match, projects, user }) {
                                 justifyContent="space-between"
                             >
                                 <div>
-                                    <IconButton
-                                    >
+                                    <IconButton>
                                         <HighlightOffIcon
                                             fontSize="large"
                                             style={{
@@ -201,9 +200,7 @@ function AboutProject({ match, projects, user }) {
                                 {project.creator === user.email && (
                                     <div>
                                         <Link to={`/editproject/${project.id}`}>
-                                            <IconButton
-
-                                            >
+                                            <IconButton>
                                                 <EditOutlinedIcon fontSize="large"></EditOutlinedIcon>
                                                 <div
                                                     style={{ fontSize: '10px' }}
@@ -224,7 +221,7 @@ function AboutProject({ match, projects, user }) {
                     <></>
                 )}
             </div>
-        </Layout>
+        </NavFormat>
     )
 }
 

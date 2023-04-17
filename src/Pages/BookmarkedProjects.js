@@ -1,4 +1,4 @@
-import Layout from '../Components/Layout'
+import NavFormat from '../Components/NavFormat'
 import React, { useState, useEffect } from 'react'
 import Side from '../Components/Side'
 import ProjectCards from '../Components/ProjectCards'
@@ -35,7 +35,7 @@ function BookmarkedProjects({ projects, sidebaritems }) {
         },
     ]
     return (
-        <Layout>
+        <NavFormat>
             <Side sidebaritems={sidebaritemsAKAbookmarks}>
                 <div>
                     <h1
@@ -54,7 +54,7 @@ function BookmarkedProjects({ projects, sidebaritems }) {
                     <ProjectCards projects={bookmarks} />
                 </div>
             </Side>
-        </Layout>
+        </NavFormat>
     )
 }
 
