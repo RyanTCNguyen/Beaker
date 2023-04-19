@@ -28,9 +28,9 @@ function EditProject({ match, projects }) {
 
     const defaultProject = {
         applicants: [],
-        creator: user.name,
+        creator: user?.name,
         description: '',
-        groupmembers: [user.name],
+        groupmembers: [user?.name],
         image: '',
         incentives: [],
         members: 1,
@@ -141,7 +141,7 @@ function EditProject({ match, projects }) {
         <div>
             <div className="new-profile">
                 <div className="left-screen-project">
-                    <img src={project.image} alt={project.title}></img>
+                    <img src={project?.image} alt={project.title}></img>
                 </div>
                 <div className="middle-screen"></div>
                 <div className="right-screen-proj">

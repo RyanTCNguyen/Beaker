@@ -26,10 +26,10 @@ function ProjectTable({ projects, small = false }) {
         },
         { title: 'Title', field: 'title' },
         { title: 'Desired Major', field: 'major' },
-        { title: 'Desired Year', field: 'year' },
+        { title: 'Desired Year', field: 'year',width: "5%" },
         { title: 'Incentives', field: 'incentives' },
         { title: 'Status', field: 'status' },
-        { title: 'Owner', field: 'creator' },
+        { title: 'Owner', field: 'createdby' },
     ]
 
     return (

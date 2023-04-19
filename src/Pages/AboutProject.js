@@ -64,7 +64,7 @@ function AboutProject({ match, projects, user }) {
                                 }}
                             />{' '}
                         </div>
-                        <div className="column-right">
+                        <div className="column-right" style={{backgroundColor:"rgba(200,200,200,.8)",padding:'1rem'}}>
                             <div
                                 style={{
                                     fontSize: '50px',
@@ -82,7 +82,7 @@ function AboutProject({ match, projects, user }) {
                                     textAlign: 'center',
                                 }}
                             >
-                                Created by: {project.creator}
+                                Created by: {project.createdby}
                             </div>
                             <br></br>
                             <div

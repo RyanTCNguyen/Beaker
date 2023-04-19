@@ -1,12 +1,14 @@
 import ProjectCards from '../Components/ProjectCards'
 
 function BookmarkedProjects({ projects, user }) {
+    console.log(projects)
     const filteredProjects = projects?.filter(
         (project) =>
             user?.bookmarked?.includes(
                 project.id
             )
     )
+    console.log(filteredProjects)
 
     return (
         <div>

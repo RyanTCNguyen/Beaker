@@ -5,7 +5,7 @@ import '../Styles/Sidebar.css'
 import { useState } from 'react'
 import StudentProfile from './StudentProfile'
 import FacultyStaffProfile from './FacultyStaffProfile'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import { IconButton } from '@material-ui/core'
 import AddCircleIcon from '@mui/icons-material/AddCircle'
 import ProjectTable from '../Components/ProjectTable'
@@ -81,7 +81,7 @@ function Dashboard({ user, projects, isAuthenticated }) {
                             <></>
                         )}
                         {page === 'Bookmarks' ? (
-                            <BookmarkedProjects project={projects} user={user}/>
+                            <>{projects?<BookmarkedProjects projects={projects} user={user}/>:<></>}</>
                         ) : (
                             <></>
                         )}
@@ -114,7 +114,7 @@ function Dashboard({ user, projects, isAuthenticated }) {
                         )}
                     </>
                 ) : (
-                    <></>
+                    <Redirect to="/dashboard" replace={true} />
                 )}
             </Side>
         </NavFormat>
